@@ -1,7 +1,7 @@
-Public Class Player {
+public class Player {
     private String pseudo;
-    private Hash<Record> listeRecords; // Pour assurer aucun record doublon
-    private Hash<Level> listeResolvedLevels;
+    private Hash<Record> listRecords;
+    private Hash<Level> listResolvedLevels;
     private TaquinGame taquinGame;
 
     Player(String pseudo) throws PlayerPseudoException{
@@ -10,14 +10,17 @@ Public Class Player {
         }
 
     this.pseudo = pseudo;
-    this.listeRecords = new HashSet<Record>();
-    this.listeResolvedLevels = new HashSet<Record>();
+    this.listRecords = new HashSet<Record>();
+    this.listResolvedLevels = new HashSet<Record>();
         }
 
     public void addRecord(Record record) {
-        this.listeRecords.add(record);
+        this.listRecords.add(record);
         //On ajoute dans le fichier csv le record
         // TODO
+        }
+    public void addResolvedLevel(Level level){
+        this.listResolvedLevel.add(level);
         }
         //Verify if pseudo already have been created previously on the csv file
         public boolean verifyPseudo(String pseudo) {
@@ -25,7 +28,7 @@ Public Class Player {
         }
 
         //Get Player records from csv file and insert in listeRecords
-        public void updateListeRecords() {
+        public void updateListRecords() {
         }
         //TODO
         }
