@@ -1,9 +1,11 @@
-Lundi 15 mai :
-  Ethan - Clement - Renato - Samy :
-    Mise en place de l'espace de travail (GitHub + Discord)
-    Diagramme de classe
-    Creation de fichier source qui vont nous servir pour la base de notre travail 
-    Diagramme de séquence
+Monday, May 15:
+  Ethan - Clement - Renato - Samy - Yanis :
+    Setting up the workspace (GitHub + Discord)
+  Ethan - Clement - Renato - Samy : 
+    Class diagram
+    Creation of the JavaFX project base (MVC method) 
+    Sequence diagram
+    Creation planning 
   Yanis : 
-   Documentation sur javaFX
+   Documentation on javaFX
   
