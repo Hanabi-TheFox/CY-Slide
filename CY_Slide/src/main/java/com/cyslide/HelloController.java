@@ -1,4 +1,4 @@
-package com.cyslide.cyslide;
+package com.cyslide;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

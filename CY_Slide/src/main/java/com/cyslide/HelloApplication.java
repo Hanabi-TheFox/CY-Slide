@@ -1,4 +1,4 @@
-package com.cyslide.cyslide;
+package com.cyslide;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

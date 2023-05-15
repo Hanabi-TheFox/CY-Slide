@@ -1,8 +1,8 @@
-module com.cyslide.cyslide {
+module com.cyslide {
     requires javafx.controls;
     requires javafx.fxml;
 
 
-    opens com.cyslide.cyslide to javafx.fxml;
-    exports com.cyslide.cyslide;
+    opens com.cyslide to javafx.fxml;
+    exports com.cyslide;
 }
