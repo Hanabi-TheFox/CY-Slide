@@ -1,6 +1,6 @@
 package com.cyslide.Model;
 
-public class EmptyTile extends Tile {
+public abstract class EmptyTile extends Tile {
 
     private static final int number = -1;// indicates this tile is empty
 
@@ -13,6 +13,11 @@ public class EmptyTile extends Tile {
         return number;
     }
 
-    
+    @Override
+    public void moved (int posX, int posY){
+        // the tile has been moved so we change its coordinates
+        setPosX(posX);
+        setPosY(posY);
+    }
 
 }

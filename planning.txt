@@ -14,12 +14,15 @@ Monday, May 15:
 Tuesday, May 16:
   Ethan - Clement - Renato - Samy - Yanis :
     Vocal with Eva Ansermin, the tutor for questionning.
-  Renato - Samy - Yanis :
+  Renato (Yanis) :
     Work on the base java class of the project.
-  Ethan - Yanis :
+  Samy :
+    Work on java functions + adjustment of some class.
+  Ethan - Yanis - Renato :
     Work on the view part of the project.
   Ethan :
     Creating the Data files.
     Organise a meeting with Romuald Grignon for technical help.
   Clement :
     Search for resolution algorithm of the taquin game.
+    Work on function in order to recover our data file from java class.
