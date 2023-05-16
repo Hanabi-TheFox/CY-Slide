@@ -3,10 +3,19 @@ package com.cyslide.Model;
 public abstract class Tile{
     private int posX;
     private int posY;
+    private int type;
 
     Tile(int posX,int posY) {
         this.posX = posX;
         this.posY = posY;
+    }
+
+    public int getType(){
+        return this.type;
+    }
+
+    public void setType(int type){
+        this.type = type;;
     }
 
     public int getPosX() {
