@@ -6,11 +6,13 @@ public class EmptyTile extends Tile {
 
     EmptyTile(int posX,int posY) {
         super(posX,posY);
-        setType(-1);
+        setType(-1); // indicates this tile is empty
     }
 
     public static int getNumber() {
         return number;
     }
+
+    
 
 }
