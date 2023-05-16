@@ -6,7 +6,7 @@ public class Level{
         private int moveCounter;
         private boolean completed;
         private Record record;
-        
+
         private ArrayList<Tile> tiles;
         private Tile[][] table;
 
@@ -34,27 +34,10 @@ public class Level{
         public void moveTile(int posX,int posY,String direction)throws MoveTileException{
                 //the mouvement direction can be Left,Right,Up,Down
                 //We verify if the neighbor is 0 (it doest exist, is empty)
-                /*if (this.verifyPseudo(pseudo) == false) {
-                        throw new PlayerPseudoException("Pseudo cannot have more than 20 characters");
-                }*/
-
-
-                if(direction=="UP"){
-                posY-=posY;
-                //TODO
-                }
-                else if(direction=="DOWN"){
-                posY+=posY;
-                //TODO
-                }
-
-                else if(direction=="LEFT"){
-                posX-=posX;
-                //TODO
-                }
-                else if(direction=="RIGHT"){
-                posX+=posX;
-                //TODO
+                if (!table[posX][posY].mouvementAvailable(direction, table)) {
+                        throw new MoveTileException("we cannot move this tile");
+                }else{
+                        table[posX][posY].move(direction, table);
                 }
         }
         public boolean isCompleted(){

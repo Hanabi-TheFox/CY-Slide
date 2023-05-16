@@ -1,7 +1,6 @@
 package com.cyslide.Model;
 
-public class IndestructibleTile extends Tile {
-
+public abstract class IndestructibleTile extends Tile {
 
     IndestructibleTile(int posX,int posY) {
         super(posX,posY);
