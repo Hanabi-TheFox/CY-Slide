@@ -1,2 +1,0 @@
-
-Here we'll save the csv file having all the records of the players
