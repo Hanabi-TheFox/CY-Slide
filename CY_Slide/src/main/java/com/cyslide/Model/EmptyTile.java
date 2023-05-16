@@ -6,6 +6,7 @@ public class EmptyTile extends Tile {
 
     EmptyTile(int posX,int posY) {
         super(posX,posY);
+        setType(-1);
     }
 
     public static int getNumber() {
