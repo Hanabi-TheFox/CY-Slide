@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
+   <children>
+      <AnchorPane layoutX="-7.0" layoutY="-3.0" prefHeight="511.0" prefWidth="598.0" styleClass="text-rectangle">
+         <children>
+            <Rectangle fx:id="draggableRectangle7" arcHeight="5.0" arcWidth="5.0" fill="#2dff1f" height="115.0" layoutX="42.0" layoutY="37.0" stroke="BLACK" strokeType="INSIDE" width="123.0" />
+            <Rectangle fx:id="draggableRectangle8" arcHeight="5.0" arcWidth="5.0" fill="RED" height="115.0" layoutX="238.0" layoutY="37.0" stroke="BLACK" strokeType="INSIDE" width="123.0" />
+            <Rectangle fx:id="draggableRectangle9" arcHeight="5.0" arcWidth="5.0" fill="YELLOW" height="115.0" layoutX="428.0" layoutY="37.0" stroke="BLACK" strokeType="INSIDE" width="123.0" />
+            <Rectangle fx:id="draggableRectangle4" arcHeight="5.0" arcWidth="5.0" fill="#ff1fff" height="115.0" layoutX="42.0" layoutY="198.0" stroke="BLACK" strokeType="INSIDE" width="123.0" />
+            <Rectangle fx:id="draggableRectangle5" arcHeight="5.0" arcWidth="5.0" fill="#431fff" height="115.0" layoutX="238.0" layoutY="198.0" stroke="BLACK" strokeType="INSIDE" width="123.0" />
+            <Rectangle fx:id="draggableRectangle6" arcHeight="5.0" arcWidth="5.0" fill="#cf1fff" height="115.0" layoutX="428.0" layoutY="205.0" stroke="BLACK" strokeType="INSIDE" width="123.0" />
+            <Rectangle fx:id="draggableRectangle1" accessibleText="1" arcHeight="5.0" arcWidth="5.0" fill="#ffb21f" height="115.0" layoutX="42.0" layoutY="354.0" stroke="BLACK" strokeType="INSIDE" styleClass="text-rectangle" width="123.0" />
+            <Rectangle fx:id="draggableRectangle2" arcHeight="5.0" arcWidth="5.0" fill="#1fc7ff" height="115.0" layoutX="238.0" layoutY="354.0" stroke="BLACK" strokeType="INSIDE" width="123.0" />
+            <Rectangle fx:id="draggableRectangle3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="115.0" layoutX="428.0" layoutY="354.0" stroke="BLACK" strokeType="INSIDE" width="123.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
