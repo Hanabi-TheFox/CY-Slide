@@ -7,5 +7,19 @@ Monday, May 15:
     Sequence diagram
     Creation planning 
   Yanis : 
-   Documentation on javaFX
-  
+    Documentation on javaFX
+  Clement, Yanis, Samy :
+    Try to fix JavaFX techninal problem on their computer
+
+Tuesday, May 16:
+  Ethan - Clement - Renato - Samy - Yanis :
+    Vocal with Eva Ansermin, the tutor for questionning.
+  Renato - Samy - Yanis :
+    Work on the base java class of the project.
+  Ethan - Yanis :
+    Work on the view part of the project.
+  Ethan :
+    Creating the Data files.
+    Organise a meeting with Romuald Grignon for technical help.
+  Clement :
+    Search for resolution algorithm of the taquin game.
