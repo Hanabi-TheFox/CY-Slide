@@ -1,5 +1,7 @@
-Public Class TaquinGame{
-    private Set<Level> listLevels;
+import java.util.HashSet;
+import java.util.ArrayList;
+public class TaquinGame{
+    private HashSet<Level> listLevels;
     private ArrayList<Player> listPlayers;
 
 public void playLevel() {

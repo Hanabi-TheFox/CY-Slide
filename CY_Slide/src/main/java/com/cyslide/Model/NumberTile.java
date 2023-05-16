@@ -3,28 +3,29 @@ public class NumberTile extends Tile{
     private boolean blocked; //True if tile canot be played
 
     NumberTile(int number, int posX, int posY) {
-        super(posX,posY);
+        super(posX, posY);
         this.number = number;
+    }
 
         public void move(String direction) {
             //TODO
-            if (mouvementAvailable(direction) == True) {
+            if (mouvementAvailable(direction) == true) {
                 //TODO
             }
         }
         public boolean mouvementAvailable(String direction) {
-
+            return true;
         }
-    }
+
 
     public void setNumber(int number) {
         this.number = number;
     }
 
     public void setBlocked() {
-        this.blocked = True;
+        this.blocked = true;
     }
     public void setUnblocked(){
-        this.blocked = False;
+        this.blocked = false;
     }
 }

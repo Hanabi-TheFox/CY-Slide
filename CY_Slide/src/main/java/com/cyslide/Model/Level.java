@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 public class Level{
 private int number;
 private int moveCounter;
@@ -33,23 +34,31 @@ public void moveTile(int posX,int posY,String direction)throws MoveTileException
 
 public boolean isCompleted(){
         //TODO
+        return false;
         }
 public boolean isPlayable(){
         //Verify if level generated can be completed
         //TODO
+        return false;
         }
 
+        //Once the level is charged, we can movel all tiles in
+        // a random order
+        //Here is entirely random, so we are not sure if the level
+        //can be finished
 public void initLevelRNG(){
         //TODO
 
         }
+        //Here we move tile by tile, so it's possible
+        //to complete the level
         public void initLevelMove() {
     //Generate random level by movinf each tile, we are sure this level can be completed
         //TODO
         }
         }
 
-public class MoveTileException extends Exception {
+class MoveTileException extends Exception {
     public MoveTileException(String message) {
         super(message);
     }
