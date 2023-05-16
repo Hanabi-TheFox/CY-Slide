@@ -6,7 +6,7 @@ public class Player {
 
     Player(String pseudo) throws PlayerPseudoException{
     if (this.verifyPseudo(pseudo).length() > 20) {
-        throw new PlayerPseudoException("This pseudo bypasses 20 characters");
+        throw new PlayerPseudoException("Pseudo cannot have more than 20 characters");
         }
 
     this.pseudo = pseudo;
