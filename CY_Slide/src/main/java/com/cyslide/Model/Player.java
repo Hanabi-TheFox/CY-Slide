@@ -10,32 +10,34 @@ public class Player {
     Player(String pseudo) throws PlayerPseudoException{
     if (this.verifyPseudo(pseudo) == false) {
         throw new PlayerPseudoException("Pseudo cannot have more than 20 characters");
-        }
+    }
 
     this.pseudo = pseudo;
     this.listRecords = new HashSet<Record>();
     this.listResolvedLevels = new HashSet<Level>();
-        }
+    }
 
     public void addRecord(Record record) {
         this.listRecords.add(record);
         //On ajoute dans le fichier csv le record
         // TODO
-        }
+    }
     public void addResolvedLevel(Level level){
         this.listResolvedLevels.add(level);
-        }
+    }
         //Verify if pseudo bypasses 20 characters
         public boolean verifyPseudo(String pseudo) {
-        //TODO
-            return false;
-        }
+            if(pseudo.length() > 20){
+                return false;
+            }
+            return true;
+    }
 
-        //Get Player records from csv file and insert in listeRecords
-        public void updateListRecords() {
-        }
-        //TODO
-        }
+    //Get Player records from csv file and insert in listeRecords
+    public void updateListRecords() {
+    }
+    //TODO
+}
 
 class PlayerPseudoException extends Exception {
     public PlayerPseudoException(String message) {

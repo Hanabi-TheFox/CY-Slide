@@ -5,12 +5,12 @@ package com.cyslide.Model;
 
 public class Record{
     private Player player;
-    private Level level;
+    private int level;
     private int moves;
 
-    Record(Player player, Level level, int moves){
+    Record(Player player, int level, int moves){
         this.player = player;
         this.level = level;
         this.moves = moves;
-        }
-        }
+    }
+}
