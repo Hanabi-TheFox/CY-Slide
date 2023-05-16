@@ -7,7 +7,7 @@ public class Player {
     private HashSet<Level> listResolvedLevels;
     private TaquinGame taquinGame;
 
-    Player(String pseudo) throws PlayerPseudoException{
+    public Player(String pseudo) throws PlayerPseudoException{
     if (this.verifyPseudo(pseudo) == false) {
         throw new PlayerPseudoException("Pseudo cannot have more than 20 characters");
     }

@@ -4,7 +4,7 @@ public class NumberTile extends Tile{
     private int number; //Tile Number
     private boolean blocked; //True if tile canot be played
 
-    NumberTile(int number, int posX, int posY) {
+    public NumberTile(int number, int posX, int posY) {
         super(posX, posY);
         setType(1);
         this.number = number;

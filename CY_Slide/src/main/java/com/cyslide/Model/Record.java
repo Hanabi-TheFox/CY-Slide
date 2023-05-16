@@ -8,7 +8,7 @@ public class Record{
     private int level;
     private int moves;
 
-    Record(Player player, int level, int moves){
+    public Record(Player player, int level, int moves){
         this.player = player;
         this.level = level;
         this.moves = moves;
