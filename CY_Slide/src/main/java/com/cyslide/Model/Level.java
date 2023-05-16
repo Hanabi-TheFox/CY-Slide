@@ -6,7 +6,7 @@ public class Level{
         private int moveCounter;
         private boolean completed;
         private Record record;
-
+        
         private ArrayList<Tile> tiles;
         private Tile[][] table;
 
@@ -23,7 +23,6 @@ public class Level{
                 //TODO (recover data from file)
                 Player P = new Player("Ymasuu");
                 return new Record(P, number, 0);
-                //TODO
         }
         public Tile[][] recoverLvl(int number){
                 //TODO (recover data from file)
@@ -35,6 +34,11 @@ public class Level{
         public void moveTile(int posX,int posY,String direction)throws MoveTileException{
                 //the mouvement direction can be Left,Right,Up,Down
                 //We verify if the neighbor is 0 (it doest exist, is empty)
+                /*if (this.verifyPseudo(pseudo) == false) {
+                        throw new PlayerPseudoException("Pseudo cannot have more than 20 characters");
+                }*/
+
+
                 if(direction=="UP"){
                 posY-=posY;
                 //TODO
@@ -59,8 +63,7 @@ public class Level{
         }
         public boolean isPlayable(){
                 //Verify if level generated can be completed
-                //TODO
-                return false;
+                return true;
         }
         //Here we move tile by tile, so it's possible to complete the level
         public void initLevelMove() {
