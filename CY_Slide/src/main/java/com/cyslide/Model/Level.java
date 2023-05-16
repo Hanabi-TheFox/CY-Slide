@@ -1,3 +1,5 @@
+package com.cyslide.Model;
+
 import java.util.ArrayList;
 public class Level{
 private int number;

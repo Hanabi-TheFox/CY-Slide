@@ -1,3 +1,5 @@
+package com.cyslide.Model;
+
 public class NumberTile extends Tile{
     private int number; //Tile Number
     private boolean blocked; //True if tile canot be played

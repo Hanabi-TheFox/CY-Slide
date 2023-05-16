@@ -1,3 +1,5 @@
+package com.cyslide.Model;
+
 import java.util.HashSet;
 public class Player {
     private String pseudo;
