@@ -52,6 +52,18 @@ public class CySlideController {
     private Button LevelMenu_1;
     @FXML
     protected void OnLevelMenu_1ButtonClick() {
+         // We move to the game-view.fxml page
+         try {
+            Parent root = FXMLLoader.load(getClass().getResource("game-view.fxml"));
+            Stage stage = (Stage) LevelMenu_1.getScene().getWindow();
+            Scene scene = new Scene(root, 800, 450);
+
+
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @FXML
