@@ -32,11 +32,22 @@ public class Level{
         }
         
         public Tile[][] recoverLvl() {
-                String pathFile = "Level1.csv";
+                String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Level1.csv";
                 String line = "";
+            
+                int numRow = 0;
+                int numCol = 0;
             
                 try (BufferedReader br = new BufferedReader(new FileReader(pathFile))) {
                     while ((line = br.readLine()) != null) {
+                        if (line.trim().isEmpty()) {
+                                continue; // Ignorer les lignes vides
+                        }
+                        String[] rowValues = line.split(";");
+            
+                        numCol = rowValues.length;
+                        numRow++;
+            
                         System.out.println(line);
                     }
                     System.out.println("File Found");
@@ -46,10 +57,18 @@ public class Level{
                 }
             
                 // TODO: Recover data from file and populate the 'tab' array
-                Tile[][] tab;
-                tab = new Tile[3][3];
+                Tile[][] tab = new Tile[numRow][numCol];
+
+                // Print elements of tab
+                for (int i = 0; i < numRow; i++) {
+                        for (int j = 0; j < numCol; j++) {
+                                Tile tile = tab[i][j];
+                                System.out.println("Tile at position (" + i + ", " + j + "): " + tile);
+                        }
+                }
                 return tab;
             }
+            
             
 
 
