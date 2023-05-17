@@ -40,7 +40,7 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <Label fx:id="errorLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" textAlignment="CENTER" wrapText="true">
+            <Label fx:id="StartPage_ErrorLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>

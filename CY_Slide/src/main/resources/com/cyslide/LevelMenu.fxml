@@ -24,52 +24,52 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="156.0" text="1">
+            <Button fx:id="LevelMenu_1" mnemonicParsing="false" onAction="#OnLevelMenu_1ButtonClick" prefHeight="70.0" prefWidth="156.0" text="1">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="156.0" text="2" GridPane.columnIndex="1">
+            <Button fx:id="LevelMenu_2" mnemonicParsing="false" prefHeight="70.0" prefWidth="156.0" text="2" GridPane.columnIndex="1">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="156.0" text="3" GridPane.rowIndex="1">
+            <Button fx:id="LevelMenu_3" mnemonicParsing="false" prefHeight="70.0" prefWidth="156.0" text="3" GridPane.rowIndex="1">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="156.0" text="4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="LevelMenu_4" mnemonicParsing="false" prefHeight="70.0" prefWidth="156.0" text="4" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="156.0" text="5" GridPane.rowIndex="2">
+            <Button fx:id="LevelMenu_5" mnemonicParsing="false" prefHeight="70.0" prefWidth="156.0" text="5" GridPane.rowIndex="2">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="156.0" text="6" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Button fx:id="LevelMenu_6" mnemonicParsing="false" prefHeight="70.0" prefWidth="156.0" text="6" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="156.0" text="7" GridPane.rowIndex="3">
+            <Button fx:id="LevelMenu_7" mnemonicParsing="false" prefHeight="70.0" prefWidth="156.0" text="7" GridPane.rowIndex="3">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="156.0" text="8" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Button fx:id="LevelMenu_8" mnemonicParsing="false" prefHeight="70.0" prefWidth="156.0" text="8" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="156.0" text="9" GridPane.rowIndex="4">
+            <Button fx:id="LevelMenu_9" mnemonicParsing="false" prefHeight="70.0" prefWidth="156.0" text="9" GridPane.rowIndex="4">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="156.0" text="10" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Button fx:id="LevelMenu_10" mnemonicParsing="false" prefHeight="70.0" prefWidth="156.0" text="10" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font size="24.0" />
                </font>
@@ -81,7 +81,7 @@
             <Font name="Arial Bold Italic" size="24.0" />
          </font>
       </Label>
-      <Button layoutY="403.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="118.0" text="Retour">
+      <Button fx:id="LevelMenu_BackButton" layoutY="403.0" mnemonicParsing="false" onAction="#OnLevelMenu_BackButtonClick" prefHeight="47.0" prefWidth="118.0" text="Retour">
          <font>
             <Font size="22.0" />
          </font>
@@ -93,7 +93,7 @@
                   <Font size="27.0" />
                </font>
             </Label>
-            <Label fx:id="menuView_Pseudo" text="pseudo">
+            <Label fx:id="LevelMenu_Pseudo" text="pseudo">
                <font>
                   <Font size="27.0" />
                </font>

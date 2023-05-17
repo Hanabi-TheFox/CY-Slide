@@ -12,36 +12,99 @@ import javafx.stage.Stage;
 public class CySlideController {
     @FXML
     private Button StartPage_Button;
-
     @FXML
     private TextField StartPage_TextField;
-
     @FXML
-    private Label errorLabel;
-
+    private Label StartPage_ErrorLabel;
     @FXML
-    private Label menuView_Pseudo;
-
+    private Label LevelMenu_Pseudo;
     @FXML
     protected void OnStartPage_ButtonClick() {
         String pseudo = StartPage_TextField.getText();
         if (pseudo.isEmpty()) {
-            Label errorLabel = (Label) StartPage_TextField.getScene().lookup("#errorLabel");
-            errorLabel.setText("Please enter a username");
+            Label StartPage_ErrorLabel = (Label) StartPage_TextField.getScene().lookup("#StartPage_ErrorLabel");
+            StartPage_ErrorLabel.setText("Please enter a username");
         } else {
             // We move to the menu-view.fxml page
             try {
-                Parent root = FXMLLoader.load(getClass().getResource("menu-view.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("LevelMenu.fxml"));
                 Stage stage = (Stage) StartPage_Button.getScene().getWindow();
                 Scene scene = new Scene(root, 800, 450);
                 // We set the pseudo in the menu-view
-                Label pseudoLabel = (Label) scene.lookup("#menuView_Pseudo");
-                pseudoLabel.setText(pseudo);
+                Label LevelMenu_Pseudo = (Label) scene.lookup("#LevelMenu_Pseudo");
+                LevelMenu_Pseudo.setText(pseudo);
                 stage.setScene(scene);
                 stage.show();
             } catch (Exception e) {
                 System.out.println(e);
             }
         }
+    }
+
+    @FXML
+    private Button LevelMenu_BackButton;
+    @FXML
+    protected void OnLevelMenu_BackButtonClick() {
+    
+    }
+
+    @FXML
+    private Button LevelMenu_1;
+    @FXML
+    protected void OnLevelMenu_1ButtonClick() {
+    }
+
+    @FXML
+    private Button LevelMenu_2;
+    @FXML
+    protected void OnLevelMenu_2ButtonClick() {
+    }
+
+    @FXML
+    private Button LevelMenu_3;
+    @FXML
+    protected void OnLevelMenu_3ButtonClick() {
+    }
+
+    @FXML
+    private Button LevelMenu_4;
+    @FXML
+    protected void OnLevelMenu_4ButtonClick() {
+    }
+
+    @FXML
+    private Button LevelMenu_5;
+    @FXML
+    protected void OnLevelMenu_5ButtonClick() {
+    }
+
+    @FXML
+    private Button LevelMenu_6;
+    @FXML
+    protected void OnLevelMenu_6ButtonClick() {
+    }
+
+    @FXML
+    private Button LevelMenu_7;
+    @FXML
+    protected void OnLevelMenu_7ButtonClick() {
+    }
+
+    @FXML
+    private Button LevelMenu_8;
+    @FXML
+    protected void OnLevelMenu_8ButtonClick() {
+    }
+
+    @FXML
+    private Button LevelMenu_9;
+    @FXML
+    protected void OnLevelMenu_9ButtonClick() {
+    }
+
+    @FXML
+    private Button LevelMenu_10;
+    @FXML
+    protected void OnLevelMenu_10ButtonClick() {
     }
 }
