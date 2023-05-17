@@ -18,6 +18,7 @@ public class CySlideController {
     private Label StartPage_ErrorLabel;
     @FXML
     private Label LevelMenu_Pseudo;
+    private CySlideApplication app;
     @FXML
     protected void OnStartPage_ButtonClick() {
         String pseudo = StartPage_TextField.getText();
@@ -45,7 +46,17 @@ public class CySlideController {
     private Button LevelMenu_BackButton;
     @FXML
     protected void OnLevelMenu_BackButtonClick() {
-    
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("LevelMenu.fxml"));
+            Stage stage = (Stage) LevelMenu_1.getScene().getWindow();
+            Scene scene = new Scene(root, 800, 450);
+
+
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @FXML
