@@ -41,7 +41,7 @@ public class Level{
                 try (BufferedReader br = new BufferedReader(new FileReader(pathFile))) {
                     while ((line = br.readLine()) != null) {
                         if (line.trim().isEmpty()) {
-                                continue; // Ignorer les lignes vides
+                                continue; // Ignore empty line
                         }
                         String[] rowValues = line.split(";");
             
@@ -56,7 +56,6 @@ public class Level{
                     System.out.println("Error reading file");
                 }
             
-                // TODO: Recover data from file and populate the 'tab' array
                 Tile[][] tab = new Tile[numRow][numCol];
 
                 // Print elements of tab
