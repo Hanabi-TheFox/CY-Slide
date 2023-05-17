@@ -1,5 +1,10 @@
 package com.cyslide.Model;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 import java.util.ArrayList;
 public class Level{
         private int number;
@@ -15,7 +20,7 @@ public class Level{
                 this.moveCounter = 0;
                 this.completed = false;
                 this.record = recoverRecord(number);
-                this.table = recoverLvl(number);
+                this.table = recoverLvl();
                 //TODO
         }
 
@@ -24,12 +29,44 @@ public class Level{
                 Player P = new Player("Ymasuu");
                 return new Record(P, number, 0);
         }
-        public Tile[][] recoverLvl(int number){
-                //TODO (recover data from file)
-                Tile [][] tab;
-                tab = new Tile[3][3];
+
+        public Tile[][] recoverLvl() {
+                final int numLevels = 10; // Number of levels
+                Tile[][] tab = null; // Initialize tab outside the loop
+            
+                for (int k = 1; k <= numLevels; k++) {
+                    int numRow = 0;
+                    int numCol = 0;
+            
+                    String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Level" + k + ".csv";
+                    String line = "";
+            
+                    try (BufferedReader br = new BufferedReader(new FileReader(pathFile))) {
+                        while ((line = br.readLine()) != null) {
+                            if (line.trim().isEmpty()) {
+                                continue; // Ignore empty line
+                            }
+                            String[] rowValues = line.split(";");
+            
+                            numCol = rowValues.length;
+                            numRow++;
+                            System.out.println(line);
+                        }
+                        System.out.println("File Found");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        System.out.println("Error reading file");
+                    }
+            
+                    tab = new Tile[numRow][numCol];
+
+                    System.out.println("Level " + k);
+                    System.out.println("Tile Length: " + numRow);
+                    System.out.println("Tile Width: " + numCol);
+                }
+            
                 return tab;
-        }
+            }
 
         public void moveTile(int posX,int posY,String direction)throws MoveTileException{
                 //the mouvement direction can be Left,Right,Up,Down
