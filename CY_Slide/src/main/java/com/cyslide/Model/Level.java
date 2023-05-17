@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import java.util.ArrayList;
 public class Level{
         private int number;
         private int moveCounter;
@@ -129,6 +128,7 @@ public class Level{
                         throw new MoveTileException("we cannot move this tile");
                 }else{
                         table[posX][posY].move(direction, table);
+                        moveCounter++;
                 }
         }
         public boolean isCompleted(){

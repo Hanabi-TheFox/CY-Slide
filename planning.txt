@@ -26,3 +26,17 @@ Tuesday, May 16:
   Clement :
     Search for resolution algorithm of the taquin game.
     Work on function in order to recover our data file from java class.
+
+Wednesday, May 17:
+  Ethan - Clement - Renato - Samy - Yanis :
+    Vocal with Romuald Grignon in order to help us on JavaFX.
+  Ethan : 
+    work on view, he designed the prototype of a level (level 0) and test the designed of all type of tiles (level X).
+    work on view's button event.
+  Samy : 
+    work on 'recover' functions, now we can create a table of tile with our file csv and recover the record of a level.
+  Clement :
+    Work on controller. If the pseudo doesn't exist, we write his pseudo in our csv file and if the pseudo exits, we recover the number of completed level.
+    Continue his search on the AI (he have to wait others functions to use AI)
+  Yanis - Renato :
+    Work on javaFX

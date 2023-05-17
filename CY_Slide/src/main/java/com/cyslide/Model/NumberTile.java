@@ -2,7 +2,6 @@ package com.cyslide.Model;
 
 public class NumberTile extends Tile{
     private int number; //Tile Number
-    private boolean blocked; //True if tile canot be played
 
     public NumberTile(int number, int posX, int posY) {
         super(posX, posY);
@@ -66,12 +65,6 @@ public class NumberTile extends Tile{
     }
     public int getNumber(){
         return number;
-    }
-    public void setBlocked() {
-        this.blocked = true;
-    }
-    public void setUnblocked(){
-        this.blocked = false;
     }
 
     @Override
