@@ -1,10 +1,10 @@
 package com.cyslide.Model;
 
-public abstract class NumberTile extends Tile{
+public class NumberTile extends Tile{
     private int number; //Tile Number
     private boolean blocked; //True if tile canot be played
 
-    NumberTile(int number, int posX, int posY) {
+    public NumberTile(int number, int posX, int posY) {
         super(posX, posY);
         setType(1);
         this.number = number;
@@ -64,10 +64,18 @@ public abstract class NumberTile extends Tile{
     public void setNumber(int number) {
         this.number = number;
     }
+    public int getNumber(){
+        return number;
+    }
     public void setBlocked() {
         this.blocked = true;
     }
     public void setUnblocked(){
         this.blocked = false;
+    }
+
+    @Override
+    public void moved(int posX, int posY) {
+        // this is function for emptyTile
     }
 }
