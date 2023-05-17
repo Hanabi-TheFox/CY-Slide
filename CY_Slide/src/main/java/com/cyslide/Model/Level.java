@@ -1,7 +1,6 @@
 package com.cyslide.Model;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -11,7 +10,6 @@ public class Level{
         private int moveCounter;
         private boolean completed;
         private Record record;
-        private ArrayList<Tile> tiles;
         private Tile[][] table;
 
         public Level(int number, Record record) throws PlayerPseudoException{
@@ -19,7 +17,7 @@ public class Level{
                 this.moveCounter = 0;
                 this.completed = false;
                 this.record = recoverRecord(number);
-                this.table = recoverLvl();
+                this.table = recoverLvl(number);
                 //TODO
         }
 
@@ -29,40 +27,37 @@ public class Level{
                 return new Record(P, number, 0);
         }
 
-        public Tile[][] recoverLvl() {
-                final int numLevels = 10; // Number of levels
+        public Tile[][] recoverLvl(int number) {
                 Tile[][] tab = null; // Initialize tab outside the loop
-            
-                for (int k = 1; k <= numLevels; k++) {
-                    int numRow = 0;
-                    int numCol = 0;
-            
-                    String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Level" + k + ".csv";
-                    String line = "";
-            
-                    try (BufferedReader br = new BufferedReader(new FileReader(pathFile))) {
-                        while ((line = br.readLine()) != null) {
-                            if (line.trim().isEmpty()) {
-                                continue; // Ignore empty line
-                            }
-                            String[] rowValues = line.split(";");
-            
-                            numCol = rowValues.length;
-                            numRow++;
-                            System.out.println(line);
-                        }
-                        System.out.println("File Found");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        System.out.println("Error reading file");
-                    }
-            
-                    tab = new Tile[numRow][numCol];
 
-                    System.out.println("Level " + k);
-                    System.out.println("Tile Length: " + numRow);
-                    System.out.println("Tile Width: " + numCol);
+                int numRow = 0;
+                int numCol = 0;
+        
+                String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Level" + number + ".csv";
+                String line = "";
+        
+                try (BufferedReader br = new BufferedReader(new FileReader(pathFile))) {
+                while ((line = br.readLine()) != null) {
+                        if (line.trim().isEmpty()) {
+                        continue; // Ignore empty line
+                        }
+                        String[] rowValues = line.split(";");
+        
+                        numCol = rowValues.length;
+                        numRow++;
+                        System.out.println(line);
                 }
+                System.out.println("File Found");
+                } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Error reading file");
+                }
+        
+                tab = new Tile[numRow][numCol];
+
+                System.out.println("Level " + number);
+                System.out.println("Tile Length: " + numRow);
+                System.out.println("Tile Width: " + numCol);
             
                 return tab;
             }
