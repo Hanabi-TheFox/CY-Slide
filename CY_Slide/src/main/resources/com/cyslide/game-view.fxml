@@ -6,6 +6,8 @@
 <AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cyslide.GameController">
    <children>
       <AnchorPane layoutX="-7.0" layoutY="-3.0" prefHeight="511.0" prefWidth="598.0" styleClass="text-rectangle">
+      <!-- GridPane qui se remplit dynamiquement avec du code (recup le model nbLigne + nbCol) puis ajt "label par exemple"
+            Pour la taille des rectangles, on lui met TailleGrid/nbCol et pour la longueur TailleGrid/nbLigne -->
          <children>
             <Rectangle fx:id="draggableRectangle7" arcHeight="5.0" arcWidth="5.0" fill="#2dff1f" height="115.0" layoutX="42.0" layoutY="37.0" stroke="BLACK" strokeType="INSIDE" width="123.0" />
             <Rectangle fx:id="draggableRectangle8" arcHeight="5.0" arcWidth="5.0" fill="RED" height="115.0" layoutX="238.0" layoutY="37.0" stroke="BLACK" strokeType="INSIDE" width="123.0" />
