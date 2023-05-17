@@ -12,13 +12,12 @@ public class Level{
         private int record;
         private Tile[][] table;
 
-        public Level(int number, int record){
+        public Level(int number){
                 this.number = number;
                 this.moveCounter = 0;
                 this.completed = false;
                 this.record = recoverRecord(number);
                 this.table = recoverLvl(number);
-                //TODO
         }
 
         public int getNumber(){
@@ -47,18 +46,25 @@ public class Level{
         }
 
         public int recoverRecord(int number){
-                String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Level" + number + ".csv";
+                String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Record.csv";
                 String line = "";
+                int record = -1; // if anyone succed the level, record = -1.
                 try (BufferedReader br = new BufferedReader(new FileReader(pathFile))) {
-
-
-                        
-                }
-                catch (IOException e) {
+                        while ((line = br.readLine()) != null) {
+                                String[] rowValues = line.split(";");
+                                if (!rowValues[0].equals("Level")){
+                                        int lvl = Integer.parseInt(rowValues[0]); // we search the line of our level
+                                        if (lvl == number){
+                                                record = Integer.parseInt(rowValues[1]);
+                                        }
+                                }
+                        }
+                System.out.println("File Found");
+                } catch (IOException e) {
                         e.printStackTrace();
                         System.out.println("Error reading file");
                 }
-                return -1;
+                return record;
         }
 
         public Tile[][] recoverLvl(int number) {
