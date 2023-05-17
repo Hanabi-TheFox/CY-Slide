@@ -74,4 +74,8 @@ public abstract class NumberTile extends Tile{
     public void setUnblocked(){
         this.blocked = false;
     }
+
+    public int getNumber() {
+        return this.number;
+    }
 }
