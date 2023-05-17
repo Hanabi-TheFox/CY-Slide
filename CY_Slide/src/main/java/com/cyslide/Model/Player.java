@@ -3,44 +3,24 @@ package com.cyslide.Model;
 import java.util.HashSet;
 public class Player {
     private String pseudo;
-    private HashSet<Record> listRecords;
-    private HashSet<Level> listResolvedLevels;
+    private int levelResolved; //indicates the number of the last level accomplished by the player
     private TaquinGame taquinGame;
 
     public Player(String pseudo) throws PlayerPseudoException{
-    if (this.verifyPseudo(pseudo) == false) {
+    if (this.pseudo.length() > 20) {
         throw new PlayerPseudoException("Pseudo cannot have more than 20 characters");
     }
 
     this.pseudo = pseudo;
-    this.listRecords = new HashSet<Record>();
-    this.listResolvedLevels = new HashSet<Level>();
+    //this.listRecords = new HashSet<Record>();
+    //this.listResolvedLevels = new HashSet<Level>();
     }
 
-    public void addRecord(Record record) {
-        this.listRecords.add(record);
-        //On ajoute dans le fichier csv le record
-        // TODO
-    }
-    public void addResolvedLevel(Level level){
-        this.listResolvedLevels.add(level);
-    }
-        //Verify if pseudo bypasses 20 characters
-        public boolean verifyPseudo(String pseudo) {
-            if(pseudo.length() > 20){
-                return false;
-            }
-            return true;
-    }
 
-    //Get Player records from csv file and insert in listeRecords
-    public void updateListRecords() {
-    }
-    //TODO
-}
 
-class PlayerPseudoException extends Exception {
+
+    class PlayerPseudoException extends Exception {
     public PlayerPseudoException(String message) {
         super(message);
     }
-}
+}}

@@ -4,27 +4,66 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import java.util.ArrayList;
 public class Level{
         private int number;
         private int moveCounter;
         private boolean completed;
-        private Record record;
+        private int record;
         private Tile[][] table;
 
-        public Level(int number, Record record) throws PlayerPseudoException{
+        public Level(int number){
                 this.number = number;
                 this.moveCounter = 0;
                 this.completed = false;
                 this.record = recoverRecord(number);
                 this.table = recoverLvl(number);
-                //TODO
         }
 
-        public Record recoverRecord(int number) throws PlayerPseudoException{
-                //TODO (recover data from file)
-                Player P = new Player("Ymasuu");
-                return new Record(P, number, 0);
+        public int getNumber(){
+                return number;
+        }
+        public int getMoveCounter(){
+                return moveCounter;
+        }
+        public void setMoveCounter(int moveCounter){
+                this.moveCounter = moveCounter;
+        }
+        public boolean getCompleted(){
+                return completed;
+        }
+        public void setCompleted(boolean completed){
+                this.completed = completed;
+        }
+        public int getRecord(){
+                return record;
+        }
+        public void setRecord(int record){
+                this.record = record;
+        }
+        public Tile[][] getTable(){
+                return table;
+        }
+
+        public int recoverRecord(int number){
+                String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Record.csv";
+                String line = "";
+                int record = -1; // if anyone succed the level, record = -1.
+                try (BufferedReader br = new BufferedReader(new FileReader(pathFile))) {
+                        while ((line = br.readLine()) != null) {
+                                String[] rowValues = line.split(";");
+                                if (!rowValues[0].equals("Level")){
+                                        int lvl = Integer.parseInt(rowValues[0]); // we search the line of our level
+                                        if (lvl == number){
+                                                record = Integer.parseInt(rowValues[1]);
+                                        }
+                                }
+                        }
+                System.out.println("File Found");
+                } catch (IOException e) {
+                        e.printStackTrace();
+                        System.out.println("Error reading file");
+                }
+                return record;
         }
 
         public Tile[][] recoverLvl(int number) {
@@ -37,24 +76,44 @@ public class Level{
                 String line = "";
         
                 try (BufferedReader br = new BufferedReader(new FileReader(pathFile))) {
-                while ((line = br.readLine()) != null) {
-                        if (line.trim().isEmpty()) {
-                        continue; // Ignore empty line
+                        while ((line = br.readLine()) != null) {
+                                String[] rowValues = line.split(";");
+                                numCol = rowValues.length; // Count the number of col
+                                numRow++; // Count the number of Rows
                         }
-                        String[] rowValues = line.split(";");
-        
-                        numCol = rowValues.length;
-                        numRow++;
-                        System.out.println(line);
-                }
                 System.out.println("File Found");
                 } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("Error reading file");
+                        e.printStackTrace();
+                        System.out.println("Error reading file");
                 }
         
                 tab = new Tile[numRow][numCol];
 
+                try (BufferedReader br = new BufferedReader(new FileReader(pathFile))) {
+                        int row = 0;
+                        int counter = 1;
+                        while ((line = br.readLine()) != null) {
+                            String[] rowValues = line.split(";");
+                            for (int col = 0; col < rowValues.length; col++) {
+                                int value = Integer.parseInt(rowValues[col]);
+                                if (value == 1){ // So it's a number tile
+                                        NumberTile nb = new NumberTile(counter, row, col);
+                                        tab[row][col] = (Tile) nb;
+                                        counter++;
+                                }else if(value == -1){ // it's an empty tile 
+                                        EmptyTile empty = new EmptyTile(row, col);
+                                        tab[row][col] = (Tile) empty;
+                                }else { // it's an indestructible tile
+                                        IndestructibleTile ind = new IndestructibleTile(row, col);
+                                        tab[row][col] = (Tile) ind;
+                                }
+                            }
+                            row++;
+                        }
+                } catch (IOException e) {
+                        e.printStackTrace();
+                        System.out.println("Error reading file");
+                }
                 System.out.println("Level " + number);
                 System.out.println("Tile Length: " + numRow);
                 System.out.println("Tile Width: " + numCol);
@@ -69,6 +128,7 @@ public class Level{
                         throw new MoveTileException("we cannot move this tile");
                 }else{
                         table[posX][posY].move(direction, table);
+                        moveCounter++;
                 }
         }
         public boolean isCompleted(){
