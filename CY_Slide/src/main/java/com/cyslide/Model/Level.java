@@ -12,7 +12,7 @@ public class Level{
         private Record record;
         private Tile[][] table;
 
-        public Level(int number, Record record) throws PlayerPseudoException{
+        public Level(int number, Record record) throws Player.PlayerPseudoException {
                 this.number = number;
                 this.moveCounter = 0;
                 this.completed = false;
@@ -21,7 +21,7 @@ public class Level{
                 //TODO
         }
 
-        public Record recoverRecord(int number) throws PlayerPseudoException{
+        public Record recoverRecord(int number) throws Player.PlayerPseudoException {
                 //TODO (recover data from file)
                 Player P = new Player("Ymasuu");
                 return new Record(P, number, 0);
