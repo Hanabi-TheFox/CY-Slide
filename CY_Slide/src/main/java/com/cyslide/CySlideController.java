@@ -51,7 +51,6 @@ public class CySlideController {
             Stage stage = (Stage) LevelMenu_BackButton.getScene().getWindow();
             Scene scene = new Scene(root, 800, 450);
 
-
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
@@ -68,7 +67,6 @@ public class CySlideController {
             Parent root = FXMLLoader.load(getClass().getResource("game-view.fxml"));
             Stage stage = (Stage) LevelMenu_1.getScene().getWindow();
             Scene scene = new Scene(root, 800, 450);
-
 
             stage.setScene(scene);
             stage.show();
