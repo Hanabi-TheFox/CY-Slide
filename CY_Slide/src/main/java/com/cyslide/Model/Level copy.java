@@ -32,44 +32,43 @@ public class Level{
         }
         
         public Tile[][] recoverLvl() {
-                String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Level1.csv";
-                String line = "";
+                final int numLevels = 10; // Number of levels
+                Tile[][] tab = null; // Initialize tab outside the loop
             
-                int numRow = 0;
-                int numCol = 0;
+                for (int k = 1; k <= numLevels; k++) {
+                    int numRow = 0;
+                    int numCol = 0;
             
-                try (BufferedReader br = new BufferedReader(new FileReader(pathFile))) {
-                    while ((line = br.readLine()) != null) {
-                        if (line.trim().isEmpty()) {
+                    String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Level" + k + ".csv";
+                    String line = "";
+            
+                    try (BufferedReader br = new BufferedReader(new FileReader(pathFile))) {
+                        while ((line = br.readLine()) != null) {
+                            if (line.trim().isEmpty()) {
                                 continue; // Ignore empty line
+                            }
+                            String[] rowValues = line.split(";");
+            
+                            numCol = rowValues.length;
+                            numRow++;
+                            System.out.println(line);
                         }
-                        String[] rowValues = line.split(";");
-            
-                        numCol = rowValues.length;
-                        numRow++;
-            
-                        System.out.println(line);
+                        System.out.println("File Found");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        System.out.println("Error reading file");
                     }
-                    System.out.println("File Found");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    System.out.println("Error reading file");
+            
+                    tab = new Tile[numRow][numCol];
+
+                    System.out.println("Level " + k);
+                    System.out.println("Tile Length: " + numRow);
+                    System.out.println("Tile Width: " + numCol);
                 }
             
-                Tile[][] tab = new Tile[numRow][numCol];
-
-                // Print elements of tab
-                for (int i = 0; i < numRow; i++) {
-                        for (int j = 0; j < numCol; j++) {
-                                Tile tile = tab[i][j];
-                                System.out.println("Tile at position (" + i + ", " + j + "): " + tile);
-                        }
-                }
                 return tab;
             }
             
-            
-
 
         public void moveTile(int posX,int posY,String direction)throws MoveTileException{
                 //the mouvement direction can be Left,Right,Up,Down
