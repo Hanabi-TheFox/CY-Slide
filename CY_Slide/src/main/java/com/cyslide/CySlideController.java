@@ -47,8 +47,8 @@ public class CySlideController {
     @FXML
     protected void OnLevelMenu_BackButtonClick() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("LevelMenu.fxml"));
-            Stage stage = (Stage) LevelMenu_1.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("StartPage.fxml"));
+            Stage stage = (Stage) LevelMenu_BackButton.getScene().getWindow();
             Scene scene = new Scene(root, 800, 450);
 
 
