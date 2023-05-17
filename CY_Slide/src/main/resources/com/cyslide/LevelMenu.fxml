@@ -81,7 +81,7 @@
             <Font name="Arial Bold Italic" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="LevelMenu_BackButton" layoutY="403.0" mnemonicParsing="false" onAction="#OnLevelMenu_BackButtonClick" prefHeight="47.0" prefWidth="118.0" text="Retour">
+      <Button fx:id="LevelMenu_BackButton" layoutY="403.0" mnemonicParsing="false" onAction="#OnLevelMenu_BackButtonClick" prefHeight="47.0" prefWidth="118.0" text="Back">
          <font>
             <Font size="22.0" />
          </font>

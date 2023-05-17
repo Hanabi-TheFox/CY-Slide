@@ -12,7 +12,7 @@ public class Level{
         private int record;
         private Tile[][] table;
 
-        public Level(int number, int record) throws PlayerPseudoException{
+        public Level(int number, int record){
                 this.number = number;
                 this.moveCounter = 0;
                 this.completed = false;
