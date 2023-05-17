@@ -9,6 +9,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+
 public class CySlideController {
     @FXML
     private Button StartPage_Button;
@@ -25,6 +31,13 @@ public class CySlideController {
             Label StartPage_ErrorLabel = (Label) StartPage_TextField.getScene().lookup("#StartPage_ErrorLabel");
             StartPage_ErrorLabel.setText("Please enter a username");
         } else {
+            // Check if the player exists in the player.csv file
+            boolean playerExists = checkPlayerExists(pseudo);
+            
+            if (!playerExists) {
+                // Create a new player entry in the player.csv file
+                createNewPlayer(pseudo);
+            }
             // We move to the menu-view.fxml page
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("LevelMenu.fxml"));
@@ -40,6 +53,38 @@ public class CySlideController {
             }
         }
     }
+
+    private boolean checkPlayerExists(String pseudo) {
+        String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Player.csv";
+        String line = "";
+        try (BufferedReader br = new BufferedReader(new FileReader(pathFile))) {
+            while ((line = br.readLine()) != null) {
+                    String[] rowValues = line.split(";");
+                    if (rowValues[0].equals(pseudo)) {
+                        return true;
+                    }  
+            }
+            System.out.println("File Found");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error reading file");
+        }
+        return false;
+    }
+
+    private void createNewPlayer(String pseudo) {
+        String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Player.csv";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(pathFile, true))) {
+            // Écriture des nouvelles données à la fin du fichier
+            writer.write(pseudo + ";0");
+            writer.newLine();
+            System.out.println("Success in writing file");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error in writing the file");
+        }
+    }
+    
 
     @FXML
     private Button LevelMenu_BackButton;
