@@ -17,21 +17,31 @@ public class CySlideController {
     private TextField StartPage_TextField;
 
     @FXML
+    private Label errorLabel;
+
+    @FXML
     private Label menuView_Pseudo;
 
     @FXML
     protected void OnStartPage_ButtonClick() {
-        // écrire le contenue de la textfield dans le label de la page menu-view.fxml
-        menuView_Pseudo.setText(StartPage_TextField.getText());
-        // On se rend à la page menu-view.fxml
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("menu-view.fxml"));
-            Scene scene = new Scene(root, 800, 450);
-            Stage stage = (Stage) StartPage_Button.getScene().getWindow();
-            stage.setScene(scene);
-            StartPage_Button.getScene().setRoot(root);
-        } catch (Exception e) {
-            System.out.println(e);
+        String pseudo = StartPage_TextField.getText();
+        if (pseudo.isEmpty()) {
+            Label errorLabel = (Label) StartPage_TextField.getScene().lookup("#errorLabel");
+            errorLabel.setText("Please enter a username");
+        } else {
+            // We move to the menu-view.fxml page
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("menu-view.fxml"));
+                Stage stage = (Stage) StartPage_Button.getScene().getWindow();
+                Scene scene = new Scene(root, 800, 450);
+                // We set the pseudo in the menu-view
+                Label pseudoLabel = (Label) scene.lookup("#menuView_Pseudo");
+                pseudoLabel.setText(pseudo);
+                stage.setScene(scene);
+                stage.show();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         }
     }
 }
