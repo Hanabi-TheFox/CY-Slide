@@ -37,11 +37,11 @@ public abstract class Tile{
             System.out.println("nb = " + nb.getNumber());
         }
         if(type == -1){
-            EmptyTile empty = (EmptyTile) this;
+            //EmptyTile empty = (EmptyTile) this;
             System.out.println("tile empty.");
         }
         if(type == 0){
-            IndestructibleTile ind = (IndestructibleTile) this;
+            //IndestructibleTile ind = (IndestructibleTile) this;
             System.out.println("tile indestrutible.");
         }
     }
