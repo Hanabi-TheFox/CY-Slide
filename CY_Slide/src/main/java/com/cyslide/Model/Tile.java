@@ -8,7 +8,7 @@ public abstract class Tile{
     public abstract boolean mouvementAvailable(String direction, Tile [][] table);
     public abstract void moved (int posX, int posY);
 
-    Tile(int posX,int posY) {
+    public Tile(int posX,int posY) {
         this.posX = posX;
         this.posY = posY;
     }
@@ -29,5 +29,20 @@ public abstract class Tile{
     }
     public int getPosY() {
         return this.posY;
+    }
+
+    public void showTile(){
+        if(type == 1){
+            NumberTile nb = (NumberTile) this;
+            System.out.println("nb = " + nb.getNumber());
+        }
+        if(type == -1){
+            EmptyTile empty = (EmptyTile) this;
+            System.out.println("tile empty.");
+        }
+        if(type == 0){
+            IndestructibleTile ind = (IndestructibleTile) this;
+            System.out.println("tile indestrutible.");
+        }
     }
 }
