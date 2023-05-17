@@ -1,38 +1,32 @@
 package com.cyslide.Model;
-
 public abstract class Tile{
     private int posX;
     private int posY;
-    private int number; //if -1, empty tile
-                        //if -2, indestructible tile
-                        //if >=0, tile is a normal tile
+    private int type;
 
+    public abstract void move(String direction, Tile [][] table);
+    public abstract boolean mouvementAvailable(String direction, Tile [][] table);
+    public abstract void moved (int posX, int posY);
 
-    public Tile(int posX,int posY) {
+    Tile(int posX,int posY) {
         this.posX = posX;
         this.posY = posY;
     }
-
-    public int getNumber(){
-        return this.number;
+    public int getType(){
+        return this.type;
     }
-
-    public void setNumber(int number){
-        this.number = number;
+    public void setType(int type){
+        this.type = type;;
     }
-
     public int getPosX() {
         return this.posX;
     }
-
     public void setPosY(int posY) {
         this.posY = posY;
     }
-
     public void setPosX(int posX) {
         this.posX = posX;
     }
-
     public int getPosY() {
         return this.posY;
     }
