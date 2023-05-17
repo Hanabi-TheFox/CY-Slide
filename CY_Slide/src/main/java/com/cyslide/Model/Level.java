@@ -34,16 +34,76 @@ public class Level{
         public void moveTile(int posX,int posY,String direction)throws MoveTileException{
                 //the mouvement direction can be Left,Right,Up,Down
                 //We verify if the neighbor is 0 (it doest exist, is empty)
-                if (!table[posX][posY].mouvementAvailable(direction, table)) {
+                if (this.mouvementAvailable(posX,posY,direction, table) == false) {
                         throw new MoveTileException("we cannot move this tile");
                 }else{
-                        table[posX][posY].move(direction, table);
+                        Tile tmp; //Tile for swap
+                        //table[posX][posY].moveTile(direction, table);
+                        
+                        switch (direction) {
+                                case "UP":
+                                    System.out.println("Moving Up");
+                                    tmp = table[posX - 1][posY]; //tmp is the emptyTile
+                                    table[posX - 1][posY] = table[posX][posY]; // The emptyTile now has the tile that was moved
+                                    table[posX][posY] = tmp; //the tile we moved now is empty
+                                    break;
+                                case "DOWN":
+                                    System.out.println("Moving Down");
+                                    tmp = table[posX + 1][posY]; //tmp is the emptyTile
+                                    table[posX + 1][posY] = table[posX][posY]; // The emptyTile now has the tile that was moved
+                                    table[posX][posY] = tmp; //the tile we moved now is empty
+                                    break;
+                                case "LEFT":
+                                    System.out.println("Moving Left");
+                                    tmp = table[posX][posY-1]; //tmp is the emptyTile
+                                    table[posX][posY-1] = table[posX][posY]; // The emptyTile now has the tile that was moved
+                                    table[posX][posY] = tmp; //the tile we moved now is empty
+                                    break;
+                                case "RIGHT":
+                                    System.out.println("Moving Right");
+                                    tmp = table[posX][posY+1]; //tmp is the emptyTile
+                                    table[posX][posY+1] = table[posX][posY]; // The emptyTile now has the tile that was moved
+                                    table[posX][posY] = tmp; //the tile we moved now is empty
+                                    break;
+                                default:
+                                    // if directions is not (Up,down,left or right)
+                                    System.out.println("Invalid Direction");
+                            }
+    
                 }
+                                
+                /*7 */
         }
-        public boolean isCompleted(){
-                //TODO
+
+        //This method verifies if the mouvement can be made
+        public boolean mouvementAvailable(int posX, int posY, String direction, Tile[][] table) {
+                if (direction.equals("UP") && posX - 1 >= 0 && posX - 1 < table.length && posY >= 0 && posY < table[posX - 1].length) {
+                    if (table[posX - 1][posY].getNumber() == -1) {
+                        return true;
+                    }
+                } else if (direction.equals("DOWN") && posX + 1 >= 0 && posX + 1 < table.length && posY >= 0 && posY < table[posX + 1].length) {
+                    if (table[posX + 1][posY].getNumber() == -1) {
+                        return true;
+                    }
+                } else if (direction.equals("LEFT") && posX >= 0 && posY - 1 < table.length && posY - 1 >= 0 && posY - 1 < table[posX].length) {
+                    if (table[posX][posY - 1].getNumber() == -1) {
+                        return true;
+                    }
+                } else if (direction.equals("RIGHT") && posX >= 0 && posX < table.length && posY + 1 >= 0 && posY + 1 < table[posX].length) {
+                    if (table[posX][posY + 1].getNumber() == -1) {
+                        return true;
+                    }
+                }
+            
                 return false;
-        }
+            }
+            
+            public boolean isCompleted() {
+                // TODO
+                return false;
+            }
+            
+        
         public boolean isPlayable(){
                 //Verify if level generated can be completed
                 return true;

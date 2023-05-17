@@ -3,19 +3,22 @@ package com.cyslide.Model;
 public abstract class Tile{
     private int posX;
     private int posY;
-    private int type;
+    private int number; //if -1, empty tile
+                        //if -2, indestructible tile
+                        //if >=0, tile is a normal tile
+
 
     public Tile(int posX,int posY) {
         this.posX = posX;
         this.posY = posY;
     }
 
-    public int getType(){
-        return this.type;
+    public int getNumber(){
+        return this.number;
     }
 
-    public void setType(int type){
-        this.type = type;;
+    public void setNumber(int number){
+        this.number = number;
     }
 
     public int getPosX() {
