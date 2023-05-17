@@ -12,4 +12,4 @@ public void playLevel() {
 public void resolveLevel() {
     //TODO
         }
-        }
+    }
