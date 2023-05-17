@@ -17,12 +17,12 @@ Tuesday, May 16:
   Renato (Yanis) :
     Work on the base java class of the project.
   Samy :
-    Work on java functions + adjustment of some class.
+    Work on java functions to move tile + adjustment of some class (Tile, EmptyTile, NumberTile, IndestructibleTile).
   Ethan - Yanis - Renato :
     Work on the view part of the project.
   Ethan :
     Creating the Data files.
-    Organise a meeting with Romuald Grignon for technical help.
+    Organize a meeting with Romuald Grignon for technical help.
   Clement :
     Search for resolution algorithm of the taquin game.
     Work on function in order to recover our data file from java class.
@@ -38,5 +38,9 @@ Wednesday, May 17:
   Clement :
     Work on controller. If the pseudo doesn't exist, we write his pseudo in our csv file and if the pseudo exits, we recover the number of completed level.
     Continue his search on the AI (he have to wait others functions to use AI)
+  Renato :
+    Work on javaFX, create back button on menu view
+    Try to understand our java functions in order to use them after with javaFX.
+    Started to make level X (in view).
   Yanis - Renato :
-    Work on javaFX
+    Work on javaFX. create event and movement for rectangle figure.
