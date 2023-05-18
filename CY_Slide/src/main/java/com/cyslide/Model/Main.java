@@ -15,7 +15,7 @@ public class Main{
             }
         }
         System.out.println("!! test move !!");
-        pour changer la place d'une tuile, on appelle la fonction level.moveTile(posX, posY, direction) avec posX, posY les coordonnées et direction le sens ("UP, DOWN, RIGHT, LEFT")
+        // pour changer la place d'une tuile, on appelle la fonction level.moveTile(posX, posY, direction) avec posX, posY les coordonnées et direction le sens ("UP, DOWN, RIGHT, LEFT")
         level.moveTile(3, 4, "DOWN");
         table[3][4].showTile();
         System.out.println("X : " + table[3][4].getPosX());

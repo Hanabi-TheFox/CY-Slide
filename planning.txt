@@ -1,15 +1,15 @@
 Monday, May 15:
   Ethan - Clement - Renato - Samy - Yanis :
-    Setting up the workspace (GitHub + Discord)
+    Setting up the workspace (GitHub + Discord).
   Ethan - Clement - Renato - Samy : 
-    Class diagram
-    Creation of the JavaFX project base (MVC method) 
-    Sequence diagram
-    Creation planning 
+    Class diagram.
+    Creation of the JavaFX project base (MVC method).
+    Sequence diagram.
+    Creation planning.
   Yanis : 
-    Documentation on javaFX
+    Documentation on javaFX.
   Clement, Yanis, Samy :
-    Try to fix JavaFX techninal problem on their computer
+    Try to fix JavaFX techninal problem on their computer.
 
 Tuesday, May 16:
   Ethan - Clement - Renato - Samy - Yanis :
@@ -37,7 +37,7 @@ Wednesday, May 17:
     work on 'recover' functions, now we can create a table of tile with our file csv and recover the record of a level.
   Clement :
     Work on controller. If the pseudo doesn't exist, we write his pseudo in our csv file and if the pseudo exits, we recover the number of completed level.
-    Continue his search on the AI (he have to wait others functions to use AI)
+    Continue his search on the AI (he have to wait others functions to use AI).
   Renato :
     Work on javaFX, create back button on menu view
     Try to understand our java functions in order to use them after with javaFX.
@@ -47,12 +47,12 @@ Wednesday, May 17:
     
 Thursday, May 18:
   Samy :
-    test function level.move, move (NumberTile) and move (EmptyTile) with a table from a file level.csv and makes the necessary modifications.
-    Help Yanis to create a table of type Rectangle in order to create a view from a file level.csv
+    tests function level.move, move (NumberTile) and move (EmptyTile) with a table from a file level.csv and makes the necessary modifications.
+    Helps Yanis to create a table of type Rectangle in order to create a view from a file level.csv.
   Clement :
-    create a function to recover the number of completed level by a player from a csv file. 
-    Continue his work with the automatic resolution (he try to use AStar).
+    Creates a function to recover the number of completed level by a player from a csv file. 
+    Continues his work with the automatic resolution (he try to use AStar).
   Renato : 
     Problem with the CSV file path has been resolved. Update on LevelX view. Started working on creating a class for dynamically generating the game table.
   Yanis:
-
+    Working on the integration of the new method of graphic generation of levels.
