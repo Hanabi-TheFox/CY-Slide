@@ -23,7 +23,7 @@ public class Player {
         return pseudo;
     }
 
-    public int recoverNbOfCompletedLvl(int levelResolved) throws PlayerPseudoException{
+    public int recoverNbOfCompletedLvl() throws PlayerPseudoException{
         String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Player.csv";
     
         try (BufferedReader br = new BufferedReader(new FileReader(pathFile))) {

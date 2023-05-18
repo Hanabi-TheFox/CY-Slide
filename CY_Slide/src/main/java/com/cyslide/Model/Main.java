@@ -17,8 +17,7 @@ public class Main{
 
         try {
             Player player = new Player("Admin");    
-            int levelResolved = 0;
-            int numOfCompletedLvl = player.recoverNbOfCompletedLvl(levelResolved);
+            player.recoverNbOfCompletedLvl();
         
         } catch (PlayerPseudoException e) {
             System.err.println("Erreur lors de la création du joueur : " + e.getMessage());
