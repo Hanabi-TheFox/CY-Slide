@@ -33,6 +33,7 @@ public class CySlideController {
     private Label LevelMenu_Pseudo;
     private CySlideApplication app;
     private String viewName="";
+    private Player player;
 
     /*@FXML
     private void initialize() {
