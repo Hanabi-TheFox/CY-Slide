@@ -1,8 +1,11 @@
 package com.cyslide.Model;
+
+import com.cyslide.Model.Player.PlayerPseudoException;
+
 // ce main permet de tester nos fonction java
 public class Main{
-    public static void main(String[] args){
-        Level level = new Level(9);
+    public static void main(String[] args) throws PlayerPseudoException{
+        /*Level level = new Level(9);
         for (int i=0; i < level.getTable().length; i++){
             for (int j=0; j < level.getTable().length; j++){
                 System.out.println("case [" + i + "][" + j +"]");
@@ -10,5 +13,18 @@ public class Main{
             }
         }
         System.out.println("record du niveau " + level.getNumber() + " est : " + level.getRecord());
+        */
+
+        try {
+            Player player = new Player("Admin");    
+            int levelResolved = 0;
+            int numOfCompletedLvl = player.recoverNbOfCompletedLvl(levelResolved);
+        
+        } catch (PlayerPseudoException e) {
+            System.err.println("Erreur lors de la création du joueur : " + e.getMessage());
+        }
+
+        
+        
     }
 }
