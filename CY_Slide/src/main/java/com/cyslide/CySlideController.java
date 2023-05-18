@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -30,6 +31,18 @@ public class CySlideController {
     @FXML
     private Label LevelMenu_Pseudo;
     private CySlideApplication app;
+    private String viewName="";
+
+    /*@FXML
+    private void initialize() {
+        // Register a key press event handler on the StartPage_TextField
+        StartPage_TextField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                OnStartPage_ButtonClick();
+            }
+        });
+    } */
+
     @FXML
     protected void OnStartPage_ButtonClick() {
         String pseudo = StartPage_TextField.getText();
@@ -46,6 +59,7 @@ public class CySlideController {
             }
             // We move to the menu-view.fxml page
             try {
+                this.setViewName("LevelMenu.fxml");
                 Parent root = FXMLLoader.load(getClass().getResource("LevelMenu.fxml"));
                 Stage stage = (Stage) StartPage_Button.getScene().getWindow();
                 Scene scene = new Scene(root, 800, 450);
@@ -58,6 +72,10 @@ public class CySlideController {
                 System.out.println(e);
             }
         }
+    }
+
+    public void setViewName(String viewName) {
+        this.viewName = viewName;
     }
 
     private boolean checkPlayerExists(String pseudo) {
@@ -101,6 +119,7 @@ public class CySlideController {
             Stage stage = (Stage) LevelMenu_BackButton.getScene().getWindow();
             Scene scene = new Scene(root, 800, 450);
 
+            this.setViewName("StartPage.fxml");
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
@@ -146,6 +165,7 @@ public class CySlideController {
 	            }
             Scene scene = new Scene(pane, 800, 450);
 
+             this.setViewName("game-view.fxml");
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
