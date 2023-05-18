@@ -76,7 +76,7 @@ public class CySlideController {
     private void createNewPlayer(String pseudo) {
         String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Player.csv";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(pathFile, true))) {
-            // Écriture des nouvelles données à la fin du fichier
+            // Write the new data at the end of the file
             writer.write(pseudo + ";0");
             writer.newLine();
             System.out.println("Success in writing file");
