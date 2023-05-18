@@ -121,11 +121,11 @@ public class Level{
                 return tab;
             }
 
-        public void moveTile(int posX,int posY,String direction)throws MoveTileException{
+        public void moveTile(int posX,int posY,String direction){
                 //the mouvement direction can be Left,Right,Up,Down
                 //We verify if the neighbor is 0 (it doest exist, is empty)
-                if (!table[posX][posY].mouvementAvailable(direction, table)) {
-                        throw new MoveTileException("we cannot move this tile");
+                if (!table[posX][posY].mouvementAvailable(direction, table) || table[posX][posY].getType() == 0) {
+                        System.out.println("We cannot move this tile.");
                 }else{
                         table[posX][posY].move(direction, table);
                         moveCounter++;

@@ -16,40 +16,40 @@ public class NumberTile extends Tile{
                 // We change our table
                 SwapTile(getPosX(), getPosY(), getPosX()-1, getPosY(), table);
                 // Now we change coordinates of the empty tile
-                table[getPosX()-1][getPosY()].moved(getPosX(), getPosY());
+                table[getPosX()][getPosY()].moved(getPosX(), getPosY());
                 // Now we set coordinate of the number tile
                 setPosX(getPosX()-1);
             }else if(direction=="DOWN"){
                 SwapTile(getPosX(), getPosY(), getPosX()+1, getPosY(), table);
-                table[getPosX()+1][getPosY()].moved(getPosX(), getPosY());
+                table[getPosX()][getPosY()].moved(getPosX(), getPosY());
                 setPosX(getPosX()+1);
             }else if(direction=="LEFT"){ // we go to the left of the matrix so we must reduce the position of the second tab which is table[][]
                 SwapTile(getPosX(), getPosY(), getPosX(), getPosY()-1, table);
-                table[getPosX()][getPosY()-1].moved(getPosX(), getPosY());
+                table[getPosX()][getPosY()].moved(getPosX(), getPosY());
                 setPosY(getPosY()-1);
             }else if(direction=="RIGHT"){
                 SwapTile(getPosX(), getPosY(), getPosX(), getPosY()+1, table);
-                table[getPosX()][getPosY()+1].moved(getPosX(), getPosY());
+                table[getPosX()][getPosY()].moved(getPosX(), getPosY());
                 setPosY(getPosY()+1);
             }
         }
 
         @Override
-        public boolean mouvementAvailable(String direction, Tile [][] table) {   // attention si probleme rajouter les "this".getPosX()
-            if(direction == "UP"){
-                if (table[getPosX()-1][getPosY()].getType() != -1 || getPosX() == 0){
+        public boolean mouvementAvailable(String direction, Tile [][] table) {
+            if (direction.equals("UP")) {
+                if (getPosX() == 0 || table[getPosX()-1][getPosY()].getType() != -1) {
                     return false;
                 }
-            }else if (direction == "DOWN"){
-                if (table[getPosX()+1][getPosY()].getType() != -1 || getPosX() == table.length){
+            } else if (direction.equals("DOWN")) {
+                if (getPosX() == table.length - 1 || table[getPosX()+1][getPosY()].getType() != -1) {
                     return false;
                 }
-            }else if (direction == "RIGHT"){
-                if (table[getPosX()][getPosY()+1].getType() != -1 || getPosY() == 0){
+            } else if (direction.equals("RIGHT")) {
+                if (getPosY() == table[getPosX()].length - 1 || table[getPosX()][getPosY()+1].getType() != -1) {
                     return false;
                 }
-            }else if (direction == "LEFT"){
-                if (table[getPosX()][getPosY()-1].getType() != -1 || getPosY() == table[getPosX()].length){
+            } else if (direction.equals("LEFT")) {
+                if (getPosY() == 0 || table[getPosX()][getPosY()-1].getType() != -1) {
                     return false;
                 }
             }
@@ -63,12 +63,14 @@ public class NumberTile extends Tile{
     public void setNumber(int number) {
         this.number = number;
     }
-    public int getNumber(){
+    public int getNumber() {
         return number;
     }
 
     @Override
     public void moved(int posX, int posY) {
-        // this is function for emptyTile
+        // the tile has been moved so we change its coordinates
+        setPosX(posX);
+        setPosY(posY);
     }
 }
