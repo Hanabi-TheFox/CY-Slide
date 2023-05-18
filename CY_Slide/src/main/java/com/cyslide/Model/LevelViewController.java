@@ -1,4 +1,4 @@
-package com.cyslide.Model;
+/*package com.cyslide.Model;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -47,4 +47,4 @@ public class LevelViewController {
             }
         }
     }
-}
+}*/
