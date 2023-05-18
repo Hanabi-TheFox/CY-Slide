@@ -15,8 +15,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import com.cyslide.Model.RectangleDragHandler;
-import com.cyslide.Model.RectangleWithLabel;
+import com.cyslide.Model.*;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -135,10 +134,19 @@ public class CySlideController {
          try {
             // Parent root = FXMLLoader.load(getClass().getResource("game-view.fxml"));
             Stage stage = (Stage) LevelMenu_1.getScene().getWindow();
+            // creation of level 1
+            Level level = new Level(1);
             // Création des RectangleWithLabel avec des positions prédéfinies
-	        RectangleWithLabel rectangleWithLabel1 = new RectangleWithLabel(100, 100, "1");
-	        RectangleWithLabel rectangleWithLabel2 = new RectangleWithLabel(100, 100, "2");
-	        RectangleWithLabel rectangleWithLabel3 = new RectangleWithLabel(100, 100, "3");
+            Tile [][] table = level.getTable();
+            for (int i=0; i < table.length; i++){
+                for (int j=0; j < table.length; j++){
+                    RectangleWithLabel rectangleWithLabel1 = new RectangleWithLabel(100, 100, "1", table[i][j]);
+                }
+            }
+            Tile t1 = new NumberTile(1, 0, 0);
+	        RectangleWithLabel rectangleWithLabel1 = new RectangleWithLabel(100, 100, "1", t1);
+	        RectangleWithLabel rectangleWithLabel2 = new RectangleWithLabel(100, 100, "2", t1);
+	        RectangleWithLabel rectangleWithLabel3 = new RectangleWithLabel(100, 100, "3", t1);
 
 	        // Définir les positions des RectangleWithLabel
 	        rectangleWithLabel1.setLayoutX(100);

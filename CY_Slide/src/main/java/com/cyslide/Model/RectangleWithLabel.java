@@ -7,9 +7,16 @@ import javafx.scene.layout.StackPane;
 
 
 public class RectangleWithLabel extends StackPane {
-    public RectangleWithLabel(double width, double height, String labelText) {
+    public RectangleWithLabel(double width, double height, String labelText, Tile t1) {
         Rectangle rectangle = new Rectangle(width, height);
-        rectangle.setFill(Color.DODGERBLUE);
+        if (t1.getType() == 1){ // if it's a number tile 
+            rectangle.setFill(Color.DODGERBLUE);
+        }else if (t1.getType() == 0){ // if it's an indestructible tile
+            rectangle.setFill(Color.BLACK);
+        }else { // if it's an empty tile
+            rectangle.setFill(Color.WHITE);
+        }
+        
         rectangle.setStroke(Color.BLACK);
 
         Label label = new Label(labelText);
