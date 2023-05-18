@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -12,6 +13,10 @@ import javafx.stage.Stage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
+import com.cyslide.Model.RectangleDragHandler;
+import com.cyslide.Model.RectangleWithLabel;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
@@ -109,9 +114,37 @@ public class CySlideController {
     protected void OnLevelMenu_1ButtonClick() {
          // We move to the game-view.fxml page
          try {
-            Parent root = FXMLLoader.load(getClass().getResource("game-view.fxml"));
+            // Parent root = FXMLLoader.load(getClass().getResource("game-view.fxml"));
             Stage stage = (Stage) LevelMenu_1.getScene().getWindow();
-            Scene scene = new Scene(root, 800, 450);
+            // Création des RectangleWithLabel avec des positions prédéfinies
+	        RectangleWithLabel rectangleWithLabel1 = new RectangleWithLabel(100, 100, "1");
+	        RectangleWithLabel rectangleWithLabel2 = new RectangleWithLabel(100, 100, "2");
+	        RectangleWithLabel rectangleWithLabel3 = new RectangleWithLabel(100, 100, "3");
+
+	        // Définir les positions des RectangleWithLabel
+	        rectangleWithLabel1.setLayoutX(100);
+	        rectangleWithLabel1.setLayoutY(100);
+	        rectangleWithLabel2.setLayoutX(200);
+	        rectangleWithLabel2.setLayoutY(200);
+	        rectangleWithLabel3.setLayoutX(300);
+	        rectangleWithLabel3.setLayoutY(300);
+
+	        // Création de la scène
+	        Pane pane = new Pane(rectangleWithLabel1, rectangleWithLabel2, rectangleWithLabel3);
+
+	        RectangleWithLabel[][] rectangles = {
+	                { rectangleWithLabel1, rectangleWithLabel2, rectangleWithLabel3 }
+	            };
+
+	            RectangleDragHandler rectangleDragHandler = new RectangleDragHandler(rectangles);
+	            for (RectangleWithLabel[] row : rectangles) {
+	                for (RectangleWithLabel rectangle : row) {
+	                    rectangle.setOnMousePressed(rectangleDragHandler.createOnMousePressedHandler(rectangle));
+	                    rectangle.setOnMouseDragged(rectangleDragHandler.createOnMouseDraggedHandler(rectangle));
+	                    rectangle.setOnMouseReleased(rectangleDragHandler.createOnMouseReleasedHandler(rectangle));
+	                }
+	            }
+            Scene scene = new Scene(pane, 800, 450);
 
             stage.setScene(scene);
             stage.show();

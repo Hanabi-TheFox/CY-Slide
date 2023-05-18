@@ -12,14 +12,14 @@ public class RectangleDragHandler {
     private double initialTranslateY;
     private double initialLayoutX;
     private double initialLayoutY;
-    private Rectangle[][] rectangles;
-    private Rectangle draggedRectangle;
+    private RectangleWithLabel[][] rectangles;
+    private RectangleWithLabel draggedRectangle;
 
-    public RectangleDragHandler(Rectangle[][] rectangles) {
+    public RectangleDragHandler(RectangleWithLabel[][] rectangles) {
         this.rectangles = rectangles;
     }
 
-    public EventHandler<MouseEvent> createOnMousePressedHandler(Rectangle rectangle) {
+    public EventHandler<MouseEvent> createOnMousePressedHandler(RectangleWithLabel rectangle) {
         return event -> {
             mouseAnchorX = event.getSceneX();
             mouseAnchorY = event.getSceneY();
@@ -31,7 +31,7 @@ public class RectangleDragHandler {
         };
     }
 
-    public EventHandler<MouseEvent> createOnMouseDraggedHandler(Rectangle rectangle) {
+    public EventHandler<MouseEvent> createOnMouseDraggedHandler(RectangleWithLabel rectangle) {
         return event -> {
             double deltaX = event.getSceneX() - mouseAnchorX;
             double deltaY = event.getSceneY() - mouseAnchorY;
@@ -40,14 +40,14 @@ public class RectangleDragHandler {
         };
     }
 
-    public EventHandler<MouseEvent> createOnMouseReleasedHandler(Rectangle rectangle) {
+    public EventHandler<MouseEvent> createOnMouseReleasedHandler(RectangleWithLabel rectangle) {
         return event -> {
             boolean isSwapped = false;
-            Rectangle targetRectangle = null;
+            RectangleWithLabel targetRectangle = null;
 
             for (int i = 0; i < rectangles.length; i++) {
                 for (int j = 0; j < rectangles[i].length; j++) {
-                    Rectangle currentRectangle = rectangles[i][j];
+                    RectangleWithLabel currentRectangle = rectangles[i][j];
                     if (currentRectangle != rectangle && isMouseInside(currentRectangle, event)) {
                         targetRectangle = currentRectangle;
                         isSwapped = true;
@@ -69,7 +69,7 @@ public class RectangleDragHandler {
         };
     }
 
-    private boolean isMouseInside(Rectangle rectangle, MouseEvent event) {
+    private boolean isMouseInside(RectangleWithLabel rectangle, MouseEvent event) {
         double mouseX = event.getSceneX();
         double mouseY = event.getSceneY();
         return mouseX >= rectangle.getBoundsInParent().getMinX()
@@ -78,7 +78,7 @@ public class RectangleDragHandler {
                 && mouseY <= rectangle.getBoundsInParent().getMaxY();
     }
 
-    private void swapRectangles(Rectangle rectangle1, Rectangle rectangle2) {
+    private void swapRectangles(RectangleWithLabel rectangle1, RectangleWithLabel rectangle2) {
         double tempLayoutX = rectangle2.getLayoutX();
         double tempLayoutY = rectangle2.getLayoutY();
         rectangle1.setTranslateX(initialTranslateX);
