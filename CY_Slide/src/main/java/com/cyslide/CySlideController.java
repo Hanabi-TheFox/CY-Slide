@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -33,6 +34,7 @@ public class CySlideController {
     private CySlideApplication app;
     private String viewName="";
     private Player player;
+    private GridPane gridPane;
 
     /*@FXML
     private void initialize() {
@@ -138,33 +140,62 @@ public class CySlideController {
             // Parent root = FXMLLoader.load(getClass().getResource("game-view.fxml"));
             Stage stage = (Stage) LevelMenu_1.getScene().getWindow();
             // creation of level 1
-            Level level = new Level(1);
+            Level level = new Level(9);
             // Création des RectangleWithLabel avec des positions prédéfinies
             Tile [][] table = level.getTable();
+            //gridPane.getChildren().clear();
+            RectangleWithLabel[][] rectangles=new RectangleWithLabel[table.length][table.length];
             for (int i=0; i < table.length; i++){
                 for (int j=0; j < table.length; j++){
-                    RectangleWithLabel rectangleWithLabel1 = new RectangleWithLabel(100, 100, "1", table[i][j]);
+                    if(table[i][j].getType()==-1){
+                        RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(100, 100, "", table[i][j]);
+                        rectangleWithLabel.setLayoutX(100*i);
+	                    rectangleWithLabel.setLayoutY(100*j);
+                        //gridPane.add(rectangleWithLabel, i, j);
+                        rectangles[i][j]=rectangleWithLabel;
+                    }
+                    if(table[i][j].getType()==0){
+                        RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(100, 100, "", table[i][j]);
+                        rectangleWithLabel.setLayoutX(100*i);
+	                    rectangleWithLabel.setLayoutY(100*j);
+                        //gridPane.add(rectangleWithLabel, i, j);
+                        rectangles[i][j]=rectangleWithLabel;
+                    }
+                    if(table[i][j].getType()==1){
+                        NumberTile nb=(NumberTile) table[i][j];
+                        RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(100, 100, Integer.toString(nb.getNumber()), table[i][j]);
+                        rectangleWithLabel.setLayoutX(100*i);
+	                    rectangleWithLabel.setLayoutY(100*j);
+                        //gridPane.add(rectangleWithLabel, i, j);
+                        rectangles[i][j]=rectangleWithLabel;
+                    }
                 }
             }
-            Tile t1 = new NumberTile(1, 0, 0);
-	        RectangleWithLabel rectangleWithLabel1 = new RectangleWithLabel(100, 100, "1", t1);
-	        RectangleWithLabel rectangleWithLabel2 = new RectangleWithLabel(100, 100, "2", t1);
-	        RectangleWithLabel rectangleWithLabel3 = new RectangleWithLabel(100, 100, "3", t1);
+	        // RectangleWithLabel rectangleWithLabel1 = new RectangleWithLabel(100, 100, "1", t1);
+	        // RectangleWithLabel rectangleWithLabel2 = new RectangleWithLabel(100, 100, "2", t1);
+	        // RectangleWithLabel rectangleWithLabel3 = new RectangleWithLabel(100, 100, "3", t1);
 
 	        // Définir les positions des RectangleWithLabel
-	        rectangleWithLabel1.setLayoutX(100);
-	        rectangleWithLabel1.setLayoutY(100);
-	        rectangleWithLabel2.setLayoutX(200);
-	        rectangleWithLabel2.setLayoutY(200);
-	        rectangleWithLabel3.setLayoutX(300);
-	        rectangleWithLabel3.setLayoutY(300);
+	        // rectangleWithLabel1.setLayoutX(100);
+	        // rectangleWithLabel1.setLayoutY(100);
+	        // rectangleWithLabel2.setLayoutX(200);
+	        // rectangleWithLabel2.setLayoutY(200);
+	        // rectangleWithLabel3.setLayoutX(300);
+	        // rectangleWithLabel3.setLayoutY(300);
 
 	        // Création de la scène
-	        Pane pane = new Pane(rectangleWithLabel1, rectangleWithLabel2, rectangleWithLabel3);
-
-	        RectangleWithLabel[][] rectangles = {
-	                { rectangleWithLabel1, rectangleWithLabel2, rectangleWithLabel3 }
-	            };
+	        //Pane pane = new Pane(rectangleWithLabel1, rectangleWithLabel2, rectangleWithLabel3);
+            // for (int i=0; i < gridPane.length; i++){
+            //     for (int j=0; j < table.length; j++){
+            //         rectangles[i][j]=(RectangleWithLabel) gridPane[i][j];
+            //     }
+            // }
+            // for (int i = 0; i < gridPane.getChildren().size(); i++){
+            //     rectangles[i] = (RectangleWithLabel[]) gridPane.getChildren().get(i);
+            // }
+	        // RectangleWithLabel[][] rectangles = {
+	        //         { rectangleWithLabel1, rectangleWithLabel2, rectangleWithLabel3 }
+	        //     };
 
 	            RectangleDragHandler rectangleDragHandler = new RectangleDragHandler(rectangles);
 	            for (RectangleWithLabel[] row : rectangles) {
@@ -174,7 +205,7 @@ public class CySlideController {
 	                    rectangle.setOnMouseReleased(rectangleDragHandler.createOnMouseReleasedHandler(rectangle));
 	                }
 	            }
-            Scene scene = new Scene(pane, 800, 450);
+            Scene scene = new Scene(gridPane, 800, 450);
 
              this.setViewName("game-view.fxml");
             stage.setScene(scene);
