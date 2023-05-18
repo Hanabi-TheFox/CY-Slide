@@ -44,3 +44,11 @@ Wednesday, May 17:
     Started to make level X (in view).
   Yanis - Renato :
     Work on javaFX. create event and movement for rectangle figure.
+    
+    
+Thursday, May 18:
+  Ethan : 
+  Samy : 
+  Clement :
+  Renato : Problem with the CSV file path has been resolved. Update on LevelX view. Started working on creating a class for dynamically generating the game table.
+  Yanis:

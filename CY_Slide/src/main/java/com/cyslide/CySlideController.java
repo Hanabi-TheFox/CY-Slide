@@ -1,5 +1,6 @@
 package com.cyslide;
 
+import com.cyslide.Model.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -31,6 +32,7 @@ public class CySlideController {
     private Label LevelMenu_Pseudo;
     private CySlideApplication app;
     private String viewName="";
+    private Player player;
 
     /*@FXML
     private void initialize() {
@@ -102,9 +104,10 @@ public class CySlideController {
             writer.write(pseudo + ";0");
             writer.newLine();
             System.out.println("Success in writing file");
-        } catch (IOException e) {
+            this.player = new Player(this.LevelMenu_Pseudo.getText());
+        } catch (IOException | Player.PlayerPseudoException e) {
             e.printStackTrace();
-            System.out.println("Error in writing the file");
+            System.out.println("Error in writing the file or/and creating player object");
         }
     }
     
