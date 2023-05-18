@@ -53,7 +53,7 @@ public class Player {
 
 
 
-    class PlayerPseudoException extends Exception {
+    public class PlayerPseudoException extends Exception {
     public PlayerPseudoException(String message) {
         super(message);
     }
