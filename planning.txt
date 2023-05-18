@@ -42,13 +42,17 @@ Wednesday, May 17:
     Work on javaFX, create back button on menu view
     Try to understand our java functions in order to use them after with javaFX.
     Started to make level X (in view).
-  Yanis - Renato :
+  Yanis :
     Work on javaFX. create event and movement for rectangle figure.
     
-    
 Thursday, May 18:
-  Ethan : 
-  Samy : 
+  Samy :
+    test function level.move, move (NumberTile) and move (EmptyTile) with a table from a file level.csv and makes the necessary modifications.
+    Help Yanis to create a table of type Rectangle in order to create a view from a file level.csv
   Clement :
-  Renato : Problem with the CSV file path has been resolved. Update on LevelX view. Started working on creating a class for dynamically generating the game table.
+    create a function to recover the number of completed level by a player from a csv file. 
+    Continue his work with the automatic resolution (he try to use AStar).
+  Renato : 
+    Problem with the CSV file path has been resolved. Update on LevelX view. Started working on creating a class for dynamically generating the game table.
   Yanis:
+

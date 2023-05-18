@@ -5,7 +5,7 @@ import com.cyslide.Model.Player.PlayerPseudoException;
 // ce main permet de tester nos fonction java
 public class Main{
     public static void main(String[] args) throws PlayerPseudoException{
-        Level level = new Level(1);
+        /*Level level = new Level(1);
         Tile[][] table = level.getTable();
         System.out.println("taille tab" + table.length);
         for (int i=0; i < table.length; i++){
@@ -14,7 +14,7 @@ public class Main{
                 table[i][j].showTile();
             }
         }
-        /* System.out.println("!! test move !!");
+        System.out.println("!! test move !!");
         pour changer la place d'une tuile, on appelle la fonction level.moveTile(posX, posY, direction) avec posX, posY les coordonnées et direction le sens ("UP, DOWN, RIGHT, LEFT")
         level.moveTile(3, 4, "DOWN");
         table[3][4].showTile();
