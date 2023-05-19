@@ -345,4 +345,22 @@ for (int i = 0; i < table.length; i++) {
             stage.setScene(scene);
             stage.show();
     }
+
+    //If we press to quit, we go back to the menu view
+    @FXML
+    private Button quitButton;
+    @FXML
+    protected void OnLevelMenu_QuitButtonClick() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("LevelMenu.fxml"));
+            Stage stage = (Stage) quitButton.getScene().getWindow();
+            Scene scene = new Scene(root, 800, 450);
+
+            this.setViewName("LevelMenu.fxml");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 }
