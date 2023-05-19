@@ -57,13 +57,14 @@ Thursday, May 18:
   Yanis:
     Working on the integration of the new method of graphic generation of levels.
     
-Friday, May 19:
+    Friday, May 19:
   Samy :
     Tries to understand file RectangleWithLabel.java and RectangleDragHandler.java.
     Changes move functions in order to use them with a table of RectangleWithLabel.
     Starts search on a* algorithm.
   Clement :
-
+    Work on AStarAlgo, solve problems like the Manhattan Distance
+    Try to fix other problem like the infinite loop in the terminal (for test before to use it)
   Renato : 
     QuitButton and fixed printing tiles in order. Worked on tile movement.
   Yanis:
