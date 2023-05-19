@@ -10,8 +10,8 @@ public class AStarAlgo {
 
     public class State{
         Tile[][] tiles;
-        int g; // represents the cumulative cost of the path from the initial state to the current state. This is the actual distance traveled to the current state.
-        int f; // represents an estimate of the total cost of the path from the initial state through the current state to the final state.
+        int g; // représente le coût cumulé du chemin depuis l'état initial jusqu'à l'état actuel. Il s'agit de la distance réelle parcourue jusqu'à l'état actuel.
+        int f; // représente une estimation du coût total du chemin depuis l'état initial à travers l'état actuel jusqu'à l'état final.
 
         public State(Tile[][] tiles, int g, int f){
             this.tiles = tiles;
@@ -23,22 +23,23 @@ public class AStarAlgo {
     HashSet<Tile[][]> displayedStates = new HashSet<>();
 
     public void aStar(Tile[][] currentTile, Tile[][] finalTile){
-        // list of states to be explored. It contains the states that still need to be evaluated.
+        // liste des états à explorer. Elle contient les états qui doivent encore être évalués.
         PriorityQueue<State> openList = new PriorityQueue<>(Comparator.comparingInt(s -> s.f));
+
         
-        // list of states that have already been explored. It contains the states that have already been evaluated.
+        // liste des états déjà explorés. Elle contient les états qui ont déjà été évalués.
         HashSet<Tile[][]> closedList = new HashSet<>();
 
-        // Add the initial state to the open set with g = 0 and f = heuristic
+        // Ajouter l'état initial à l'ensemble ouvert avec g = 0 et f = heuristique
         int initialF = calculeManhattanDistance(currentTile, finalTile);
         System.out.println("Dist Manhattan: " + initialF);
         State initialState = new State(currentTile, 0, initialF);
         openList.add(initialState);
 
-        // Convert the openList to a temporary list for displaying its contents
+        // Convertir openList en une liste temporaire pour afficher son contenu
         List<State> tempList = new ArrayList<>(openList);
 
-        // Display the content of the openList
+        // Afficher le contenu de openList
         System.out.println("Contenu de l'openList:");
         for (State state : tempList) {
             System.out.println("Tiles:");
@@ -53,26 +54,32 @@ public class AStarAlgo {
             // Récupérer l'état actuel de la file d'attente openList
             State current = openList.poll();
             currentTile = current.tiles;
-
+        
             //printState(current.tiles);
-
-            // Check if the actual state is the final state
+        
+            // Vérifier si l'état actuel est l'état final
             if (isFinalState(currentTile, finalTile)) {
-                System.out.println("Final state reached!");
+                System.out.println("État final atteint !");
                 break;
             }
 
-            // Adjustement of the actual state into the closed state
+            // Ajouter l'état actuel à l'ensemble fermé
             closedList.add(current.tiles);
             
-            // Generate state neighbors
+            // Générer les voisins de l'état actuel
             List<Tile[][]> neighbors = generateNeighbors(current.tiles);
+            
+            if(neighbors.isEmpty()){
+                System.out.println("Erreur fuck");
+            }
 
             for (Tile[][] neighbor : neighbors) {
-                // Calculate costs for the neighbor state
+                // Calculer les coûts pour l'état voisin
                 int neighborG = current.g + 1;
-                int neighborF = neighborG + calculeManhattanDistance(neighbor, finalTile);
+                int neighborH = calculeManhattanDistance(neighbor, finalTile);
+                int neighborF = neighborG + neighborH;
 
+                // Vérifier si l'état voisin est déjà dans l'ensemble fermé
                 // Check if the neighbor state is already in the closed state
                 if (closedList.contains(neighbor)) {
                     continue;
@@ -95,13 +102,12 @@ public class AStarAlgo {
                 State neighborState = new State(neighbor, neighborG, neighborF);
                 openList.add(neighborState);
 
-                printState(neighbor);
+                printState(neighborState.tiles);
             }
-        
         }
     }
-
-    public void printState(Tile[][] state) {
+          
+        public void printState(Tile[][] state) {
         if (!displayedStates.contains(state)) {
             // Display the state tiles
             System.out.println("Current:");
@@ -126,44 +132,72 @@ public class AStarAlgo {
         List<Tile[][]> neighbors = new ArrayList<>();
     
         // Find the empty tile
-        int emptyRow = -1;
-        int emptyCol = -1;
+        int emptyPosX = -1;
+        int emptyPosY = -1;
         for (int i = 0; i < currentTile.length; i++) {
             for (int j = 0; j < currentTile[i].length; j++) {
-                if (currentTile[i][j] instanceof EmptyTile) {
-                    emptyRow = i;
-                    emptyCol = j;
+                if (currentTile[i][j].getType() == -1) {
+                    emptyPosX = i;
+                    emptyPosY = j;
                     break;
                 }
             }
-            if (emptyRow != -1 && emptyCol != -1) {
+            if (emptyPosX != -1 && emptyPosY != -1) {
                 break;
             }
         }
+        System.out.println("Empty Tile Position: (" + emptyPosX + ", " + emptyPosY + ")");
     
-        // Generate neighboring states by moving adjacent tiles to the empty tile
-        // Example: Move upwards
-        if (emptyRow > 0) {
-            Tile[][] neighbor = cloneTileArray(currentTile);
-            neighbor[emptyRow][emptyCol] = currentTile[emptyRow - 1][emptyCol];
-            neighbor[emptyRow - 1][emptyCol] = new EmptyTile(emptyRow - 1, emptyCol); // Create a new EmptyTile at the moved position
-            neighbors.add(neighbor);
+        // Generate neighbors by moving the tiles adjacent to the empty tile
+        if (emptyPosX > 0) {
+            NumberTile upNeighbor = (NumberTile) currentTile[emptyPosX - 1][emptyPosY];
+            if (upNeighbor.mouvementAvailable("DOWN", currentTile)) {
+                Tile[][] upState = copyState(currentTile);
+                upNeighbor.move("DOWN", upState);
+                neighbors.add(upState);
+            }
         }
     
-        // Generate other neighboring states (move downwards, left, right, etc.)
+        if (emptyPosX < currentTile.length - 1) {
+            NumberTile downNeighbor = (NumberTile) currentTile[emptyPosX + 1][emptyPosY];
+            if (downNeighbor.mouvementAvailable("UP", currentTile)) {
+                Tile[][] downState = copyState(currentTile);
+                downNeighbor.move("UP", downState);
+                neighbors.add(downState);
+            }
+        }
     
+        if (emptyPosY > 0) {
+            NumberTile leftNeighbor = (NumberTile) currentTile[emptyPosX][emptyPosY - 1];
+            if (leftNeighbor.mouvementAvailable("RIGHT", currentTile)) {
+                Tile[][] leftState = copyState(currentTile);
+                leftNeighbor.move("RIGHT", leftState);
+                neighbors.add(leftState);
+            }
+        }
+    
+        if (emptyPosY < currentTile[emptyPosX].length - 1) {
+            NumberTile rightNeighbor = (NumberTile) currentTile[emptyPosX][emptyPosY + 1];
+            if (rightNeighbor.mouvementAvailable("LEFT", currentTile)) {
+                Tile[][] rightState = copyState(currentTile);
+                rightNeighbor.move("LEFT", rightState);
+                neighbors.add(rightState);
+            }
+        }
+        if(neighbors.isEmpty()){
+            System.out.println("Aucun voisin trouvé");
+        }
         return neighbors;
     }
     
-    
-    // Utility method to clone a tile array
-    private Tile[][] cloneTileArray(Tile[][] tiles) {
-        Tile[][] clone = new Tile[tiles.length][];
-        for (int i = 0; i < tiles.length; i++) {
-            clone[i] = tiles[i].clone();
+    private Tile[][] copyState(Tile[][] state) {
+        Tile[][] copy = new Tile[state.length][];
+        for (int i = 0; i < state.length; i++) {
+            copy[i] = state[i].clone();
         }
-        return clone;
+        return copy;
     }
+    
     
 
     public boolean isSameState(Tile[][] state1, Tile[][] state2) {
@@ -241,10 +275,6 @@ public class AStarAlgo {
                 }
             }
         }
-    
         return distance;
     }
-    
-    
-    
 }
