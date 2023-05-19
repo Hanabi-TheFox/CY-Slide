@@ -120,20 +120,16 @@ public class Level{
             }
 
         
-        public boolean moveTile(String direction,RectangleWithLabel rectangle,RectangleWithLabel targetRectangle){
+        public boolean moveTile(int x, int y, String direction, RectangleWithLabel[][] table){
                 // pour changer la place d'une tuile, on appelle la fonction level.moveTile(posX, posY, direction) avec posX, posY les coordonnées et direction le sens ("UP, DOWN, RIGHT, LEFT")
-                int x = rectangle.GetTile().getPosX();
-                int y = rectangle.GetTile().getPosY();
                 System.out.println("Test moveTile");
                         
-                if (!table[x][y].mouvementAvailable(direction, table) || table[x][y].getType() == 0) {
+                if (!table[x][y].GetTile().mouvementAvailable(x, y, direction, table) || table[x][y].GetTile().getType() == 0) {
                         System.out.println("We cannot move this tile.");
                         return false;
                 }else{
-                        table[x][y].move(direction, table);
+                        table[x][y].GetTile().move(direction, table);
                         moveCounter++;
-                        rectangle.GetTile().moved(targetRectangle.GetTile().getPosX(), targetRectangle.GetTile().getPosY());
-                        targetRectangle.GetTile().moved(x, y);
                         return true;
                 }
         }

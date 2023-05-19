@@ -4,8 +4,8 @@ public abstract class Tile{
     private int posY;
     private int type;
 
-    public abstract void move(String direction, Tile [][] table);
-    public abstract boolean mouvementAvailable(String direction, Tile [][] table);
+    public abstract void move(String direction, RectangleWithLabel [][] table);
+    public abstract boolean mouvementAvailable(int x, int y, String direction, RectangleWithLabel [][] table);
     public abstract void moved (int posX, int posY);
 
     public Tile(int posX,int posY) {

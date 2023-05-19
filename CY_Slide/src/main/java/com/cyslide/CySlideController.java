@@ -294,56 +294,55 @@ public class CySlideController {
 
     protected void setLevel(Parent root,Stage stage,Level level){
         
-            // Création des RectangleWithLabel avec des positions prédéfinies
-            Tile [][] table = level.getTable();
-            //GridPane gridPane = new GridPane();
-            Pane pane = new Pane();
-pane.getChildren().add(root);
-int OffsetRight = 400;
-int longeurRectangle = 300 / table.length;
+        // Création des RectangleWithLabel avec des positions prédéfinies
+        Tile [][] table = level.getTable();
+        //GridPane gridPane = new GridPane();
+        Pane pane = new Pane();
+        pane.getChildren().add(root);
+        int OffsetRight = 400;
+        int longeurRectangle = 300 / table.length;
 
-RectangleWithLabel[][] rectangles = new RectangleWithLabel[table.length][table.length];
-for (int i = 0; i < table.length; i++) {
-    for (int j = 0; j < table.length; j++) {
-        if (table[i][j].getType() == -1) {
-            RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, "", table[i][j]);
-            rectangleWithLabel.setLayoutX(OffsetRight + longeurRectangle * j);
-            rectangleWithLabel.setLayoutY(longeurRectangle * i);
-            pane.getChildren().add(rectangleWithLabel);
-            rectangles[i][j] = rectangleWithLabel;
+        RectangleWithLabel[][] rectangles = new RectangleWithLabel[table.length][table.length];
+        for (int i = 0; i < table.length; i++) {
+            for (int j = 0; j < table.length; j++) {
+                if (table[i][j].getType() == -1) { // Empty tile
+                    RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, "", table[i][j]);
+                    rectangleWithLabel.setLayoutX(OffsetRight + longeurRectangle * j);
+                    rectangleWithLabel.setLayoutY(longeurRectangle * i);
+                    pane.getChildren().add(rectangleWithLabel);
+                    rectangles[i][j] = rectangleWithLabel;
+                }
+                if (table[i][j].getType() == 0) { // Indestructible tile
+                    RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, "", table[i][j]);
+                    rectangleWithLabel.setLayoutX(OffsetRight + longeurRectangle * j);
+                    rectangleWithLabel.setLayoutY(longeurRectangle * i);
+                    pane.getChildren().add(rectangleWithLabel);
+                    rectangles[i][j] = rectangleWithLabel;
+                }
+                if (table[i][j].getType() == 1) { // Number tile
+                    NumberTile nb = (NumberTile) table[i][j];
+                    RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, Integer.toString(nb.getNumber()), table[i][j]);
+                    rectangleWithLabel.setLayoutX(OffsetRight + longeurRectangle * j);
+                    rectangleWithLabel.setLayoutY(longeurRectangle * i);
+                    pane.getChildren().add(rectangleWithLabel);
+                    rectangles[i][j] = rectangleWithLabel;
+                }
+            }
         }
-        if (table[i][j].getType() == 0) {
-            RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, "", table[i][j]);
-            rectangleWithLabel.setLayoutX(OffsetRight + longeurRectangle * j);
-            rectangleWithLabel.setLayoutY(longeurRectangle * i);
-            pane.getChildren().add(rectangleWithLabel);
-            rectangles[i][j] = rectangleWithLabel;
+                    
+        RectangleDragHandler rectangleDragHandler = new RectangleDragHandler(rectangles,level);
+        for (RectangleWithLabel[] row : rectangles) {
+            for (RectangleWithLabel rectangle : row) {
+                rectangle.setOnMousePressed(rectangleDragHandler.createOnMousePressedHandler(rectangle));
+                rectangle.setOnMouseDragged(rectangleDragHandler.createOnMouseDraggedHandler(rectangle));
+                rectangle.setOnMouseReleased(rectangleDragHandler.createOnMouseReleasedHandler(rectangle));
+            }
         }
-        if (table[i][j].getType() == 1) {
-            NumberTile nb = (NumberTile) table[i][j];
-            RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, Integer.toString(nb.getNumber()), table[i][j]);
-            rectangleWithLabel.setLayoutX(OffsetRight + longeurRectangle * j);
-            rectangleWithLabel.setLayoutY(longeurRectangle * i);
-            pane.getChildren().add(rectangleWithLabel);
-            rectangles[i][j] = rectangleWithLabel;
-        }
-    }
-}
+        Scene scene = new Scene(pane, 800, 450);
 
-	        
-	            RectangleDragHandler rectangleDragHandler = new RectangleDragHandler(rectangles,level);
-	            for (RectangleWithLabel[] row : rectangles) {
-	                for (RectangleWithLabel rectangle : row) {
-	                    rectangle.setOnMousePressed(rectangleDragHandler.createOnMousePressedHandler(rectangle));
-	                    rectangle.setOnMouseDragged(rectangleDragHandler.createOnMouseDraggedHandler(rectangle));
-	                    rectangle.setOnMouseReleased(rectangleDragHandler.createOnMouseReleasedHandler(rectangle));
-	                }
-	            }
-            Scene scene = new Scene(pane, 800, 450);
-
-             this.setViewName("game-view.fxml");
-            stage.setScene(scene);
-            stage.show();
+        this.setViewName("game-view.fxml");
+        stage.setScene(scene);
+        stage.show();
     }
 
     //If we press to quit, we go back to the menu view
@@ -362,5 +361,5 @@ for (int i = 0; i < table.length; i++) {
         } catch (Exception e) {
             System.out.println(e);
         }
-    }
+    }   
 }

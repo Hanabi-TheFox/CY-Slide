@@ -1,4 +1,4 @@
-package com.cyslide;
+/*package com.cyslide;
 import com.cyslide.Model.RectangleDragHandler;
 import com.cyslide.Model.RectangleWithLabel;
 
@@ -51,4 +51,4 @@ public class GameController {
         
         
     }
-}
+}*/

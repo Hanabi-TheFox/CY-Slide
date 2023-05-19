@@ -52,16 +52,18 @@ public class RectangleDragHandler {
                     RectangleWithLabel currentRectangle = rectangles[i][j];
                     if (currentRectangle != rectangle && isMouseInside(currentRectangle, event)) {
                         targetRectangle = currentRectangle;
+                        int x = rectangle.GetTile().getPosX();
+                        int y = rectangle.GetTile().getPosY();
                         if((rectangle.GetTile().getPosX()-targetRectangle.GetTile().getPosX()==1) && (rectangle.GetTile().getPosY()-targetRectangle.GetTile().getPosY()==0) ){
                             String direction="UP";
-                            if(level.moveTile(direction,rectangle,targetRectangle)){
+                            if(level.moveTile(x, y, direction,rectangles)){
                                 isSwapped = true;
                                 break;
                             }
                         }
                         if((rectangle.GetTile().getPosX()-targetRectangle.GetTile().getPosX()==-1) && (rectangle.GetTile().getPosY()-targetRectangle.GetTile().getPosY()==0) ){
                             String direction="DOWN";
-                            if(level.moveTile(direction,rectangle,targetRectangle)){
+                            if(level.moveTile(x, y, direction,rectangles)){
                                 isSwapped = true;
                                 break;
                             }
@@ -69,7 +71,7 @@ public class RectangleDragHandler {
                         }
                         if((rectangle.GetTile().getPosX()-targetRectangle.GetTile().getPosX()==0) && (rectangle.GetTile().getPosY()-targetRectangle.GetTile().getPosY()==1) ){
                             String direction="LEFT";
-                            if(level.moveTile(direction,rectangle,targetRectangle)){
+                            if(level.moveTile(x, y, direction,rectangles)){
                                 isSwapped = true;
                                 break;
                             }
@@ -78,16 +80,11 @@ public class RectangleDragHandler {
                         }
                         if((rectangle.GetTile().getPosX()-targetRectangle.GetTile().getPosX()==0) && (rectangle.GetTile().getPosY()-targetRectangle.GetTile().getPosY()==-1) ){
                             String direction="RIGHT";
-                            if(level.moveTile(direction,rectangle,targetRectangle)){
+                            if(level.moveTile(x, y, direction,rectangles)){
                                 isSwapped = true;
                                 break;
-                                
                             }
-                            
                         }
-                        
-                        
-                        
                     }
                 }
                 if (isSwapped) {
@@ -125,9 +122,6 @@ public class RectangleDragHandler {
         rectangle1.setLayoutX(tempLayoutX);
         rectangle1.setLayoutY(tempLayoutY);
         rectangle2.setLayoutX(initialLayoutX);
-        rectangle2.setLayoutY(initialLayoutY);
-        rectangles[rectangle1.GetTile().getPosX()][rectangle1.GetTile().getPosY()]=rectangle2;
-        rectangles[rectangle2.GetTile().getPosX()][rectangle2.GetTile().getPosY()]=rectangle1;
-        
+        rectangle2.setLayoutY(initialLayoutY);        
     }
 }
