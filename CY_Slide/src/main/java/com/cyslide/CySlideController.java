@@ -140,7 +140,7 @@ public class CySlideController {
             // Parent root = FXMLLoader.load(getClass().getResource("game-view.fxml"));
             Stage stage = (Stage) LevelMenu_1.getScene().getWindow();
             // creation of level 1
-            Level level = new Level(9);
+            Level level = new Level(1);
             // Création des RectangleWithLabel avec des positions prédéfinies
             Tile [][] table = level.getTable();
             //GridPane gridPane = new GridPane();

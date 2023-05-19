@@ -9,15 +9,15 @@ public class IndestructibleTile extends Tile {
 
     @Override
     public void moved (int posX, int posY){
-        // this id function for EmptyTile
+        // this if function for another type of tile.
     }
     @Override
     public void move(String direction, Tile [][] table){
-        // this if function for NumberTile
+        // this if function for another type of tile.
     }
     @Override
     public boolean mouvementAvailable(String direction, Tile [][] table){
-        // this is function for NumberTile
+        // this if function for another type of tile.
         return true;
     }
 }

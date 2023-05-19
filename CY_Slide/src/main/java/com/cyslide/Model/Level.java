@@ -86,7 +86,8 @@ public class Level{
                         e.printStackTrace();
                         System.out.println("Error reading file");
                 }
-        
+                System.out.println("Ligne : " + numRow);
+                System.out.println("Col : " + numCol);
                 tab = new Tile[numRow][numCol];
 
                 try (BufferedReader br = new BufferedReader(new FileReader(pathFile))) {
@@ -97,15 +98,12 @@ public class Level{
                             for (int col = 0; col < rowValues.length; col++) {
                                 int value = Integer.parseInt(rowValues[col]);
                                 if (value == 1){ // So it's a number tile
-                                        NumberTile nb = new NumberTile(counter, row, col);
-                                        tab[row][col] = (Tile) nb;
+                                        tab[row][col] = new NumberTile(counter, row, col);
                                         counter++;
                                 }else if(value == -1){ // it's an empty tile 
-                                        EmptyTile empty = new EmptyTile(row, col);
-                                        tab[row][col] = (Tile) empty;
+                                        tab[row][col] = new EmptyTile(row, col);
                                 }else { // it's an indestructible tile
-                                        IndestructibleTile ind = new IndestructibleTile(row, col);
-                                        tab[row][col] = (Tile) ind;
+                                        tab[row][col] = new IndestructibleTile(row, col);
                                 }
                             }
                             row++;
