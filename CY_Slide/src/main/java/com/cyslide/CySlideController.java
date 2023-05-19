@@ -143,7 +143,9 @@ public class CySlideController {
             Level level = new Level(9);
             // Création des RectangleWithLabel avec des positions prédéfinies
             Tile [][] table = level.getTable();
-            //gridPane.getChildren().clear();
+            //GridPane gridPane = new GridPane();
+            Pane pane = new Pane();
+            
             RectangleWithLabel[][] rectangles=new RectangleWithLabel[table.length][table.length];
             for (int i=0; i < table.length; i++){
                 for (int j=0; j < table.length; j++){
@@ -152,6 +154,7 @@ public class CySlideController {
                         rectangleWithLabel.setLayoutX(100*i);
 	                    rectangleWithLabel.setLayoutY(100*j);
                         //gridPane.add(rectangleWithLabel, i, j);
+                        pane.getChildren().add(rectangleWithLabel);
                         rectangles[i][j]=rectangleWithLabel;
                     }
                     if(table[i][j].getType()==0){
@@ -159,14 +162,16 @@ public class CySlideController {
                         rectangleWithLabel.setLayoutX(100*i);
 	                    rectangleWithLabel.setLayoutY(100*j);
                         //gridPane.add(rectangleWithLabel, i, j);
+                        pane.getChildren().add(rectangleWithLabel);
                         rectangles[i][j]=rectangleWithLabel;
                     }
                     if(table[i][j].getType()==1){
-                        NumberTile nb=(NumberTile) table[i][j];
+                        NumberTile nb=(NumberTile) table[j][i];
                         RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(100, 100, Integer.toString(nb.getNumber()), table[i][j]);
                         rectangleWithLabel.setLayoutX(100*i);
 	                    rectangleWithLabel.setLayoutY(100*j);
                         //gridPane.add(rectangleWithLabel, i, j);
+                        pane.getChildren().add(rectangleWithLabel);
                         rectangles[i][j]=rectangleWithLabel;
                     }
                 }
@@ -205,7 +210,8 @@ public class CySlideController {
 	                    rectangle.setOnMouseReleased(rectangleDragHandler.createOnMouseReleasedHandler(rectangle));
 	                }
 	            }
-            Scene scene = new Scene(gridPane, 800, 450);
+            Scene scene = new Scene(pane, 800, 450);
+            //gridPane.getChildren().clear();
 
              this.setViewName("game-view.fxml");
             stage.setScene(scene);
