@@ -135,12 +135,165 @@ public class CySlideController {
     private Button LevelMenu_1;
     @FXML
     protected void OnLevelMenu_1ButtonClick() {
-         // We move to the game-view.fxml page
          try {
             Parent root = FXMLLoader.load(getClass().getResource("LevelX.fxml"));
             Stage stage = (Stage) LevelMenu_1.getScene().getWindow();
             // creation of level 1
             Level level = new Level(1);
+            setLevel(root,stage,level);
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    @FXML
+    private Button LevelMenu_2;
+    @FXML
+    protected void OnLevelMenu_2ButtonClick() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("LevelX.fxml"));
+            Stage stage = (Stage) LevelMenu_2.getScene().getWindow();
+            // creation of level 2
+            Level level = new Level(2);
+            setLevel(root,stage,level);
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+    }
+
+    @FXML
+    private Button LevelMenu_3;
+    @FXML
+    protected void OnLevelMenu_3ButtonClick() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("LevelX.fxml"));
+            Stage stage = (Stage) LevelMenu_3.getScene().getWindow();
+            // creation of level 3
+            Level level = new Level(3);
+            setLevel(root,stage,level);
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    @FXML
+    private Button LevelMenu_4;
+    @FXML
+    protected void OnLevelMenu_4ButtonClick() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("LevelX.fxml"));
+            Stage stage = (Stage) LevelMenu_4.getScene().getWindow();
+            // creation of level 4
+            Level level = new Level(4);
+            setLevel(root,stage,level);
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    @FXML
+    private Button LevelMenu_5;
+    @FXML
+    protected void OnLevelMenu_5ButtonClick() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("LevelX.fxml"));
+            Stage stage = (Stage) LevelMenu_5.getScene().getWindow();
+            // creation of level 5
+            Level level = new Level(5);
+            setLevel(root,stage,level);
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    @FXML
+    private Button LevelMenu_6;
+    @FXML
+    protected void OnLevelMenu_6ButtonClick() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("LevelX.fxml"));
+            Stage stage = (Stage) LevelMenu_6.getScene().getWindow();
+            // creation of level 6
+            Level level = new Level(6);
+            setLevel(root,stage,level);
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    @FXML
+    private Button LevelMenu_7;
+    @FXML
+    protected void OnLevelMenu_7ButtonClick() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("LevelX.fxml"));
+            Stage stage = (Stage) LevelMenu_7.getScene().getWindow();
+            // creation of level 7
+            Level level = new Level(7);
+            setLevel(root,stage,level);
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    @FXML
+    private Button LevelMenu_8;
+    @FXML
+    protected void OnLevelMenu_8ButtonClick() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("LevelX.fxml"));
+            Stage stage = (Stage) LevelMenu_8.getScene().getWindow();
+            // creation of level 8
+            Level level = new Level(8);
+            setLevel(root,stage,level);
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    @FXML
+    private Button LevelMenu_9;
+    @FXML
+    protected void OnLevelMenu_9ButtonClick() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("LevelX.fxml"));
+            Stage stage = (Stage) LevelMenu_9.getScene().getWindow();
+            // creation of level 9
+            Level level = new Level(9);
+            setLevel(root,stage,level);
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    @FXML
+    private Button LevelMenu_10;
+    @FXML
+    protected void OnLevelMenu_10ButtonClick() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("LevelX.fxml"));
+            Stage stage = (Stage) LevelMenu_10.getScene().getWindow();
+            // creation of level 10
+            Level level = new Level(10);
+            setLevel(root,stage,level);
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    protected void setLevel(Parent root,Stage stage,Level level){
+        
             // Création des RectangleWithLabel avec des positions prédéfinies
             Tile [][] table = level.getTable();
             //GridPane gridPane = new GridPane();
@@ -191,62 +344,5 @@ for (int i = 0; i < table.length; i++) {
              this.setViewName("game-view.fxml");
             stage.setScene(scene);
             stage.show();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    @FXML
-    private Button LevelMenu_2;
-    @FXML
-    protected void OnLevelMenu_2ButtonClick() {
-    }
-
-    @FXML
-    private Button LevelMenu_3;
-    @FXML
-    protected void OnLevelMenu_3ButtonClick() {
-    }
-
-    @FXML
-    private Button LevelMenu_4;
-    @FXML
-    protected void OnLevelMenu_4ButtonClick() {
-    }
-
-    @FXML
-    private Button LevelMenu_5;
-    @FXML
-    protected void OnLevelMenu_5ButtonClick() {
-    }
-
-    @FXML
-    private Button LevelMenu_6;
-    @FXML
-    protected void OnLevelMenu_6ButtonClick() {
-    }
-
-    @FXML
-    private Button LevelMenu_7;
-    @FXML
-    protected void OnLevelMenu_7ButtonClick() {
-    }
-
-    @FXML
-    private Button LevelMenu_8;
-    @FXML
-    protected void OnLevelMenu_8ButtonClick() {
-    }
-
-    @FXML
-    private Button LevelMenu_9;
-    @FXML
-    protected void OnLevelMenu_9ButtonClick() {
-    }
-
-    @FXML
-    private Button LevelMenu_10;
-    @FXML
-    protected void OnLevelMenu_10ButtonClick() {
     }
 }
