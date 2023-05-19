@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AStarAlgo {
 
-    public static class State{
+    public class State{
         Tile[][] tiles;
         int g; // represents the cumulative cost of the path from the initial state to the current state. This is the actual distance traveled to the current state.
         int f; // represents an estimate of the total cost of the path from the initial state through the current state to the final state.
@@ -20,7 +20,7 @@ public class AStarAlgo {
         }
     }
 
-    
+    HashSet<Tile[][]> displayedStates = new HashSet<>();
 
     public void aStar(Tile[][] currentTile, Tile[][] finalTile){
         // list of states to be explored. It contains the states that still need to be evaluated.
@@ -31,29 +31,32 @@ public class AStarAlgo {
 
         // Add the initial state to the open set with g = 0 and f = heuristic
         int initialF = calculeManhattanDistance(currentTile, finalTile);
+        System.out.println("Dist Manhattan : " + initialF);
         State initialState = new State(currentTile, 0, initialF);
         openList.add(initialState);
+
+        // Afficher le contenu de l'openList
+        System.out.println("Contenu de l'openList :");
+        for (State state : openList) {
+            // Vous pouvez accéder aux attributs de l'état comme state.tiles, state.g, state.f, etc.
+            // Vous pouvez personnaliser le format d'affichage selon vos besoins
+            // System.out.println("Tiles : " + state.tiles);
+            System.out.println("g : " + state.g);
+            System.out.println("f : " + state.f);
+            System.out.println("----------------------");
+        }
+
+
         
-        while (!openList.isEmpty()) {
+        while (!openList.isEmpty() && !isFinalState(currentTile, finalTile)) {
+
             // Récupérer l'état actuel de la file d'attente openList
             State current = openList.poll();
             currentTile = current.tiles;
 
-            System.out.println("Current state:");
-            for (int i = 0; i < currentTile.length; i++) {
-                for (int j = 0; j < currentTile[i].length; j++) {
-                    if (currentTile[i][j].getType() == 1) {
-                        NumberTile nb = (NumberTile) currentTile[i][j];
-                        System.out.print(nb.getNumber() + " ");
-                    } else {
-                        System.out.print("  ");
-                    }
-                }
-                System.out.println();
-            }
+            //printState(currentTile);
 
-
-            // Vérifier si l'état actuel est l'état final
+            // Check if the actual state is the final state
             if (isFinalState(currentTile, finalTile)) {
                 System.out.println("Final state reached!");
                 break;
@@ -96,10 +99,33 @@ public class AStarAlgo {
                 // Add the neighbor to the open state
                 State neighborState = new State(neighbor, neighborG, neighborF);
                 openList.add(neighborState);
+
+                printState(neighbor);
             }
         
         }
     }
+
+    public void printState(Tile[][] state) {
+        if (!displayedStates.contains(state)) {
+            // Display the state tiles
+            System.out.println("Current:");
+            for (int i = 0; i < state.length; i++) {
+                for (int j = 0; j < state[i].length; j++) {
+                    if (state[i][j].getType() == 1) {
+                        NumberTile numberTile = (NumberTile) state[i][j];
+                        System.out.print(numberTile.getNumber() + " ");
+                    } else {
+                        System.out.print("  ");
+                    }
+                }
+                System.out.println();
+            }
+            System.out.println();
+            displayedStates.add(state); // Add the state to the set of displayed states
+        }
+    }
+    
     
     public List<Tile[][]> generateNeighbors(Tile[][] currentTile) {
         List<Tile[][]> neighbors = new ArrayList<>();
@@ -168,7 +194,6 @@ public class AStarAlgo {
             return false;
         }
 
-    
         // Compare the tiles of the two states to check their equality
         for (int i = 0; i < currentState.length; i++) {
             for (int j = 0; j < currentState[i].length; j++) {
@@ -188,37 +213,42 @@ public class AStarAlgo {
 
     public int calculeManhattanDistance(Tile[][] currentTile, Tile[][] finalTile) {
         int distance = 0;
-
+    
         for (int i = 0; i < currentTile.length; i++) {
             for (int j = 0; j < currentTile[i].length; j++) {
-                //Recover the current tile at the position i,j
+                // Recover the current tile at the position i, j
                 Tile currentTileValue = currentTile[i][j];
-                if (currentTileValue != null) { // Ignore empty tile
+                if (currentTileValue != null && currentTileValue instanceof NumberTile) { // Ignore empty tiles and other types of tiles
                     int targetRow = -1;
                     int targetCol = -1;
-
+    
                     // Find the final position of the tile in finalTile
                     for (int k = 0; k < finalTile.length; k++) {
                         for (int l = 0; l < finalTile[k].length; l++) {
-                            // if the finalTile is found , coordinates are saved in targetRow and targetCol
-                            if (finalTile[k][l] != null && finalTile[k][l].getType() == currentTileValue.getType()) {
+                            // If the corresponding tile is found and is an instance of NumberTile, save the coordinates
+                            if (finalTile[k][l] != null && finalTile[k][l] instanceof NumberTile && ((NumberTile) finalTile[k][l]).getNumber() == ((NumberTile) currentTileValue).getNumber()) {
                                 targetRow = k;
                                 targetCol = l;
                                 break;
                             }
                         }
-                        // to optimize the search
+                        // Optimize the search
                         if (targetRow != -1 && targetCol != -1) {
                             break;
                         }
                     }
-                    // to calculate the Manhattan distance
+    
+                    // Calculate the Manhattan distance
                     if (targetRow != -1 && targetCol != -1) {
                         distance += Math.abs(i - targetRow) + Math.abs(j - targetCol);
                     }
                 }
             }
         }
+    
         return distance;
     }
+    
+    
+    
 }
