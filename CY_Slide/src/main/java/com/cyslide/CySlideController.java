@@ -331,7 +331,7 @@ for (int i = 0; i < table.length; i++) {
 }
 
 	        
-	            RectangleDragHandler rectangleDragHandler = new RectangleDragHandler(rectangles);
+	            RectangleDragHandler rectangleDragHandler = new RectangleDragHandler(rectangles,level);
 	            for (RectangleWithLabel[] row : rectangles) {
 	                for (RectangleWithLabel rectangle : row) {
 	                    rectangle.setOnMousePressed(rectangleDragHandler.createOnMousePressedHandler(rectangle));

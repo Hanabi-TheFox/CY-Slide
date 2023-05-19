@@ -119,16 +119,25 @@ public class Level{
                 return tab;
             }
 
-        public void moveTile(int posX,int posY,String direction){
-                //the mouvement direction can be Left,Right,Up,Down
-                //We verify if the neighbor is 0 (it doest exist, is empty)
-                if (!table[posX][posY].mouvementAvailable(direction, table) || table[posX][posY].getType() == 0) {
+        
+        public boolean moveTile(String direction,RectangleWithLabel rectangle,RectangleWithLabel targetRectangle){
+                // pour changer la place d'une tuile, on appelle la fonction level.moveTile(posX, posY, direction) avec posX, posY les coordonnées et direction le sens ("UP, DOWN, RIGHT, LEFT")
+                int x = rectangle.GetTile().getPosX();
+                int y = rectangle.GetTile().getPosY();
+                System.out.println("Test moveTile");
+                        
+                if (!table[x][y].mouvementAvailable(direction, table) || table[x][y].getType() == 0) {
                         System.out.println("We cannot move this tile.");
+                        return false;
                 }else{
-                        table[posX][posY].move(direction, table);
+                        table[x][y].move(direction, table);
                         moveCounter++;
+                        rectangle.GetTile().moved(targetRectangle.GetTile().getPosX(), targetRectangle.GetTile().getPosY());
+                        targetRectangle.GetTile().moved(x, y);
+                        return true;
                 }
         }
+        
         public boolean isCompleted(){
                 //TODO
                 return false;
