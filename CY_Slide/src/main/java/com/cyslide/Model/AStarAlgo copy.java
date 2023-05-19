@@ -1,4 +1,8 @@
-package com.cyslide.Model;
+// NE PAS TOUCHER
+
+//Cette config boucle infini et fais des changements pas logique
+
+/*package com.cyslide.Model;
 
 import java.util.PriorityQueue;
 import java.util.HashSet;
@@ -10,8 +14,8 @@ public class AStarAlgo {
 
     public class State{
         Tile[][] tiles;
-        int g; // represents the cumulative cost of the path from the initial state to the current state. It is the actual distance traveled to reach the current state.
-        int f; // represents an estimate of the total cost of the path from the initial state, through the current state, to the final state.
+        int g; // représente le coût cumulé du chemin depuis l'état initial jusqu'à l'état actuel. Il s'agit de la distance réelle parcourue jusqu'à l'état actuel.
+        int f; // représente une estimation du coût total du chemin depuis l'état initial à travers l'état actuel jusqu'à l'état final.
 
         public State(Tile[][] tiles, int g, int f){
             this.tiles = tiles;
@@ -22,24 +26,25 @@ public class AStarAlgo {
 
     HashSet<Tile[][]> displayedStates = new HashSet<>();
 
-    public void aStar(Tile[][] currentTile, Tile[][] finalTile) {
-        // List of states to explore. It contains the states that still need to be evaluated.
+    public void aStar(Tile[][] currentTile, Tile[][] finalTile){
+        // liste des états à explorer. Elle contient les états qui doivent encore être évalués.
         PriorityQueue<State> openList = new PriorityQueue<>(Comparator.comparingInt(s -> s.f));
-    
-        // List of states already explored. It contains the states that have already been evaluated.
+
+        
+        // liste des états déjà explorés. Elle contient les états qui ont déjà été évalués.
         HashSet<Tile[][]> closedList = new HashSet<>();
-    
-        // Add the initial state to the open set with g = 0 and f = heuristic
+
+        // Ajouter l'état initial à l'ensemble ouvert avec g = 0 et f = heuristique
         int initialF = calculeManhattanDistance(currentTile, finalTile);
-        System.out.println("Manhattan Distance: " + initialF);
+        System.out.println("Dist Manhattan: " + initialF);
         State initialState = new State(currentTile, 0, initialF);
         openList.add(initialState);
-    
-        // Convert openList to a temporary list to display its content
+
+        // Convertir openList en une liste temporaire pour afficher son contenu
         List<State> tempList = new ArrayList<>(openList);
-    
-        // Display the content of openList
-        System.out.println("Content of openList:");
+
+        // Afficher le contenu de openList
+        System.out.println("Contenu de l'openList:");
         for (State state : tempList) {
             System.out.println("Tiles:");
             printState(state.tiles);
@@ -47,43 +52,44 @@ public class AStarAlgo {
             System.out.println("f: " + state.f);
             System.out.println("----------------------");
         }
-    
+
         while (!openList.isEmpty() && !isFinalState(currentTile, finalTile)) {
-    
-            // Get the current state from the openList queue
+
+            // Récupérer l'état actuel de la file d'attente openList
             State current = openList.poll();
             currentTile = current.tiles;
-    
+        
             //printState(current.tiles);
-    
-            // Check if the current state is the final state
+        
+            // Vérifier si l'état actuel est l'état final
             if (isFinalState(currentTile, finalTile)) {
-                System.out.println("Final state reached!");
+                System.out.println("État final atteint !");
                 break;
             }
-    
-            // Add the current state to the closed set
+
+            // Ajouter l'état actuel à l'ensemble fermé
             closedList.add(current.tiles);
-    
-            // Generate the neighbors of the current state
+            
+            // Générer les voisins de l'état actuel
             List<Tile[][]> neighbors = generateNeighbors(current.tiles);
-    
-            if (neighbors.isEmpty()) {
-                System.out.println("Error fuck");
+            
+            if(neighbors.isEmpty()){
+                System.out.println("Erreur fuck");
             }
-    
+
             for (Tile[][] neighbor : neighbors) {
-                // Calculate the costs for the neighbor state
+                // Calculer les coûts pour l'état voisin
                 int neighborG = current.g + 1;
                 int neighborH = calculeManhattanDistance(neighbor, finalTile);
                 int neighborF = neighborG + neighborH;
-    
-                // Check if the neighbor state is already in the closed set
+
+                // Vérifier si l'état voisin est déjà dans l'ensemble fermé
+                // Check if the neighbor state is already in the closed state
                 if (closedList.contains(neighbor)) {
                     continue;
                 }
-    
-                // Check if the neighbor state is already in the open set with a better cost
+
+                // Check if the neighbor state is already in the open state with a better cost
                 boolean isOpenBetter = false;
                 for (State openState : openList) {
                     if (isSameState(openState.tiles, neighbor) && neighborG < openState.g) {
@@ -91,20 +97,19 @@ public class AStarAlgo {
                         break;
                     }
                 }
-    
+
                 if (isOpenBetter) {
                     continue;
                 }
-    
-                // Add the neighbor to the open set
+
+                // Add the neighbor to the open state
                 State neighborState = new State(neighbor, neighborG, neighborF);
                 openList.add(neighborState);
-    
+
                 printState(neighborState.tiles);
             }
         }
     }
-    
           
         public void printState(Tile[][] state) {
         if (!displayedStates.contains(state)) {
@@ -276,4 +281,4 @@ public class AStarAlgo {
         }
         return distance;
     }
-}
+}*/

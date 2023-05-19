@@ -48,8 +48,9 @@ public class Main{
 
         }
         */
-        int rows = 3;
-        int cols = 3;
+        
+
+        // Ne fonctionne plus je ne sais pas pourquoi...
         //Level level = new Level(2);
         /*
         Tile[][] finalState = level.getTable();
@@ -67,6 +68,10 @@ public class Main{
         }
         */
 
+        // Initialisation des matrices pour tester l'algo mais boucle infini
+        /*
+        int rows = 3;
+        int cols = 3;
         Tile[][] finalState = new Tile[rows][cols];
         finalState[0][0] = new NumberTile(1,0,0);
         finalState[0][1] = new NumberTile(2,0,1);
@@ -118,6 +123,6 @@ public class Main{
         }
         AStarAlgo aStarAlgo = new AStarAlgo();
         aStarAlgo.aStar(initialState, finalState);
-         
+         */
     }
 }

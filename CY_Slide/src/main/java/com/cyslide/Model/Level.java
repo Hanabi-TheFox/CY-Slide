@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * @author @RDNATOS
+ * @author @Ymasuu
+ */
 public class Level{
         private int number;
         private int moveCounter;
