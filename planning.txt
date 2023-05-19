@@ -56,3 +56,9 @@ Thursday, May 18:
     Problem with the CSV file path has been resolved. Update on LevelX view. Started working on creating a class for dynamically generating the game table.
   Yanis:
     Working on the integration of the new method of graphic generation of levels.
+    
+    Friday, May 19:
+  Samy :
+  Clement :
+  Renato : QuitButton and fixed printing tiles in order. Worked on tile mouvement.
+  Yanis:
