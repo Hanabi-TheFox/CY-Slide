@@ -4,7 +4,9 @@ import java.util.HashSet;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
+/**
+ * @author @RDNATOS
+ */
 public class Player {
     private String pseudo;
     private int levelResolved; //indicates the number of the last level accomplished by the player
@@ -23,6 +25,12 @@ public class Player {
         return pseudo;
     }
 
+    /**
+     * Returns number of the last level completed
+     * @param none
+     * @return
+     * @throws PlayerPseudoException
+     */
     public int recoverNbOfCompletedLvl() throws PlayerPseudoException{
         String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Player.csv";
     

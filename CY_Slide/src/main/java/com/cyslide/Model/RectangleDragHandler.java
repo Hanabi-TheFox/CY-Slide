@@ -4,6 +4,11 @@ import com.cyslide.Model.RectangleDragHandler;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
+
+/**
+ * @author @Ymasuu
+ *
+ */
 public class RectangleDragHandler {
 
     private double mouseAnchorX;
