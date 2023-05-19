@@ -166,7 +166,7 @@ public class CySlideController {
                         rectangles[i][j]=rectangleWithLabel;
                     }
                     if(table[i][j].getType()==1){
-                        NumberTile nb=(NumberTile) table[j][i];
+                        NumberTile nb=(NumberTile) table[i][j];
                         RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(100, 100, Integer.toString(nb.getNumber()), table[i][j]);
                         rectangleWithLabel.setLayoutX(100*i);
 	                    rectangleWithLabel.setLayoutY(100*j);
