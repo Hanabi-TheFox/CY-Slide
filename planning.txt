@@ -69,4 +69,5 @@ Thursday, May 18:
   Renato: 
     QuitButton and fixed printing tiles in order. Worked on tile movement.
   Yanis:
+  worked on the resolution of issues in the movement of the tiles.
 
