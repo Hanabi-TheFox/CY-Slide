@@ -20,4 +20,13 @@ public class IndestructibleTile extends Tile {
         // this if function for another type of tile.
         return true;
     }
+    @Override
+    public void move2(String direction, Tile [][] table){
+        // this if function for another type of tile.
+    }
+    @Override
+    public boolean mouvementAvailable2(String direction, Tile [][] table){
+        // this if function for another type of tile.
+        return true;
+    }
 }

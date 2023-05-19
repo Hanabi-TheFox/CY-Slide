@@ -8,6 +8,9 @@ public abstract class Tile{
     public abstract boolean mouvementAvailable(int x, int y, String direction, RectangleWithLabel [][] table);
     public abstract void moved (int posX, int posY);
 
+    public abstract void move2(String direction, Tile [][] table);
+    public abstract boolean mouvementAvailable2(String direction, Tile [][] table);
+
     public Tile(int posX,int posY) {
         this.posX = posX;
         this.posY = posY;

@@ -150,36 +150,36 @@ public class AStarAlgo {
         // Generate neighbors by moving the tiles adjacent to the empty tile
         if (emptyPosX > 0) {
             NumberTile upNeighbor = (NumberTile) currentTile[emptyPosX - 1][emptyPosY];
-            if (upNeighbor.mouvementAvailable("DOWN", currentTile)) {
+            if (upNeighbor.mouvementAvailable2("DOWN", currentTile)) {
                 Tile[][] upState = copyState(currentTile);
-                upNeighbor.move("DOWN", upState);
+                upNeighbor.move2("DOWN", upState);
                 neighbors.add(upState);
             }
         }
     
         if (emptyPosX < currentTile.length - 1) {
             NumberTile downNeighbor = (NumberTile) currentTile[emptyPosX + 1][emptyPosY];
-            if (downNeighbor.mouvementAvailable("UP", currentTile)) {
+            if (downNeighbor.mouvementAvailable2("UP", currentTile)) {
                 Tile[][] downState = copyState(currentTile);
-                downNeighbor.move("UP", downState);
+                downNeighbor.move2("UP", downState);
                 neighbors.add(downState);
             }
         }
     
         if (emptyPosY > 0) {
             NumberTile leftNeighbor = (NumberTile) currentTile[emptyPosX][emptyPosY - 1];
-            if (leftNeighbor.mouvementAvailable("RIGHT", currentTile)) {
+            if (leftNeighbor.mouvementAvailable2("RIGHT", currentTile)) {
                 Tile[][] leftState = copyState(currentTile);
-                leftNeighbor.move("RIGHT", leftState);
+                leftNeighbor.move2("RIGHT", leftState);
                 neighbors.add(leftState);
             }
         }
     
         if (emptyPosY < currentTile[emptyPosX].length - 1) {
             NumberTile rightNeighbor = (NumberTile) currentTile[emptyPosX][emptyPosY + 1];
-            if (rightNeighbor.mouvementAvailable("LEFT", currentTile)) {
+            if (rightNeighbor.mouvementAvailable2("LEFT", currentTile)) {
                 Tile[][] rightState = copyState(currentTile);
-                rightNeighbor.move("LEFT", rightState);
+                rightNeighbor.move2("LEFT", rightState);
                 neighbors.add(rightState);
             }
         }

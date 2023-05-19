@@ -69,7 +69,7 @@ public class Main{
         */
 
         // Initialisation des matrices pour tester l'algo mais boucle infini
-        /*
+        
         int rows = 3;
         int cols = 3;
         Tile[][] finalState = new Tile[rows][cols];
@@ -123,6 +123,6 @@ public class Main{
         }
         AStarAlgo aStarAlgo = new AStarAlgo();
         aStarAlgo.aStar(initialState, finalState);
-         */
+        
     }
 }
