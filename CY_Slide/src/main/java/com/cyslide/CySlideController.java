@@ -145,40 +145,38 @@ public class CySlideController {
             Tile [][] table = level.getTable();
             //GridPane gridPane = new GridPane();
             Pane pane = new Pane();
-            pane.getChildren().add(root);
- int OffsetRight=400;
-            int longeurRectangle=300/table.length;
-            
-            RectangleWithLabel[][] rectangles=new RectangleWithLabel[table.length][table.length];
-            for (int i=0; i < table.length; i++){
-                for (int j=0; j < table.length; j++){
-                    if(table[i][j].getType()==-1){
- RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle,longeurRectangle, "", table[i][j]);
-                        rectangleWithLabel.setLayoutX(OffsetRight + longeurRectangle*i);
-	                    rectangleWithLabel.setLayoutY(longeurRectangle*j);
-                        //gridPane.add(rectangleWithLabel, i, j);
-                        pane.getChildren().add(rectangleWithLabel);
-                        rectangles[i][j]=rectangleWithLabel;
-                    }
-                    if(table[i][j].getType()==0){
-RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, "", table[i][j]);
-                        rectangleWithLabel.setLayoutX(OffsetRight +longeurRectangle*i);
-	                    rectangleWithLabel.setLayoutY(longeurRectangle*j);
-                        //gridPane.add(rectangleWithLabel, i, j);
-                        pane.getChildren().add(rectangleWithLabel);
-                        rectangles[i][j]=rectangleWithLabel;
-                    }
-                    if(table[i][j].getType()==1){
-                        NumberTile nb=(NumberTile) table[i][j];
-RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, Integer.toString(nb.getNumber()), table[i][j]);
-                        rectangleWithLabel.setLayoutX(OffsetRight +longeurRectangle*i);
-	                    rectangleWithLabel.setLayoutY(longeurRectangle*j);
-                        //gridPane.add(rectangleWithLabel, i, j);
-                        pane.getChildren().add(rectangleWithLabel);
-                        rectangles[i][j]=rectangleWithLabel;
-                    }
-                }
-            }
+pane.getChildren().add(root);
+int OffsetRight = 400;
+int longeurRectangle = 300 / table.length;
+
+RectangleWithLabel[][] rectangles = new RectangleWithLabel[table.length][table.length];
+for (int i = 0; i < table.length; i++) {
+    for (int j = 0; j < table.length; j++) {
+        if (table[i][j].getType() == -1) {
+            RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, "", table[i][j]);
+            rectangleWithLabel.setLayoutX(OffsetRight + longeurRectangle * j);
+            rectangleWithLabel.setLayoutY(longeurRectangle * i);
+            pane.getChildren().add(rectangleWithLabel);
+            rectangles[i][j] = rectangleWithLabel;
+        }
+        if (table[i][j].getType() == 0) {
+            RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, "", table[i][j]);
+            rectangleWithLabel.setLayoutX(OffsetRight + longeurRectangle * j);
+            rectangleWithLabel.setLayoutY(longeurRectangle * i);
+            pane.getChildren().add(rectangleWithLabel);
+            rectangles[i][j] = rectangleWithLabel;
+        }
+        if (table[i][j].getType() == 1) {
+            NumberTile nb = (NumberTile) table[i][j];
+            RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, Integer.toString(nb.getNumber()), table[i][j]);
+            rectangleWithLabel.setLayoutX(OffsetRight + longeurRectangle * j);
+            rectangleWithLabel.setLayoutY(longeurRectangle * i);
+            pane.getChildren().add(rectangleWithLabel);
+            rectangles[i][j] = rectangleWithLabel;
+        }
+    }
+}
+
 	        
 	            RectangleDragHandler rectangleDragHandler = new RectangleDragHandler(rectangles);
 	            for (RectangleWithLabel[] row : rectangles) {
