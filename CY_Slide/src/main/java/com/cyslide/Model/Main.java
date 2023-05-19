@@ -14,8 +14,14 @@ public class Main{
                 table[i][j].showTile();
             }
         }
-
-        System.out.println("record du niveau " + level.getNumber() + " est : " + level.getRecord());
+        System.out.println("\ntest isCompleted() : \n");
+        level.getTable()[2][2].SwapTile(2, 0, 1, 0, level.getTable());
+        table[1][0].showTile();
+        table[2][0].showTile();
+        level.getTable()[2][2].SwapTile(2, 0, 1, 0, level.getTable());
+        table[1][0].showTile();
+        table[2][0].showTile();
+        System.out.println("LEGENDE : " + level.isCompleted(level.getNumber()));
         */
         /*
         try {
@@ -69,7 +75,6 @@ public class Main{
         */
 
         // Initialisation des matrices pour tester l'algo mais boucle infini
-        
         int rows = 3;
         int cols = 3;
         Tile[][] finalState = new Tile[rows][cols];
@@ -123,6 +128,6 @@ public class Main{
         }
         AStarAlgo aStarAlgo = new AStarAlgo();
         aStarAlgo.aStar(initialState, finalState);
-        
+
     }
 }

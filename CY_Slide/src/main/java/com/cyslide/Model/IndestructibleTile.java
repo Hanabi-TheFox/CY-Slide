@@ -6,6 +6,10 @@ public class IndestructibleTile extends Tile {
         setType(0); // indicates this tile is indestructible
     }
 
+    @Override
+    public void SwapTile(int i1, int j1,int i2, int j2, Tile[][] tab){
+        // nothing for this type of tile.
+    }
 
     @Override
     public void moved (int posX, int posY){

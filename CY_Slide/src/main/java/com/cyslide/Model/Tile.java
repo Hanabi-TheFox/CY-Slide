@@ -11,6 +11,8 @@ public abstract class Tile{
     public abstract void move2(String direction, Tile [][] table);
     public abstract boolean mouvementAvailable2(String direction, Tile [][] table);
 
+    public abstract void SwapTile(int i1, int j1,int i2, int j2, Tile[][] tab);
+
     public Tile(int posX,int posY) {
         this.posX = posX;
         this.posY = posY;

@@ -70,37 +70,35 @@ public class AStarAlgo {
     
             if (neighbors.isEmpty()) {
                 System.out.println("Error fuck");
-            }
-    
-            for (Tile[][] neighbor : neighbors) {
-                // Calculate the costs for the neighbor state
-                int neighborG = current.g + 1;
-                int neighborH = calculeManhattanDistance(neighbor, finalTile);
-                int neighborF = neighborG + neighborH;
-    
-                // Check if the neighbor state is already in the closed set
-                if (closedList.contains(neighbor)) {
-                    continue;
-                }
-    
-                // Check if the neighbor state is already in the open set with a better cost
-                boolean isOpenBetter = false;
-                for (State openState : openList) {
-                    if (isSameState(openState.tiles, neighbor) && neighborG < openState.g) {
-                        isOpenBetter = true;
-                        break;
+            }else {
+                for (Tile[][] neighbor : neighbors) {
+                    // Calculate the costs for the neighbor state
+                    int neighborG = current.g + 1;
+                    int neighborH = calculeManhattanDistance(neighbor, finalTile);
+                    int neighborF = neighborG + neighborH;
+        
+                    // Check if the neighbor state is already in the closed set
+                    if (closedList.contains(neighbor)) {
+                        continue;
+                    }else {
+                        // Check if the neighbor state is already in the open set with a better cost
+                        boolean isOpenBetter = false;
+                        for (State openState : openList) {
+                            if (isSameState(openState.tiles, neighbor) && neighborG < openState.g) {
+                                isOpenBetter = true;
+                                break;
+                            }
+                        }
+                        if (isOpenBetter) {
+                            continue;
+                        }
                     }
+                    // Add the neighbor to the open set
+                    State neighborState = new State(neighbor, neighborG, neighborF);
+                    openList.add(neighborState);
+        
+                    printState(neighborState.tiles);
                 }
-    
-                if (isOpenBetter) {
-                    continue;
-                }
-    
-                // Add the neighbor to the open set
-                State neighborState = new State(neighbor, neighborG, neighborF);
-                openList.add(neighborState);
-    
-                printState(neighborState.tiles);
             }
         }
     }

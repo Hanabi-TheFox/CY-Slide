@@ -1,71 +1,72 @@
 Monday, May 15:
-  Ethan - Clement - Renato - Samy - Yanis :
+  Ethan - Clement - Renato - Samy - Yanis:
     Setting up the workspace (GitHub + Discord).
-  Ethan - Clement - Renato - Samy : 
+  Ethan - Clement - Renato - Samy: 
     Class diagram.
     Creation of the JavaFX project base (MVC method).
     Sequence diagram.
     Creation planning.
-  Yanis : 
+  Yanis: 
     Documentation on javaFX.
-  Clement, Yanis, Samy :
+  Clement - Yanis - Samy:
     Try to fix JavaFX techninal problem on their computer.
 
 Tuesday, May 16:
-  Ethan - Clement - Renato - Samy - Yanis :
+  Ethan - Clement - Renato - Samy - Yanis:
     Vocal with Eva Ansermin, the tutor for questionning.
-  Renato (Yanis) :
+  Renato - Yanis:
     Work on the base java class of the project.
-  Samy :
+  Samy:
     Work on java functions to move tile + adjustment of some class (Tile, EmptyTile, NumberTile, IndestructibleTile).
-  Ethan - Yanis - Renato :
+  Ethan - Yanis - Renato:
     Work on the view part of the project.
-  Ethan :
+  Ethan:
     Creating the Data files.
     Organize a meeting with Romuald Grignon for technical help.
-  Clement :
+  Clement:
     Search for resolution algorithm of the taquin game.
     Work on function in order to recover our data file from java class.
 
 Wednesday, May 17:
-  Ethan - Clement - Renato - Samy - Yanis :
+  Ethan - Clement - Renato - Samy - Yanis:
     Vocal with Romuald Grignon in order to help us on JavaFX.
-  Ethan : 
+  Ethan: 
     work on view, he designed the prototype of a level (level 0) and test the designed of all type of tiles (level X).
     work on view's button event.
-  Samy : 
+  Samy: 
     work on 'recover' functions, now we can create a table of tile with our file csv and recover the record of a level.
-  Clement :
+  Clement:
     Work on controller. If the pseudo doesn't exist, we write his pseudo in our csv file and if the pseudo exits, we recover the number of completed level.
     Continue his search on the AI (he have to wait others functions to use AI).
-  Renato :
+  Renato:
     Work on javaFX, create back button on menu view
     Try to understand our java functions in order to use them after with javaFX.
     Started to make level X (in view).
-  Yanis :
+  Yanis:
     Work on javaFX. create event and movement for rectangle figure.
     
 Thursday, May 18:
-  Samy :
+  Samy:
     tests function level.move, move (NumberTile) and move (EmptyTile) with a table from a file level.csv and makes the necessary modifications.
     Helps Yanis to create a table of type Rectangle in order to create a view from a file level.csv.
-  Clement :
+  Clement:
     Creates a function to recover the number of completed level by a player from a csv file. 
     Continues his work with the automatic resolution (he try to use AStar).
-  Renato : 
+  Renato: 
     Problem with the CSV file path has been resolved. Update on LevelX view. Started working on creating a class for dynamically generating the game table.
   Yanis:
     Working on the integration of the new method of graphic generation of levels.
     
     Friday, May 19:
-  Samy :
-    Tries to understand file RectangleWithLabel.java and RectangleDragHandler.java.
-    Changes move functions in order to use them with a table of RectangleWithLabel.
+  Samy:
+    Create function isCompleted() in level.java.
+    (Tries to understand file RectangleWithLabel.java and RectangleDragHandler.java)
+    Changes 'move' functions in order to use them with RectangleWithLabel table.
     Starts search on a* algorithm.
-  Clement :
+  Clement:
     Work on AStarAlgo, solve problems like the Manhattan Distance
     Try to fix other problem like the infinite loop in the terminal (for test before to use it)
-  Renato : 
+  Renato: 
     QuitButton and fixed printing tiles in order. Worked on tile movement.
   Yanis:
 

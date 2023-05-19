@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javafx.beans.binding.NumberBinding;
+
 /**
  * @author @RDNATOS
  * @author @Ymasuu
@@ -138,9 +140,24 @@ public class Level{
                 }
         }
         
-        public boolean isCompleted(){
-                //TODO
-                return false;
+        public boolean isCompleted(int number){
+                Level finalState = new Level(number);
+                int size = table.length;
+                for (int i = 0; i < size; i++){
+                        for (int j = 0; j < size; j++){
+                                if(table[i][j].getType() != finalState.getTable()[i][j].getType()){
+                                        return false;
+                                }
+                                if(table[i][j].getType() == 1){
+                                        NumberTile nb1 = (NumberTile) table[i][j];
+                                        NumberTile nb2 = (NumberTile) finalState.getTable()[i][j];
+                                        if(nb1.getNumber() != nb2.getNumber()){
+                                                return false;
+                                        }
+                                }
+                        }
+                }
+                return true;
         }
         public boolean isPlayable(){
                 //Verify if level generated can be completed
