@@ -31,30 +31,30 @@ public class AStarAlgo {
 
         // Add the initial state to the open set with g = 0 and f = heuristic
         int initialF = calculeManhattanDistance(currentTile, finalTile);
-        System.out.println("Dist Manhattan : " + initialF);
+        System.out.println("Dist Manhattan: " + initialF);
         State initialState = new State(currentTile, 0, initialF);
         openList.add(initialState);
 
-        // Afficher le contenu de l'openList
-        System.out.println("Contenu de l'openList :");
-        for (State state : openList) {
-            // Vous pouvez accéder aux attributs de l'état comme state.tiles, state.g, state.f, etc.
-            // Vous pouvez personnaliser le format d'affichage selon vos besoins
-            // System.out.println("Tiles : " + state.tiles);
-            System.out.println("g : " + state.g);
-            System.out.println("f : " + state.f);
+        // Convert the openList to a temporary list for displaying its contents
+        List<State> tempList = new ArrayList<>(openList);
+
+        // Display the content of the openList
+        System.out.println("Contenu de l'openList:");
+        for (State state : tempList) {
+            System.out.println("Tiles:");
+            printState(state.tiles);
+            System.out.println("g: " + state.g);
+            System.out.println("f: " + state.f);
             System.out.println("----------------------");
         }
 
-
-        
         while (!openList.isEmpty() && !isFinalState(currentTile, finalTile)) {
 
             // Récupérer l'état actuel de la file d'attente openList
             State current = openList.poll();
             currentTile = current.tiles;
 
-            //printState(currentTile);
+            //printState(current.tiles);
 
             // Check if the actual state is the final state
             if (isFinalState(currentTile, finalTile)) {
@@ -62,11 +62,6 @@ public class AStarAlgo {
                 break;
             }
 
-            // Check if th actual state is the final state
-            if (isFinalState(current.tiles, finalTile)) {
-                // Solution found, do something with final state
-                break;
-            }
             // Adjustement of the actual state into the closed state
             closedList.add(current.tiles);
             
@@ -130,12 +125,12 @@ public class AStarAlgo {
     public List<Tile[][]> generateNeighbors(Tile[][] currentTile) {
         List<Tile[][]> neighbors = new ArrayList<>();
     
-        // Traverse the tiles to find the empty tile
+        // Find the empty tile
         int emptyRow = -1;
         int emptyCol = -1;
         for (int i = 0; i < currentTile.length; i++) {
             for (int j = 0; j < currentTile[i].length; j++) {
-                if (currentTile[i][j] == null) {
+                if (currentTile[i][j] instanceof EmptyTile) {
                     emptyRow = i;
                     emptyCol = j;
                     break;
@@ -151,7 +146,7 @@ public class AStarAlgo {
         if (emptyRow > 0) {
             Tile[][] neighbor = cloneTileArray(currentTile);
             neighbor[emptyRow][emptyCol] = currentTile[emptyRow - 1][emptyCol];
-            neighbor[emptyRow - 1][emptyCol] = null;
+            neighbor[emptyRow - 1][emptyCol] = new EmptyTile(emptyRow - 1, emptyCol); // Create a new EmptyTile at the moved position
             neighbors.add(neighbor);
         }
     
@@ -159,6 +154,7 @@ public class AStarAlgo {
     
         return neighbors;
     }
+    
     
     // Utility method to clone a tile array
     private Tile[][] cloneTileArray(Tile[][] tiles) {
