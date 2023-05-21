@@ -60,9 +60,9 @@
                                     <Font name="Arial" size="16.0" />
                                  </font>
                               </Button>
-                              <Button id="idQuit" fx:id="quitButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Quit" onAction="#OnLevelMenu_QuitButtonClick">
+                              <Button id="idQuit" fx:id="quitButton" mnemonicParsing="false" onAction="#OnLevelMenu_QuitButtonClick" prefHeight="80.0" prefWidth="80.0" text="Quit">
                                  <font>
-                                    <Font name="Arial" size="18.0" />
+                                    <Font name="Arial" size="16.0" />
                                  </font>
                               </Button>
                            </children>
@@ -72,6 +72,11 @@
                         </HBox>
                      </children>
                   </VBox>
+                  <Button id="play_button" layoutX="93.0" layoutY="65.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="114.0" text="Play">
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font>
+                  </Button>
                </children>
                <HBox.margin>
                   <Insets />
