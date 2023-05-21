@@ -15,7 +15,9 @@ public class Level{
         private int moveCounter;
         private boolean completed;
         private int record;
-        private Tile[][] table;
+        private Tile[][] table;//table is resolved first
+                        //And when Play button is clicked,
+                        //the table changes its tiles randomly
 
         public Level(int number){
                 this.number = number;
@@ -167,6 +169,7 @@ public class Level{
         public void initLevelMove() {
                 //Generate random level by moving each tile, we are sure this level can be completed
                 //TODO
+                System.out.println("Level : " + this.number);
         }
         //Once the level is charged, we can move all tiles in
         // a random order

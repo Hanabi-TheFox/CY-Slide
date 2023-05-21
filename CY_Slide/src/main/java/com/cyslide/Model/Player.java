@@ -28,7 +28,7 @@ public class Player {
     /**
      * Returns number of the last level completed
      * @param none
-     * @return
+     * @return levelResolved
      * @throws PlayerPseudoException
      */
     public int recoverNbOfCompletedLvl() throws PlayerPseudoException{

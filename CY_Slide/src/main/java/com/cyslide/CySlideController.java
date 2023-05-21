@@ -35,6 +35,8 @@ public class CySlideController {
     private String viewName="";
     private Player player;
     private GridPane gridPane;
+    private Level currentLevel; //the level that is being played
+    private Button lastLevelButtonPressed; // To know wich level we're playing
 
     /*@FXML
     private void initialize() {
@@ -45,6 +47,30 @@ public class CySlideController {
             }
         });
     } */
+
+    
+    /**
+     * @author @RDNATOS
+     * @return void
+     * //this method starts the game, making
+        //the Level Class to move randomly
+        //each tile so the player can play
+     */
+    @FXML
+    Button playButton;
+    @FXML
+    protected void playButtonClicked() {
+    // We call the initiate method on Class Level
+    Level level = getCurrentLevel();
+    Button levelMenu = getLastLevelButtonPressed();
+    // We move randomly each tile from the table
+    level.initLevelMove(); //this level object will have know a different table
+    //We get stage from the levelMenuButton reference
+    Stage stage = (Stage) levelMenu.getScene().getWindow();
+    //We print again the playable table
+    setLevel(levelMenu, stage, level);
+}
+
 
     @FXML
     protected void OnStartPage_ButtonClick() {
@@ -140,7 +166,9 @@ public class CySlideController {
             Stage stage = (Stage) LevelMenu_1.getScene().getWindow();
             // creation of level 1
             Level level = new Level(1);
+            setCurrentLevel(level);
             setLevel(root,stage,level);
+            setLastLevelButtonPressed(LevelMenu_1);
             
         } catch (Exception e) {
             System.out.println(e);
@@ -156,7 +184,9 @@ public class CySlideController {
             Stage stage = (Stage) LevelMenu_2.getScene().getWindow();
             // creation of level 2
             Level level = new Level(2);
+            setCurrentLevel(level);
             setLevel(root,stage,level);
+            setLastLevelButtonPressed(LevelMenu_2);
             
         } catch (Exception e) {
             System.out.println(e);
@@ -173,7 +203,9 @@ public class CySlideController {
             Stage stage = (Stage) LevelMenu_3.getScene().getWindow();
             // creation of level 3
             Level level = new Level(3);
+            setCurrentLevel(level);
             setLevel(root,stage,level);
+            setLastLevelButtonPressed(LevelMenu_3);
             
         } catch (Exception e) {
             System.out.println(e);
@@ -189,7 +221,9 @@ public class CySlideController {
             Stage stage = (Stage) LevelMenu_4.getScene().getWindow();
             // creation of level 4
             Level level = new Level(4);
+            setCurrentLevel(level);
             setLevel(root,stage,level);
+            setLastLevelButtonPressed(LevelMenu_4);
             
         } catch (Exception e) {
             System.out.println(e);
@@ -205,7 +239,9 @@ public class CySlideController {
             Stage stage = (Stage) LevelMenu_5.getScene().getWindow();
             // creation of level 5
             Level level = new Level(5);
+            setCurrentLevel(level);
             setLevel(root,stage,level);
+            setLastLevelButtonPressed(LevelMenu_5);
             
         } catch (Exception e) {
             System.out.println(e);
@@ -221,7 +257,9 @@ public class CySlideController {
             Stage stage = (Stage) LevelMenu_6.getScene().getWindow();
             // creation of level 6
             Level level = new Level(6);
+            setCurrentLevel(level);
             setLevel(root,stage,level);
+            setLastLevelButtonPressed(LevelMenu_6);
             
         } catch (Exception e) {
             System.out.println(e);
@@ -237,7 +275,9 @@ public class CySlideController {
             Stage stage = (Stage) LevelMenu_7.getScene().getWindow();
             // creation of level 7
             Level level = new Level(7);
+            setCurrentLevel(level);
             setLevel(root,stage,level);
+            setLastLevelButtonPressed(LevelMenu_7);
             
         } catch (Exception e) {
             System.out.println(e);
@@ -253,7 +293,9 @@ public class CySlideController {
             Stage stage = (Stage) LevelMenu_8.getScene().getWindow();
             // creation of level 8
             Level level = new Level(8);
+            setCurrentLevel(level);
             setLevel(root,stage,level);
+            setLastLevelButtonPressed(LevelMenu_8);
             
         } catch (Exception e) {
             System.out.println(e);
@@ -269,7 +311,9 @@ public class CySlideController {
             Stage stage = (Stage) LevelMenu_9.getScene().getWindow();
             // creation of level 9
             Level level = new Level(9);
+            setCurrentLevel(level);
             setLevel(root,stage,level);
+            setLastLevelButtonPressed(LevelMenu_9);
             
         } catch (Exception e) {
             System.out.println(e);
@@ -285,13 +329,16 @@ public class CySlideController {
             Stage stage = (Stage) LevelMenu_10.getScene().getWindow();
             // creation of level 10
             Level level = new Level(10);
+            setCurrentLevel(level);
             setLevel(root,stage,level);
+            setLastLevelButtonPressed(LevelMenu_10);
             
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
+    //Its not a Setter, instead it creates the table of the fame
     protected void setLevel(Parent root,Stage stage,Level level){
         
         // Création des RectangleWithLabel avec des positions prédéfinies
@@ -361,5 +408,20 @@ public class CySlideController {
         } catch (Exception e) {
             System.out.println(e);
         }
-    }   
+    }
+    
+
+    //Getters and setters for having acces of the level
+    public Level getCurrentLevel() {
+        return this.currentLevel;
+    }
+    public void setCurrentLevel(Level level) {
+        this.currentLevel = level;
+    }
+    public Button getLastLevelButtonPressed() {
+        return this.lastLevelButtonPressed;
+    }
+    public void setLastLevelButtonPressed(Button button) {
+        this.lastLevelButtonPressed = button;
+    }
 }
