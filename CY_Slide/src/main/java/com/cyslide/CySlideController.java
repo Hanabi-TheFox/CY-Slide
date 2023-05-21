@@ -47,6 +47,25 @@ public class CySlideController {
     } */
 
     @FXML
+    Button play_button;
+    @FXML
+    protected void playButtonClicked() {
+        //TODO
+        /*
+         * 
+         *  // We call the initiate method on Class Level
+    Level level = getCurrentLevel();
+    Button levelMenu = getLastLevelButtonPressed();
+    // We move randomly each tile from the table
+    level.initLevelMove(); //this level object will have know a different table
+    //We get stage from the levelMenuButton reference
+    Stage stage = (Stage) levelMenu.getScene().getWindow();
+    //We print again the playable table
+    setLevel(levelMenu, stage, level);
+         */
+    }
+
+    @FXML
     protected void OnStartPage_ButtonClick() {
         String pseudo = StartPage_TextField.getText();
         if (pseudo.isEmpty()) {
@@ -106,7 +125,7 @@ public class CySlideController {
             writer.write(pseudo + ";0");
             writer.newLine();
             System.out.println("Success in writing file");
-            this.player = new Player(this.LevelMenu_Pseudo.getText());
+            this.player = new Player(pseudo);
         } catch (IOException | Player.PlayerPseudoException e) {
             e.printStackTrace();
             System.out.println("Error in writing the file or/and creating player object");
