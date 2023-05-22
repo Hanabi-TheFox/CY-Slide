@@ -74,7 +74,7 @@ Thursday, May 18:
       Monday, May 22:
   Samy:
   Clement:
-  Renato: 
+  Renato: Worked on play Button, A* Algorithm and Player Class. Encountered problems with Controller variables.
   Yanis:
   Ethan:
 
