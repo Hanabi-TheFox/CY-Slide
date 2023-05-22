@@ -201,28 +201,16 @@ public class CySlideController {
         RectangleWithLabel[][] rectangles = new RectangleWithLabel[table.length][table.length];
         for (int i = 0; i < table.length; i++) {
             for (int j = 0; j < table.length; j++) {
-                if (table[i][j].getType() == -1) { // Empty tile
-                    RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, "", table[i][j]);
-                    rectangleWithLabel.setLayoutX(OffsetRight + longeurRectangle * j);
-                    rectangleWithLabel.setLayoutY(longeurRectangle * i);
-                    pane.getChildren().add(rectangleWithLabel);
-                    rectangles[i][j] = rectangleWithLabel;
-                }
-                if (table[i][j].getType() == 0) { // Indestructible tile
-                    RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, "", table[i][j]);
-                    rectangleWithLabel.setLayoutX(OffsetRight + longeurRectangle * j);
-                    rectangleWithLabel.setLayoutY(longeurRectangle * i);
-                    pane.getChildren().add(rectangleWithLabel);
-                    rectangles[i][j] = rectangleWithLabel;
-                }
+                String label = "";
                 if (table[i][j].getType() == 1) { // Number tile
                     NumberTile nb = (NumberTile) table[i][j];
-                    RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, Integer.toString(nb.getNumber()), table[i][j]);
-                    rectangleWithLabel.setLayoutX(OffsetRight + longeurRectangle * j);
-                    rectangleWithLabel.setLayoutY(longeurRectangle * i);
-                    pane.getChildren().add(rectangleWithLabel);
-                    rectangles[i][j] = rectangleWithLabel;
+                    label = Integer.toString(nb.getNumber());
                 }
+                RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, label, table[i][j], table.length);
+                rectangleWithLabel.setLayoutX(OffsetRight + longeurRectangle * j);
+                rectangleWithLabel.setLayoutY(longeurRectangle * i);
+                pane.getChildren().add(rectangleWithLabel);
+                rectangles[i][j] = rectangleWithLabel;
             }
         }
                     
