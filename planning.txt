@@ -83,7 +83,11 @@ Thursday, May 18:
   Yanis:
 
   Ethan:
+    Rework entierly the player class.
+    Have greatly optimized the code of the CySlideController class.
+    Have improved the visual of the game.
+    Now the level number is displayed in the game view.
 
   Ethan - Clement - Renato - Samy - Yanis:
-    Vocal with Romuald Grignon in order to help us on our problem with variables in our file controller.
+    Teams Reunion with Romuald Grignon in order to help us on our problem with variables in our file controller.
 
