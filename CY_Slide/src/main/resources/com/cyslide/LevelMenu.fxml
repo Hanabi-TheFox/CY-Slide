@@ -24,52 +24,52 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="LevelMenu_1" mnemonicParsing="false" onAction="#OnLevelMenu_1ButtonClick" prefHeight="70.0" prefWidth="156.0" text="1">
+            <Button fx:id="LevelMenu_1" mnemonicParsing="false" onAction="#OnLevelMenu_XButtonClick" prefHeight="70.0" prefWidth="156.0" text="1">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button fx:id="LevelMenu_2" mnemonicParsing="false" onAction="#OnLevelMenu_2ButtonClick" prefHeight="70.0" prefWidth="156.0" text="2" GridPane.columnIndex="1">
+            <Button fx:id="LevelMenu_2" mnemonicParsing="false" onAction="#OnLevelMenu_XButtonClick" prefHeight="70.0" prefWidth="156.0" text="2" GridPane.columnIndex="1">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button fx:id="LevelMenu_3" mnemonicParsing="false" onAction="#OnLevelMenu_3ButtonClick" prefHeight="70.0" prefWidth="156.0" text="3" GridPane.rowIndex="1">
+            <Button fx:id="LevelMenu_3" mnemonicParsing="false" onAction="#OnLevelMenu_XButtonClick" prefHeight="70.0" prefWidth="156.0" text="3" GridPane.rowIndex="1">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button fx:id="LevelMenu_4" mnemonicParsing="false" onAction="#OnLevelMenu_4ButtonClick" prefHeight="70.0" prefWidth="156.0" text="4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="LevelMenu_4" mnemonicParsing="false" onAction="#OnLevelMenu_XButtonClick" prefHeight="70.0" prefWidth="156.0" text="4" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button fx:id="LevelMenu_5" mnemonicParsing="false" onAction="#OnLevelMenu_5ButtonClick" prefHeight="70.0" prefWidth="156.0" text="5" GridPane.rowIndex="2">
+            <Button fx:id="LevelMenu_5" mnemonicParsing="false" onAction="#OnLevelMenu_XButtonClick" prefHeight="70.0" prefWidth="156.0" text="5" GridPane.rowIndex="2">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button fx:id="LevelMenu_6" mnemonicParsing="false" onAction="#OnLevelMenu_6ButtonClick" prefHeight="70.0" prefWidth="156.0" text="6" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Button fx:id="LevelMenu_6" mnemonicParsing="false" onAction="#OnLevelMenu_XButtonClick" prefHeight="70.0" prefWidth="156.0" text="6" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button fx:id="LevelMenu_7" mnemonicParsing="false" onAction="#OnLevelMenu_7ButtonClick" prefHeight="70.0" prefWidth="156.0" text="7" GridPane.rowIndex="3">
+            <Button fx:id="LevelMenu_7" mnemonicParsing="false" onAction="#OnLevelMenu_XButtonClick" prefHeight="70.0" prefWidth="156.0" text="7" GridPane.rowIndex="3">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button fx:id="LevelMenu_8" mnemonicParsing="false" onAction="#OnLevelMenu_8ButtonClick" prefHeight="70.0" prefWidth="156.0" text="8" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Button fx:id="LevelMenu_8" mnemonicParsing="false" onAction="#OnLevelMenu_XButtonClick" prefHeight="70.0" prefWidth="156.0" text="8" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button fx:id="LevelMenu_9" mnemonicParsing="false" onAction="#OnLevelMenu_9ButtonClick" prefHeight="70.0" prefWidth="156.0" text="9" GridPane.rowIndex="4">
+            <Button fx:id="LevelMenu_9" mnemonicParsing="false" onAction="#OnLevelMenu_XButtonClick" prefHeight="70.0" prefWidth="156.0" text="9" GridPane.rowIndex="4">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button fx:id="LevelMenu_10" mnemonicParsing="false" onAction="#OnLevelMenu_10ButtonClick" prefHeight="70.0" prefWidth="156.0" text="10" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Button fx:id="LevelMenu_10" mnemonicParsing="false" onAction="#OnLevelMenu_XButtonClick" prefHeight="70.0" prefWidth="156.0" text="10" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font size="24.0" />
                </font>
