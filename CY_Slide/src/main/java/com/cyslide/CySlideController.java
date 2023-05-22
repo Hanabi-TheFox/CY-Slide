@@ -169,7 +169,6 @@ public class CySlideController {
             Level level = new Level(Integer.parseInt(levelNumber));
             setLevel(root,stage,level);
             setCurrentLevel(level);
-            System.out.println(this);
             
         } catch (Exception e) {
             System.out.println(e);
@@ -237,7 +236,6 @@ public class CySlideController {
     Button play_button;
     @FXML
     protected void playButtonClicked() {
-        System.out.println(this);
         System.out.println("test : " + CySlideController.currentLevel.getNumber());
         //TODO
         /*
