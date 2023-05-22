@@ -33,6 +33,7 @@ public class RectangleDragHandler {
             initialTranslateX = rectangle.getTranslateX();
             initialTranslateY = rectangle.getTranslateY();
             draggedRectangle = rectangle;
+            draggedRectangle.toFront();
             initialLayoutX = rectangle.getLayoutX();
             initialLayoutY = rectangle.getLayoutY();
         };
