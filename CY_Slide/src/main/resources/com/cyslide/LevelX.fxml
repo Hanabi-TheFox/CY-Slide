@@ -24,7 +24,7 @@
                               <Font name="Arial Bold" size="35.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="X" textAlignment="CENTER" textFill="WHITE">
+                        <Label fx:id="LevelX_LevelNumber" alignment="CENTER" contentDisplay="CENTER" text="X" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="Arial" size="35.0" />
                            </font>

@@ -28,12 +28,14 @@ public class CySlideController implements Initializable {
     private Label StartPage_ErrorLabel;
     @FXML
     private Label LevelMenu_Pseudo;
+    @FXML
+    private Label LevelX_LevelNumber;
     private static Level currentLevel;
     private static Stage currentStage;
     private static Parent currentRoot;
     private CySlideApplication app;
     private String viewName="";
-    static private Player player;
+    private static Player player;
     private GridPane gridPane;
 
     @Override
@@ -133,7 +135,8 @@ public class CySlideController implements Initializable {
             Level level = new Level(Integer.parseInt(levelNumber));
             setLevel(root,stage,level);
             setCurrentLevel(level);
-            
+            LevelX_LevelNumber = (Label) root.getScene().lookup("#LevelX_LevelNumber");
+            LevelX_LevelNumber.setText(levelNumber);
         } catch (Exception e) {
             System.out.println(e);
         }
