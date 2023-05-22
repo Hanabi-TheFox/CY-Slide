@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import java.util.Random;
+
 import javafx.beans.binding.NumberBinding;
 
 /**
@@ -128,10 +130,7 @@ public class Level{
             }
 
         
-        public boolean moveTile(int x, int y, String direction, RectangleWithLabel[][] table){
-                // pour changer la place d'une tuile, on appelle la fonction level.moveTile(posX, posY, direction) avec posX, posY les coordonnées et direction le sens ("UP, DOWN, RIGHT, LEFT")
-                System.out.println("Test moveTile");
-                        
+        public boolean moveTile(int x, int y, String direction, RectangleWithLabel[][] table){                        
                 if (!table[x][y].GetTile().mouvementAvailable(x, y, direction, table) || table[x][y].GetTile().getType() == 0) {
                         System.out.println("We cannot move this tile.");
                         return false;
@@ -161,16 +160,35 @@ public class Level{
                 }
                 return true;
         }
-        public boolean isPlayable(){
-                //Verify if level generated can be completed
-                return true;
-        }
+        
         //Here we move tile by tile, so it's possible to complete the level
-        public void initLevelMove() {
+        public void initLevelMove(RectangleWithLabel[][] table) {
                 //Generate random level by moving each tile, we are sure this level can be completed
-                //TODO
-                System.out.println("Level : " + this.number);
+                int size = table.length;
+                String[] choice = {"UP", "DOWN", "RIGHT", "LEFT"};
+                for (int i = 0; i < size; i++){
+                        for (int j = 0; j < size; j++){
+                                if(table[i][j].GetTile().getType() == -1){ // if it's an empty tile
+                                        for(int k = 0; k < 20; k++){
+                                                // we will choose a random direction
+                                                Random random = new Random();
+                                                int index = random.nextInt(choice.length);
+                                                String direction = choice[index];
+                                                if(this.moveTile(i, j, direction, table)){
+                                                        if (k == 19){
+                                                                System.out.println("test k = 19");
+                                                        }
+                                                }
+                                        }
+                                } 
+                        }
+                }
         }
+
+
+
+
+
         //Once the level is charged, we can move all tiles in
         // a random order
         //Here is entirely random, so we are not sure if the level
@@ -178,6 +196,11 @@ public class Level{
         
         public void initLevelRNG(){
                 //TODO
+        }
+
+        public boolean isPlayable(){
+                //Verify if level generated can be completed
+                return true;
         }
                 
 }

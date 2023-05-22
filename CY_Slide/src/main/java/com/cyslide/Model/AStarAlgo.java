@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Comparator;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class AStarAlgo {
 
@@ -34,6 +35,8 @@ public class AStarAlgo {
         System.out.println("Manhattan Distance: " + initialF);
         State initialState = new State(currentTile, 0, initialF);
         openList.add(initialState);
+        Set<Tile[][]> visitedStates = new HashSet<>();
+
     
         // Convert openList to a temporary list to display its content
         List<State> tempList = new ArrayList<>(openList);
@@ -47,41 +50,61 @@ public class AStarAlgo {
             System.out.println("f: " + state.f);
             System.out.println("----------------------");
         }
-        
-        
+        int passageCount = 1;
 
-        while (!openList.isEmpty()) {
-            // Get the current state from the openList queue
+        System.out.println("Entering while loop");
+        while (!openList.isEmpty() ) {
+            // Obtenir l'état actuel de la file openList
             State current = openList.poll();
             currentTile = current.tiles;
-        
-            // Check if the current state is the final state
+            
+            // Display information before each passage
+            System.out.println("Passage " + passageCount);
+            System.out.println("Manhattan Distance: " + current.f);
+            System.out.println("Tiles:");
+            printState(current.tiles);
+            System.out.println("g: " + current.g);
+            System.out.println("f: " + current.f);
+            System.out.println("----------------------");
+
+            passageCount++; // Increment passageCount
+            
+            // Vérifier si l'état actuel est l'état final
             if (isFinalState(currentTile, finalTile)) {
-                System.out.println("Final state reached!");
+                System.out.println("État final atteint !");
                 break;
             }
-    
-            // Add the current state to the closed set
+        
+            // Ajouter l'état actuel à l'ensemble closedList
             closedList.add(current.tiles);
-    
-            // Generate the neighbors of the current state
-            List<Tile[][]> neighbors = generateNeighbors(currentTile, finalTile);
-    
+        
+            // Générer les voisins de l'état actuel
+            List<Tile[][]> neighbors = generateNeighbors(currentTile, finalTile, visitedStates);
+        
+            // Vérifier si aucun voisin non visité n'a été trouvé
             if (neighbors.isEmpty()) {
-                System.out.println("Error fuck");
+                System.out.println("Aucun voisin non visité trouvé");
             } else {
+                // Parcourir les voisins et mettre à jour openList
                 for (Tile[][] neighbor : neighbors) {
-                    // Calculate the costs for the neighbor state
+                    // Calculer les coûts pour l'état voisin
                     int neighborG = current.g + 1;
                     int neighborH = calculeManhattanDistance(neighbor, finalTile);
                     int neighborF = neighborG + neighborH;
-                
-                    // Check if the neighbor state is already in the closed set
-                    if (closedList.contains(neighbor)) {
+        
+                    // Vérifier si l'état voisin est déjà dans l'ensemble closedList
+                    boolean isNeighborInClosedList = false;
+                    for (Tile[][] closedState : closedList) {
+                        if (isSameState(closedState, neighbor)) {
+                            isNeighborInClosedList = true;
+                            break;
+                        }
+                    }
+                    if (isNeighborInClosedList) {
                         continue;
                     }
-                
-                    // Check if the neighbor state is already in the open set with a better cost
+        
+                    // Vérifier si l'état voisin est déjà dans la file openList avec un coût inférieur
                     boolean isOpenBetter = false;
                     for (State openState : openList) {
                         if (isSameState(openState.tiles, neighbor) && neighborG < openState.g) {
@@ -92,21 +115,20 @@ public class AStarAlgo {
                     if (isOpenBetter) {
                         continue;
                     }
-                
-                    // Add the neighbor to the open set
+        
+                    // Ajouter l'état voisin à la file openList
                     State neighborState = new State(neighbor, neighborG, neighborF);
                     openList.add(neighborState);
-                
-                    printState(neighborState.tiles);
                 }
-                
+        
+                printState(current.tiles);
             }
-
         }
+        System.out.println("Exited while loop");
+        
     }
-    
-          
-        public void printState(Tile[][] state) {
+      
+    public void printState(Tile[][] state) {
         if (!displayedStates.contains(state)) {
             // Display the state tiles
             //System.out.println("Current:");
@@ -121,15 +143,13 @@ public class AStarAlgo {
                 }
                 System.out.println();
             }
-            System.out.println();
             displayedStates.add(state); // Add the state to the set of displayed states
         }
     }
     
-    
-    private List<Tile[][]> generateNeighbors(Tile[][] currentTile, Tile[][] finalTile) {
+    private List<Tile[][]> generateNeighbors(Tile[][] currentTile, Tile[][] finalTile, Set<Tile[][]> visitedStates) {
         List<Tile[][]> neighbors = new ArrayList<>();
-        
+    
         // Find the empty tile
         int emptyPosX = -1;
         int emptyPosY = -1;
@@ -146,7 +166,7 @@ public class AStarAlgo {
             }
         }
         System.out.println("Empty Tile Position: (" + emptyPosX + ", " + emptyPosY + ")");
-        
+    
         // Generate neighbors by moving the tiles adjacent to the empty tile
         if (emptyPosX > 0) {
             Tile[][] upState = copyState(currentTile);
@@ -154,21 +174,21 @@ public class AStarAlgo {
             upState[emptyPosX - 1][emptyPosY] = new EmptyTile(emptyPosX - 1, emptyPosY);
             neighbors.add(upState);
         }
-        
+    
         if (emptyPosX < currentTile.length - 1) {
             Tile[][] downState = copyState(currentTile);
             downState[emptyPosX][emptyPosY] = downState[emptyPosX + 1][emptyPosY];
             downState[emptyPosX + 1][emptyPosY] = new EmptyTile(emptyPosX + 1, emptyPosY);
             neighbors.add(downState);
         }
-        
+    
         if (emptyPosY > 0) {
             Tile[][] leftState = copyState(currentTile);
             leftState[emptyPosX][emptyPosY] = leftState[emptyPosX][emptyPosY - 1];
             leftState[emptyPosX][emptyPosY - 1] = new EmptyTile(emptyPosX, emptyPosY - 1);
             neighbors.add(leftState);
         }
-        
+    
         if (emptyPosY < currentTile[0].length - 1) {
             Tile[][] rightState = copyState(currentTile);
             rightState[emptyPosX][emptyPosY] = rightState[emptyPosX][emptyPosY + 1];
@@ -176,38 +196,49 @@ public class AStarAlgo {
             neighbors.add(rightState);
         }
     
-        // Calculate the Manhattan distance for each neighbor and store it in a list
-        List<Integer> manhattanDistances = new ArrayList<>();
+        // Choose the neighbors that haven't been visited before
+        List<Tile[][]> unvisitedNeighbors = new ArrayList<>();
         for (Tile[][] neighbor : neighbors) {
-            int manhattanDistance = calculeManhattanDistance(neighbor, finalTile);
-            manhattanDistances.add(manhattanDistance);
-        }
-    
-        // Find the index of the neighbor with the minimum Manhattan distance
-        int minDistanceIndex = -1;
-        int minDistance = Integer.MAX_VALUE;
-        for (int i = 0; i < manhattanDistances.size(); i++) {
-            int distance = manhattanDistances.get(i);
-            if (distance < minDistance && !isSameState(currentTile, neighbors.get(i))) {
-                minDistance = distance;
-                minDistanceIndex = i;
+            if (!visitedStates.contains(neighbor)) {
+                unvisitedNeighbors.add(neighbor);
             }
         }
     
         // Choose the neighbor with the minimum Manhattan distance as the next state
+        Tile[][] bestNeighbor = chooseBestNeighbor(unvisitedNeighbors, currentTile, finalTile);
         List<Tile[][]> nextStates = new ArrayList<>();
-        if (minDistanceIndex != -1) {
-            Tile[][] nextState = neighbors.get(minDistanceIndex);
-            nextStates.add(nextState);
+        if (bestNeighbor != null) {
+            nextStates.add(bestNeighbor);
         }
     
         if (nextStates.isEmpty()) {
-            System.out.println("Aucun voisin trouvé");
+            System.out.println("Aucun voisin non visité trouvé");
         }
-
+    
         return nextStates;
     }
     
+    private Tile[][] chooseBestNeighbor(List<Tile[][]> neighbors, Tile[][] currentTile, Tile[][] finalTile) {
+        Tile[][] bestNeighbor = null;
+        int bestManhattanDistance = Integer.MAX_VALUE;
+    
+        for (Tile[][] neighbor : neighbors) {
+            if (!isSameState(neighbor, currentTile)) {  // Check if neighbor is not the same as the current state
+                int manhattanDistance = calculeManhattanDistance(neighbor, finalTile);
+                if (manhattanDistance < bestManhattanDistance) {
+                    bestManhattanDistance = manhattanDistance;
+                    bestNeighbor = neighbor;
+                }
+            }
+        }
+        System.out.println("Best neighbor : ");
+        printState(bestNeighbor);
+        return bestNeighbor;
+    }
+    
+    
+    
+
     private Tile[][] copyState(Tile[][] state) {
         Tile[][] copy = new Tile[state.length][];
         for (int i = 0; i < state.length; i++) {
@@ -215,22 +246,6 @@ public class AStarAlgo {
         }
         return copy;
     }
-    /*private Tile[][] copyState(Tile[][] state) {
-        Tile[][] copy = new Tile[state.length][state[0].length];
-        for (int i = 0; i < state.length; i++) {
-            for (int j = 0; j < state[i].length; j++) {
-                Tile tile = state[i][j];
-                if (tile instanceof NumberTile) {
-                    NumberTile numberTile = (NumberTile) tile;
-                    copy[i][j] = new NumberTile(numberTile.getNumber(), i, j);
-                } else {
-                    copy[i][j] = new EmptyTile(i, j);
-                }
-            }
-        }
-        return copy;
-    }
-    */
     
     public boolean isSameState(Tile[][] state1, Tile[][] state2) {
         if (state1.length != state2.length || state1[0].length != state2[0].length) {
@@ -263,7 +278,6 @@ public class AStarAlgo {
                 }
             }
         }
-        
         return true;
     }
     
@@ -278,14 +292,12 @@ public class AStarAlgo {
                 }
             }
         }
-    
         // Check if the Manhattan distance is zero
         return calculeManhattanDistance(currentTile, finalTile) == 0;
     }
 
     public int calculeManhattanDistance(Tile[][] currentTile, Tile[][] finalTile) {
         int distance = 0;
-    
         for (int i = 0; i < currentTile.length; i++) {
             for (int j = 0; j < currentTile[i].length; j++) {
                 // Recover the current tile at the position i, j
@@ -309,7 +321,6 @@ public class AStarAlgo {
                             break;
                         }
                     }
-    
                     // Calculate the Manhattan distance
                     if (targetRow != -1 && targetCol != -1) {
                         distance += Math.abs(i - targetRow) + Math.abs(j - targetCol);
