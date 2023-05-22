@@ -70,4 +70,11 @@ Thursday, May 18:
     QuitButton and fixed printing tiles in order. Worked on tile movement.
   Yanis:
   worked on the resolution of issues in the movement of the tiles.
+  
+      Monday, May 22:
+  Samy:
+  Clement:
+  Renato: 
+  Yanis:
+  Ethan:
 
