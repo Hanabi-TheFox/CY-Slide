@@ -172,13 +172,12 @@ public class CySlideController {
     }
 
     protected void setLevel(Parent root,Stage stage,Level level){
-        
-        // Création des RectangleWithLabel avec des positions prédéfinies
+        // Creation of RectangleWithLabel with predefined positions
         Tile [][] table = level.getTable();
-        //GridPane gridPane = new GridPane();
         Pane pane = new Pane();
         pane.getChildren().add(root);
         int OffsetRight = 400;
+        int OffsetUp = 75;
         int longeurRectangle = 300 / table.length;
 
         RectangleWithLabel[][] rectangles = new RectangleWithLabel[table.length][table.length];
@@ -191,7 +190,7 @@ public class CySlideController {
                 }
                 RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, label, table[i][j], table.length);
                 rectangleWithLabel.setLayoutX(OffsetRight + longeurRectangle * j);
-                rectangleWithLabel.setLayoutY(longeurRectangle * i);
+                rectangleWithLabel.setLayoutY(OffsetUp + longeurRectangle * i);
                 pane.getChildren().add(rectangleWithLabel);
                 rectangles[i][j] = rectangleWithLabel;
             }
