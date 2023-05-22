@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -189,13 +190,15 @@ public class CySlideController {
     }
 
     protected void setLevel(Parent root,Stage stage,Level level){
-        
+        HBox LevelX_HBox = (HBox) root.lookup("#LevelX_HBox");
         // Création des RectangleWithLabel avec des positions prédéfinies
         Tile [][] table = level.getTable();
         //GridPane gridPane = new GridPane();
         Pane pane = new Pane();
-        pane.getChildren().add(root);
-        int OffsetRight = 400;
+        pane.setPrefSize(300, 300);
+        pane.setMinSize(300, 300);
+        pane.setMaxSize(300, 300);
+        LevelX_HBox.getChildren().add(pane);
         int longeurRectangle = 300 / table.length;
 
         RectangleWithLabel[][] rectangles = new RectangleWithLabel[table.length][table.length];
@@ -207,7 +210,7 @@ public class CySlideController {
                     label = Integer.toString(nb.getNumber());
                 }
                 RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, label, table[i][j], table.length);
-                rectangleWithLabel.setLayoutX(OffsetRight + longeurRectangle * j);
+                rectangleWithLabel.setLayoutX(longeurRectangle * j);
                 rectangleWithLabel.setLayoutY(longeurRectangle * i);
                 pane.getChildren().add(rectangleWithLabel);
                 rectangles[i][j] = rectangleWithLabel;
@@ -222,7 +225,7 @@ public class CySlideController {
                 rectangle.setOnMouseReleased(rectangleDragHandler.createOnMouseReleasedHandler(rectangle));
             }
         }
-        Scene scene = new Scene(pane, 800, 450);
+        Scene scene = new Scene(root, 800, 450);
 
         this.setViewName("game-view.fxml");
         stage.setScene(scene);
