@@ -140,6 +140,15 @@ public class Level{
                         return true;
                 }
         }
+
+        public boolean moveTile2(int x, int y, String direction){                        
+                if (!table[x][y].mouvementAvailable2(direction, table) || table[x][y].getType() == 0) {
+                        return false;
+                }else{
+                        table[x][y].move2(direction, table);
+                        return true;
+                }
+        }
         
         public boolean isCompleted(int number){
                 Level finalState = new Level(number);
@@ -162,27 +171,27 @@ public class Level{
         }
         
         //Here we move tile by tile, so it's possible to complete the level
-        public void initLevelMove(RectangleWithLabel[][] table) {
+        public void initLevelMove() {
                 //Generate random level by moving each tile, we are sure this level can be completed
                 int size = table.length;
                 String[] choice = {"UP", "DOWN", "RIGHT", "LEFT"};
-                for (int i = 0; i < size; i++){
-                        for (int j = 0; j < size; j++){
-                                if(table[i][j].GetTile().getType() == -1){ // if it's an empty tile
-                                        for(int k = 0; k < 20; k++){
-                                                // we will choose a random direction
-                                                Random random = new Random();
-                                                int index = random.nextInt(choice.length);
-                                                String direction = choice[index];
-                                                if(this.moveTile(i, j, direction, table)){
-                                                        if (k == 19){
-                                                                System.out.println("test k = 19");
+                for (int init = 0; init < 1000; init++){ // we want to 
+                        for (int i = 0; i < size; i++){
+                                for (int j = 0; j < size; j++){
+                                        if(table[i][j].getType() == -1){ // if it's an empty tile
+                                                for(int k = 0; k < 500; k++){
+                                                        // we will choose a random direction
+                                                        Random random = new Random();
+                                                        int index = random.nextInt(choice.length);
+                                                        String direction = choice[index];
+                                                        if(moveTile2(i, j, direction)){
                                                         }
                                                 }
-                                        }
-                                } 
+                                        } 
+                                }
                         }
                 }
+                System.out.println("Nous avons fini le mélange.");
         }
 
 

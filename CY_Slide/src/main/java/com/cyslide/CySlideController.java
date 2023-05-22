@@ -32,6 +32,8 @@ public class CySlideController {
     @FXML
     private Label LevelMenu_Pseudo;
     private static Level currentLevel;
+    private static Stage currentStage;
+    private static Parent currentRoot;
     private CySlideApplication app;
     private String viewName="";
     private Player player;
@@ -50,6 +52,12 @@ public class CySlideController {
 
     public void setCurrentLevel(Level level){
         CySlideController.currentLevel = level;
+    }
+    public void setCurrentStage(Stage stage){
+        CySlideController.currentStage = stage;
+    }
+    public void setCurrentRoot(Parent root){
+        CySlideController.currentRoot = root;
     }
     
     @FXML
@@ -164,7 +172,9 @@ public class CySlideController {
         String levelNumber = clickedButton.getText();
          try {
             Parent root = FXMLLoader.load(getClass().getResource("LevelX.fxml"));
+            setCurrentRoot(root);
             Stage stage = (Stage) LevelMenu_1.getScene().getWindow();
+            setCurrentStage(stage);
             // creation of level X
             Level level = new Level(Integer.parseInt(levelNumber));
             setLevel(root,stage,level);
@@ -236,7 +246,14 @@ public class CySlideController {
     Button play_button;
     @FXML
     protected void playButtonClicked() {
-        System.out.println("test : " + CySlideController.currentLevel.getNumber());
+        Level level = CySlideController.currentLevel;
+        Level nvLevel = new Level(level.getNumber());
+        nvLevel.initLevelMove();
+        Stage stage = CySlideController.currentStage;
+        Parent root = CySlideController.currentRoot;
+        setLevel(root, stage, nvLevel);
+        nvLevel.setMoveCounter(0);
+        setCurrentLevel(nvLevel);
         //TODO
         /*
          * 
