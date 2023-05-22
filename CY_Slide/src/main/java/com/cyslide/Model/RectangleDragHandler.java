@@ -41,10 +41,13 @@ public class RectangleDragHandler {
 
     public EventHandler<MouseEvent> createOnMouseDraggedHandler(RectangleWithLabel rectangle) {
         return event -> {
-            double deltaX = event.getSceneX() - mouseAnchorX;
-            double deltaY = event.getSceneY() - mouseAnchorY;
-            rectangle.setTranslateX(initialTranslateX + deltaX);
-            rectangle.setTranslateY(initialTranslateY + deltaY);
+            if(rectangle.GetTile().getType()==1){
+                double deltaX = event.getSceneX() - mouseAnchorX;
+                double deltaY = event.getSceneY() - mouseAnchorY;
+                rectangle.setTranslateX(initialTranslateX + deltaX);
+                rectangle.setTranslateY(initialTranslateY + deltaY);
+            }
+            
         };
     }
 
