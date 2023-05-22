@@ -93,7 +93,8 @@ public class Player {
     }
 
     public class PlayerPseudoException extends Exception {
-    public PlayerPseudoException(String message) {
-        super(message);
+        public PlayerPseudoException(String message) {
+            super(message);
+        }
     }
-}}
+}
