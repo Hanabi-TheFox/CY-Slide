@@ -1,7 +1,5 @@
 package com.cyslide;
 
-import com.cyslide.Model.Player;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -49,25 +46,9 @@ public class CySlideController {
         });
     } */
 
-    @FXML
-    Button play_button;
-    @FXML
-    protected void playButtonClicked() {
-        //TODO
-        /*
-         * 
-         *  // We call the initiate method on Class Level
-    Level level = getCurrentLevel();
-    Button levelMenu = getLastLevelButtonPressed();
-    // We move randomly each tile from the table
-    level.initLevelMove(); //this level object will have know a different table
-    //We get stage from the levelMenuButton reference
-    Stage stage = (Stage) levelMenu.getScene().getWindow();
-    //We print again the playable table
-    setLevel(levelMenu, stage, level);
-         */
-    }
 
+
+    
     @FXML
     protected void OnStartPage_ButtonClick() {
         String pseudo = StartPage_TextField.getText();
@@ -173,6 +154,7 @@ public class CySlideController {
     private Button LevelMenu_9;
     @FXML
     private Button LevelMenu_10;
+
     @FXML
     protected void OnLevelMenu_XButtonClick(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
@@ -190,15 +172,13 @@ public class CySlideController {
     }
 
     protected void setLevel(Parent root,Stage stage,Level level){
-        HBox LevelX_HBox = (HBox) root.lookup("#LevelX_HBox");
+        
         // Création des RectangleWithLabel avec des positions prédéfinies
         Tile [][] table = level.getTable();
         //GridPane gridPane = new GridPane();
         Pane pane = new Pane();
-        pane.setPrefSize(300, 300);
-        pane.setMinSize(300, 300);
-        pane.setMaxSize(300, 300);
-        LevelX_HBox.getChildren().add(pane);
+        pane.getChildren().add(root);
+        int OffsetRight = 400;
         int longeurRectangle = 300 / table.length;
 
         RectangleWithLabel[][] rectangles = new RectangleWithLabel[table.length][table.length];
@@ -210,13 +190,12 @@ public class CySlideController {
                     label = Integer.toString(nb.getNumber());
                 }
                 RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, label, table[i][j], table.length);
-                rectangleWithLabel.setLayoutX(longeurRectangle * j);
+                rectangleWithLabel.setLayoutX(OffsetRight + longeurRectangle * j);
                 rectangleWithLabel.setLayoutY(longeurRectangle * i);
                 pane.getChildren().add(rectangleWithLabel);
                 rectangles[i][j] = rectangleWithLabel;
             }
         }
-                    
         RectangleDragHandler rectangleDragHandler = new RectangleDragHandler(rectangles,level);
         for (RectangleWithLabel[] row : rectangles) {
             for (RectangleWithLabel rectangle : row) {
@@ -225,7 +204,7 @@ public class CySlideController {
                 rectangle.setOnMouseReleased(rectangleDragHandler.createOnMouseReleasedHandler(rectangle));
             }
         }
-        Scene scene = new Scene(root, 800, 450);
+        Scene scene = new Scene(pane, 800, 450);
 
         this.setViewName("game-view.fxml");
         stage.setScene(scene);
@@ -249,4 +228,24 @@ public class CySlideController {
             System.out.println(e);
         }
     }   
+
+    @FXML
+    Button play_button;
+    @FXML
+    protected void playButtonClicked() {
+        //TODO
+        /*
+         * 
+         *  // We call the initiate method on Class Level
+    Level level = getCurrentLevel();
+    Button levelMenu = getLastLevelButtonPressed();
+    // We move randomly each tile from the table
+    level.initLevelMove(); //this level object will have know a different table
+    //We get stage from the levelMenuButton reference
+    Stage stage = (Stage) levelMenu.getScene().getWindow();
+    //We print again the playable table
+    setLevel(levelMenu, stage, level);
+        */
+    }
+
 }

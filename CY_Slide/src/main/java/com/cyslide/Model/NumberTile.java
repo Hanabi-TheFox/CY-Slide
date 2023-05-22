@@ -79,7 +79,7 @@ public class NumberTile extends Tile{
     @Override
         public void move2(String direction, Tile [][] table) {
             if(direction=="UP"){
-                 // we go to the top of the matrix so we must reduce the position of the first tab which is table[]
+                 // we go to the top of the matrix so we must reduce the position of the first tab which is table[x][] 
                 // We change our table
                 SwapTile(getPosX(), getPosY(), getPosX()-1, getPosY(), table);
                 // Now we change coordinates of the empty tile
@@ -90,7 +90,7 @@ public class NumberTile extends Tile{
                 SwapTile(getPosX(), getPosY(), getPosX()+1, getPosY(), table);
                 table[getPosX()][getPosY()].moved(getPosX(), getPosY());
                 table[getPosX()+1][getPosY()].moved(getPosX()+1, getPosY());
-            }else if(direction=="LEFT"){ // we go to the left of the matrix so we must reduce the position of the second tab which is table[][]
+            }else if(direction=="LEFT"){ // we go to the left of the matrix so we must reduce the position of the second tab which is table[][y]
                 SwapTile(getPosX(), getPosY(), getPosX(), getPosY()-1, table);
                 table[getPosX()][getPosY()].moved(getPosX(), getPosY());
                 table[getPosX()][getPosY()-1].moved(getPosX(), getPosY()-1);

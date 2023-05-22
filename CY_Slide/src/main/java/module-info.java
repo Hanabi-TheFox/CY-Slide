@@ -6,4 +6,5 @@ module com.cyslide {
 
     opens com.cyslide to javafx.fxml;
     exports com.cyslide;
+    exports com.cyslide.Model;
 }
