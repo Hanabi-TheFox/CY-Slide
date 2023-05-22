@@ -3,6 +3,7 @@ package com.cyslide;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -10,19 +11,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import com.cyslide.Model.*;
+import com.cyslide.Model.Player.PlayerPseudoException;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-
-public class CySlideController {
+public class CySlideController implements Initializable {
     @FXML
     private Button StartPage_Button;
     @FXML
@@ -33,37 +30,25 @@ public class CySlideController {
     private Label LevelMenu_Pseudo;
     private CySlideApplication app;
     private String viewName="";
-    private Player player;
+    static private Player player;
     private GridPane gridPane;
 
-    /*@FXML
-    private void initialize() {
-        // Register a key press event handler on the StartPage_TextField
-        StartPage_TextField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                OnStartPage_ButtonClick();
-            }
-        });
-    } */
-
-
-
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (LevelMenu_BackButton != null) {
+            LevelMenu_Pseudo.setText(player.getPseudo());
+        }
+    }
     
     @FXML
-    protected void OnStartPage_ButtonClick() {
+    protected void OnStartPage_ButtonClick() throws PlayerPseudoException {
         String pseudo = StartPage_TextField.getText();
         if (pseudo.isEmpty()) {
             Label StartPage_ErrorLabel = (Label) StartPage_TextField.getScene().lookup("#StartPage_ErrorLabel");
             StartPage_ErrorLabel.setText("Please enter a username");
         } else {
-            // Check if the player exists in the player.csv file
-            boolean playerExists = checkPlayerExists(pseudo);
-            
-            if (!playerExists) {
-                // Create a new player entry in the player.csv file
-                createNewPlayer(pseudo);
-            }
-            // We move to the menu-view.fxml page
+            player = new Player(pseudo);
+            // We move to the LevelMenu.fxml page
             try {
                 this.setViewName("LevelMenu.fxml");
                 Parent root = FXMLLoader.load(getClass().getResource("LevelMenu.fxml"));
@@ -83,39 +68,6 @@ public class CySlideController {
     public void setViewName(String viewName) {
         this.viewName = viewName;
     }
-
-    private boolean checkPlayerExists(String pseudo) {
-        String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Player.csv";
-        String line = "";
-        try (BufferedReader br = new BufferedReader(new FileReader(pathFile))) {
-            while ((line = br.readLine()) != null) {
-                    String[] rowValues = line.split(";");
-                    if (rowValues[0].equals(pseudo)) {
-                        return true;
-                    }  
-            }
-            System.out.println("File Found");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error reading file");
-        }
-        return false;
-    }
-
-    private void createNewPlayer(String pseudo) {
-        String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Player.csv";
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(pathFile, true))) {
-            // Write the new data at the end of the file
-            writer.write(pseudo + ";0");
-            writer.newLine();
-            System.out.println("Success in writing file");
-            this.player = new Player(pseudo);
-        } catch (IOException | Player.PlayerPseudoException e) {
-            e.printStackTrace();
-            System.out.println("Error in writing the file or/and creating player object");
-        }
-    }
-    
 
     @FXML
     private Button LevelMenu_BackButton;
