@@ -28,6 +28,7 @@ public class CySlideController implements Initializable {
     private Label StartPage_ErrorLabel;
     @FXML
     private Label LevelMenu_Pseudo;
+    private static Level currentLevel;
     private CySlideApplication app;
     private String viewName="";
     static private Player player;
@@ -38,6 +39,10 @@ public class CySlideController implements Initializable {
         if (LevelMenu_BackButton != null) {
             LevelMenu_Pseudo.setText(player.getPseudo());
         }
+    }
+
+    public void setCurrentLevel(Level level){
+        CySlideController.currentLevel = level;
     }
     
     @FXML
@@ -117,6 +122,7 @@ public class CySlideController implements Initializable {
             // creation of level X
             Level level = new Level(Integer.parseInt(levelNumber));
             setLevel(root,stage,level);
+            setCurrentLevel(level);
             
         } catch (Exception e) {
             System.out.println(e);
@@ -184,6 +190,7 @@ public class CySlideController implements Initializable {
     Button play_button;
     @FXML
     protected void playButtonClicked() {
+        System.out.println("test : " + CySlideController.currentLevel.getNumber());
         //TODO
         /*
          * 
