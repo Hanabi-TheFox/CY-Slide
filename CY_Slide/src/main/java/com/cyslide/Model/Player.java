@@ -1,16 +1,17 @@
 package com.cyslide.Model;
 
-import java.util.HashSet;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 /**
- * @author @RDNATOS
+ * @author @RDNATOS @Hanabi-TheFox
  */
 public class Player {
     private String pseudo;
     private int levelResolved; //indicates the number of the last level accomplished by the player
-    private TaquinGame taquinGame;
 
     public Player(String pseudo) throws PlayerPseudoException {
         this.pseudo = pseudo;
@@ -18,48 +19,78 @@ public class Player {
         if (this.pseudo.length() > 20) {
             throw new PlayerPseudoException("Pseudo cannot have more than 20 characters");
         }
-    //this.listRecords = new HashSet<Record>();
-    //this.listResolvedLevels = new HashSet<Level>();
-    }
-    public String getPseudo() {
-        return pseudo;
-    }
-
-    /**
-     * Returns number of the last level completed
-     * @param none
-     * @return levelResolved
-     * @throws PlayerPseudoException
-     */
-    public int recoverNbOfCompletedLvl() throws PlayerPseudoException{
+        if (this.pseudo.length() < 3) {
+            throw new PlayerPseudoException("Pseudo cannot have less than 3 characters");
+        }
+        // On ouvre le fichier CSV
         String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Player.csv";
-    
+        String line = "";
+        boolean PlayerFound = false;
         try (BufferedReader br = new BufferedReader(new FileReader(pathFile))) {
-            String line;
-            boolean isFirstLine = true; // To ignore the first line
-    
             while ((line = br.readLine()) != null) {
-                if (isFirstLine) {
-                    isFirstLine = false;
-                    continue;
+                    String[] rowValues = line.split(";");
+                    if (rowValues[0].equals(pseudo)) {
+                        this.levelResolved = Integer.parseInt(rowValues[1]);
+                        PlayerFound = true;
+                        break;
+                    }
                 }
-    
-                String[] rowValues = line.split(";");
-                String pseudo = rowValues[0];
-                levelResolved = Integer.parseInt(rowValues[1]);
-                System.out.println("Level Completed for player " + pseudo + " : " + levelResolved);
+                System.out.println("File Found");
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Error reading file");
+            }
+        
+        if (PlayerFound == false) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(pathFile, true))) {
+                // Write the new data at the end of the file
+                writer.write(pseudo + ";1");
+                writer.newLine();
+                System.out.println("Success in writing file");
+                this.levelResolved = 1;
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Error in writing the file or/and creating player object");
+            }
+        }
+    }
 
+    public String getPseudo() {return pseudo;}
+    public int getLevelResolved() {return levelResolved;}
+    public void setLevelResolved(int levelResolved) {
+        this.levelResolved = levelResolved;
+        String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Player.csv";
+        String tempFile = "CY_Slide/src/main/java/com/cyslide/Data/PlayerTemp.csv";
+        String line = "";
+        try (BufferedReader br = new BufferedReader(new FileReader(pathFile));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
+            while ((line = br.readLine()) != null) {
+                    String[] rowValues = line.split(";");
+                    if (rowValues[0].equals(this.pseudo)) {
+                        rowValues[1] = Integer.toString(this.levelResolved);
+                    }
+                    bw.write(String.join(";", rowValues));
+                    bw.newLine();
+            }
+            File oldFile = new File(pathFile);
+            if (oldFile.delete()) {
+                File newFile = new File(pathFile);
+                if (newFile.exists()) {
+                    newFile.delete();
+                }
+                if (new File(tempFile).renameTo(newFile)) {
+                    System.out.println("File updated successfully.");
+                } else {
+                    System.out.println("Error updating file.");
+                }
+            } else {
+                System.out.println("Error deleting file.");
             }
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Error reading or writing file.");
         }
-    
-        return levelResolved;
     }
-    
-
-
-
 
     public class PlayerPseudoException extends Exception {
     public PlayerPseudoException(String message) {
