@@ -108,12 +108,35 @@ public class Main{
         initialState[0][1] = new NumberTile(1,0,1);
         initialState[0][2] = new NumberTile(3,0,2);
         initialState[1][0] = new NumberTile(4,1,0);
-        initialState[1][1] = new EmptyTile(2,2);
+        initialState[1][1] = new EmptyTile(1,1);
         initialState[1][2] = new NumberTile(2,1,2);
         initialState[2][0] = new NumberTile(7,2,0);
         initialState[2][1] = new NumberTile(6,2,1);
         initialState[2][2] = new NumberTile(5,2,2);
-
+        /*
+        Tile[][] initialState = new Tile[rows][cols];
+        initialState[0][0] = new NumberTile(1,0,0);
+        initialState[0][1] = new NumberTile(2,0,1);
+        initialState[0][2] = new NumberTile(3,0,2);
+        initialState[1][0] = new NumberTile(4,1,0);
+        initialState[1][1] = new NumberTile(5,1,1);
+        initialState[1][2] = new EmptyTile(1,2);
+        initialState[2][0] = new NumberTile(7,2,0);
+        initialState[2][1] = new NumberTile(8,2,1);
+        initialState[2][2] = new NumberTile(6,2,2);
+        */
+        /*
+        Tile[][] initialState = new Tile[rows][cols];
+        initialState[0][0] = new NumberTile(1,0,0);
+        initialState[0][1] = new NumberTile(2,0,1);
+        initialState[0][2] = new NumberTile(3,0,2);
+        initialState[1][0] = new NumberTile(4,1,0);
+        initialState[1][1] = new NumberTile(5,1,1);
+        initialState[1][2] = new NumberTile(6,1,2);
+        initialState[2][0] = new NumberTile(7,2,0);
+        initialState[2][1] = new NumberTile(8,2,1);
+        initialState[2][2] = new EmptyTile(2,2);
+        */
         System.out.println("Initial state :");
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
