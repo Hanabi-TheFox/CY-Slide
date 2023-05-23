@@ -22,7 +22,7 @@ public class Player {
         if (this.pseudo.length() < 3) {
             throw new PlayerPseudoException("Pseudo cannot have less than 3 characters");
         }
-        // On ouvre le fichier CSV
+        // we open the CSV file
         String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Player.csv";
         String line = "";
         boolean PlayerFound = false;
