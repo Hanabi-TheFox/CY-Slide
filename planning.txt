@@ -95,5 +95,7 @@ Thursday, May 18:
   Clement:
   Renato: Adding blocking levels based on resolution feature,
   Yanis:
-  Ethan:
+  Ethan: Created the controler event for each time a Drag&Drop are done.
+  The cunter of movement is now displayed in the game view.
+  Correction of the system of level unlocking.
 
