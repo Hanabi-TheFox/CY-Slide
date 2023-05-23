@@ -15,6 +15,7 @@ import javafx.beans.binding.NumberBinding;
 public class Level{
         private int number;
         private int moveCounter;
+        private boolean randomized;
         private boolean completed;
         private int record;
         private Tile[][] table;//table is resolved first
@@ -24,6 +25,7 @@ public class Level{
         public Level(int number){
                 this.number = number;
                 this.moveCounter = 0;
+                this.randomized = false;
                 this.completed = false;
                 this.record = recoverRecord(number);
                 this.table = recoverLvl(number);
@@ -32,11 +34,17 @@ public class Level{
         public int getNumber(){
                 return number;
         }
+        public boolean getRandomized(){
+                return randomized;
+        }
         public int getMoveCounter(){
                 return moveCounter;
         }
         public void setMoveCounter(int moveCounter){
                 this.moveCounter = moveCounter;
+        }
+        public void setRandomized(boolean randomized){
+                this.randomized = randomized;
         }
         public boolean getCompleted(){
                 return completed;

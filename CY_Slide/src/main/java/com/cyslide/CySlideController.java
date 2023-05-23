@@ -49,7 +49,11 @@ public class CySlideController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (StartPage_Button != null) {
+            System.out.println("We are in the StartPage.fxml page");
+        }
         if (LevelMenu_BackButton != null) {
+            System.out.println("We are in the LevelMenu.fxml page");
             LevelMenu_Pseudo.setText(player.getPseudo());
         }
         // if we are in the LevelX.fxml page
@@ -232,6 +236,9 @@ public class CySlideController implements Initializable {
         Parent root = CySlideController.currentRoot;
         setLevel(root, stage, nvLevel);
         nvLevel.setMoveCounter(0);
+        nvLevel.setRandomized(true);
+        play_button = (Button) root.getScene().lookup("#play_button");
+        play_button.setText("Replay");
         setCurrentLevel(nvLevel);
         //TODO
         /*
