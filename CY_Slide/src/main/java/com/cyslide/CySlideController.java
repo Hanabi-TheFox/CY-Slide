@@ -142,7 +142,7 @@ public class CySlideController implements Initializable {
         this.setViewName("LevelX.fxml");
         //The player cant play the next level unless he finishes the previous one
         //Or its level 1
-        if ( (CySlideController.player.getLevelResolved() == Integer.parseInt(levelNumber)-1) || (Integer.parseInt(levelNumber) == 1)) {
+        if (CySlideController.player.getLevelResolved() >= Integer.parseInt(levelNumber)) {
             try {
                     // creation of level X
                 Level level = new Level(Integer.parseInt(levelNumber));
@@ -160,7 +160,7 @@ public class CySlideController implements Initializable {
         }
         //The player cant play the next level
         else {
-            System.out.println("Level " + levelNumber + " can't be played. You should finish Level " + (Integer.parseInt(levelNumber) - 1) + " first");
+            System.out.println("Level " + levelNumber + " can't be played. You should finish Level " + CySlideController.player.getLevelResolved() + " first");
         }
     }
 
