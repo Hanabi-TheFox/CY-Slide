@@ -47,14 +47,13 @@ public class Player {
                 writer.write(pseudo + ";1");
                 writer.newLine();
                 System.out.println("Success in writing file");
-                this.levelResolved = 1;
+                this.setLevelResolved(1);
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("Error in writing the file or/and creating player object");
             }
         }
     }
-
     public String getPseudo() {return pseudo;}
     public int getLevelResolved() {return levelResolved;}
     public void setLevelResolved(int levelResolved) {
