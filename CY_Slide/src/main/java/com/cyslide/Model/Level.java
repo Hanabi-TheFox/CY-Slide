@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import java.util.Random;
 
+import com.cyslide.CySlideController;
+
 import javafx.beans.binding.NumberBinding;
 
 /**
@@ -13,6 +15,7 @@ import javafx.beans.binding.NumberBinding;
  * @author @Ymasuu
  */
 public class Level{
+        private CySlideController controller;
         private int number;
         private int moveCounter;
         private boolean randomized;
@@ -23,6 +26,17 @@ public class Level{
                         //the table changes its tiles randomly
 
         public Level(int number){
+                this.controller = null;
+                this.number = number;
+                this.moveCounter = 0;
+                this.randomized = false;
+                this.completed = false;
+                this.record = recoverRecord(number);
+                this.table = recoverLvl(number);
+        }
+
+        public Level(int number, CySlideController controller){
+                this.controller = controller;
                 this.number = number;
                 this.moveCounter = 0;
                 this.randomized = false;
@@ -145,7 +159,7 @@ public class Level{
                 }else{
                         table[x][y].GetTile().move(direction, table);
                         moveCounter++;
-                        //We call a method to verify if the table is completed after this move
+                        this.controller.handleMoveTileEvent();
                         return true;
                 }
         }

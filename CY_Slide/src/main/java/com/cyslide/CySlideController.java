@@ -7,7 +7,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
@@ -40,6 +39,7 @@ public class CySlideController implements Initializable {
     private Label LevelX_Record;
     @FXML
     private static Player player;
+    public static int compteur;
     private static Level currentLevel;
     private static Stage currentStage;
     private static Parent currentRoot;
@@ -149,7 +149,7 @@ public class CySlideController implements Initializable {
         if (CySlideController.player.getLevelResolved() >= Integer.parseInt(levelNumber)) {
             try {
                     // creation of level X
-                Level level = new Level(Integer.parseInt(levelNumber));
+                Level level = new Level(Integer.parseInt(levelNumber),this);
                 setCurrentLevel(level);
                 Parent root = FXMLLoader.load(getClass().getResource("LevelX.fxml"));
                 setCurrentRoot(root);
@@ -230,12 +230,14 @@ public class CySlideController implements Initializable {
     @FXML
     protected void playButtonClicked() {
         Level level = CySlideController.currentLevel;
-        Level nvLevel = new Level(level.getNumber());
+        Level nvLevel = new Level(level.getNumber(),this);
         nvLevel.initLevelMove();
         Stage stage = CySlideController.currentStage;
         Parent root = CySlideController.currentRoot;
         setLevel(root, stage, nvLevel);
         nvLevel.setMoveCounter(0);
+        LevelX_NBTurns = (Label) root.getScene().lookup("#LevelX_NBTurns");
+        LevelX_NBTurns.setText("0");
         nvLevel.setRandomized(true);
         play_button = (Button) root.getScene().lookup("#play_button");
         play_button.setText("Replay");
@@ -256,6 +258,11 @@ public class CySlideController implements Initializable {
     }
     public String getViewName() {
         return this.viewName;
+    }
+
+    public void handleMoveTileEvent(){
+        LevelX_NBTurns = (Label) CySlideController.currentRoot.getScene().lookup("#LevelX_NBTurns");
+        LevelX_NBTurns.setText(Integer.toString(CySlideController.currentLevel.getMoveCounter()));
     }
 
 }
