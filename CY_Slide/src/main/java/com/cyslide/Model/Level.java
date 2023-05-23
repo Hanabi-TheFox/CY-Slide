@@ -145,6 +145,7 @@ public class Level{
                 }else{
                         table[x][y].GetTile().move(direction, table);
                         moveCounter++;
+                        //We call a method to verify if the table is completed after this move
                         return true;
                 }
         }
