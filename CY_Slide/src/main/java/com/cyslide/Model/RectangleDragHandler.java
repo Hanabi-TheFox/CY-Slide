@@ -41,7 +41,7 @@ public class RectangleDragHandler {
 
     public EventHandler<MouseEvent> createOnMouseDraggedHandler(RectangleWithLabel rectangle) {
         return event -> {
-            if(rectangle.GetTile().getType()==1){
+            if(rectangle.GetTile().getType()==1 && level.getRandomized()){
                 double deltaX = event.getSceneX() - mouseAnchorX;
                 double deltaY = event.getSceneY() - mouseAnchorY;
                 rectangle.setTranslateX(initialTranslateX + deltaX);
@@ -59,7 +59,7 @@ public class RectangleDragHandler {
             for (int i = 0; i < rectangles.length; i++) {
                 for (int j = 0; j < rectangles[i].length; j++) {
                     RectangleWithLabel currentRectangle = rectangles[i][j];
-                    if (currentRectangle != rectangle && isMouseInside(currentRectangle, event)) {
+                    if (currentRectangle != rectangle && isMouseInside(currentRectangle, event) && level.getRandomized()) {
                         targetRectangle = currentRectangle;
                         int x = rectangle.GetTile().getPosX();
                         int y = rectangle.GetTile().getPosY();

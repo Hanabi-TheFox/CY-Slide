@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import java.util.Random;
 
+import com.cyslide.CySlideController;
+
 import javafx.beans.binding.NumberBinding;
 
 /**
@@ -13,8 +15,10 @@ import javafx.beans.binding.NumberBinding;
  * @author @Ymasuu
  */
 public class Level{
+        private CySlideController controller;
         private int number;
         private int moveCounter;
+        private boolean randomized;
         private boolean completed;
         private int record;
         private Tile[][] table;//table is resolved first
@@ -22,8 +26,20 @@ public class Level{
                         //the table changes its tiles randomly
 
         public Level(int number){
+                this.controller = null;
                 this.number = number;
                 this.moveCounter = 0;
+                this.randomized = false;
+                this.completed = false;
+                this.record = recoverRecord(number);
+                this.table = recoverLvl(number);
+        }
+
+        public Level(int number, CySlideController controller){
+                this.controller = controller;
+                this.number = number;
+                this.moveCounter = 0;
+                this.randomized = false;
                 this.completed = false;
                 this.record = recoverRecord(number);
                 this.table = recoverLvl(number);
@@ -32,11 +48,17 @@ public class Level{
         public int getNumber(){
                 return number;
         }
+        public boolean getRandomized(){
+                return randomized;
+        }
         public int getMoveCounter(){
                 return moveCounter;
         }
         public void setMoveCounter(int moveCounter){
                 this.moveCounter = moveCounter;
+        }
+        public void setRandomized(boolean randomized){
+                this.randomized = randomized;
         }
         public boolean getCompleted(){
                 return completed;
@@ -137,6 +159,7 @@ public class Level{
                 }else{
                         table[x][y].GetTile().move(direction, table);
                         moveCounter++;
+                        this.controller.handleMoveTileEvent();
                         return true;
                 }
         }
@@ -150,8 +173,15 @@ public class Level{
                 }
         }
         
+        /**
+         * 
+         * @param number
+         * @return boolean
+         * Returns true if Level is Completed by the player.
+         * It compares the players's level with a solved one
+         */
         public boolean isCompleted(int number){
-                Level finalState = new Level(number);
+                Level finalState = new Level(number); //We get a completed version of the level
                 int size = table.length;
                 for (int i = 0; i < size; i++){
                         for (int j = 0; j < size; j++){

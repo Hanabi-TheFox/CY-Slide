@@ -26,22 +26,40 @@ public class CySlideController implements Initializable {
     private TextField StartPage_TextField;
     @FXML
     private Label StartPage_ErrorLabel;
+
+
     @FXML
     private Label LevelMenu_Pseudo;
+
     @FXML
     private Label LevelX_LevelNumber;
+    @FXML
+    private Label LevelX_NBTurns;
+    @FXML
+    private Label LevelX_Record;
+    @FXML
+    private static Player player;
+    public static int compteur;
     private static Level currentLevel;
     private static Stage currentStage;
     private static Parent currentRoot;
     private CySlideApplication app;
     private String viewName="";
-    private static Player player;
     private GridPane gridPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (StartPage_Button != null) {
+            System.out.println("We are in the StartPage.fxml page");
+        }
         if (LevelMenu_BackButton != null) {
+            System.out.println("We are in the LevelMenu.fxml page");
             LevelMenu_Pseudo.setText(player.getPseudo());
+        }
+        // if we are in the LevelX.fxml page
+        if (quitButton != null){
+            System.out.println("We are in the LevelX.fxml page");
+            LevelX_Record.setText(Integer.toString(CySlideController.currentLevel.getRecord()));
         }
     }
 
@@ -121,24 +139,32 @@ public class CySlideController implements Initializable {
     private Button LevelMenu_9;
     @FXML
     private Button LevelMenu_10;
-
     @FXML
     protected void OnLevelMenu_XButtonClick(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
         String levelNumber = clickedButton.getText();
-         try {
-            Parent root = FXMLLoader.load(getClass().getResource("LevelX.fxml"));
-            setCurrentRoot(root);
-            Stage stage = (Stage) LevelMenu_1.getScene().getWindow();
-            setCurrentStage(stage);
-            // creation of level X
-            Level level = new Level(Integer.parseInt(levelNumber));
-            setLevel(root,stage,level);
-            setCurrentLevel(level);
-            LevelX_LevelNumber = (Label) root.getScene().lookup("#LevelX_LevelNumber");
-            LevelX_LevelNumber.setText(levelNumber);
-        } catch (Exception e) {
-            System.out.println(e);
+        this.setViewName("LevelX.fxml");
+        //The player cant play the next level unless he finishes the previous one
+        //Or its level 1
+        if (CySlideController.player.getLevelResolved() >= Integer.parseInt(levelNumber)) {
+            try {
+                    // creation of level X
+                Level level = new Level(Integer.parseInt(levelNumber),this);
+                setCurrentLevel(level);
+                Parent root = FXMLLoader.load(getClass().getResource("LevelX.fxml"));
+                setCurrentRoot(root);
+                Stage stage = (Stage) LevelMenu_1.getScene().getWindow();
+                setLevel(root,stage,level);
+                setCurrentStage(stage);
+                LevelX_LevelNumber = (Label) root.getScene().lookup("#LevelX_LevelNumber");
+                LevelX_LevelNumber.setText(levelNumber);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        //The player cant play the next level
+        else {
+            System.out.println("Level " + levelNumber + " can't be played. You should finish Level " + CySlideController.player.getLevelResolved() + " first");
         }
     }
 
@@ -204,12 +230,17 @@ public class CySlideController implements Initializable {
     @FXML
     protected void playButtonClicked() {
         Level level = CySlideController.currentLevel;
-        Level nvLevel = new Level(level.getNumber());
+        Level nvLevel = new Level(level.getNumber(),this);
         nvLevel.initLevelMove();
         Stage stage = CySlideController.currentStage;
         Parent root = CySlideController.currentRoot;
         setLevel(root, stage, nvLevel);
         nvLevel.setMoveCounter(0);
+        LevelX_NBTurns = (Label) root.getScene().lookup("#LevelX_NBTurns");
+        LevelX_NBTurns.setText("0");
+        nvLevel.setRandomized(true);
+        play_button = (Button) root.getScene().lookup("#play_button");
+        play_button.setText("Replay");
         setCurrentLevel(nvLevel);
         //TODO
         /*
@@ -224,6 +255,14 @@ public class CySlideController implements Initializable {
     //We print again the playable table
     setLevel(levelMenu, stage, level);
         */
+    }
+    public String getViewName() {
+        return this.viewName;
+    }
+
+    public void handleMoveTileEvent(){
+        LevelX_NBTurns = (Label) CySlideController.currentRoot.getScene().lookup("#LevelX_NBTurns");
+        LevelX_NBTurns.setText(Integer.toString(CySlideController.currentLevel.getMoveCounter()));
     }
 
 }
