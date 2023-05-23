@@ -103,4 +103,6 @@ Tuesday, May 23:
     Created the controler event for each time a Drag&Drop are done.
     The cunter of movement is now displayed in the game view.
     Correction of the system of level unlocking.
+  Ethan - Clement - Renato - Samy - Yanis:
+    Teams Reunion with Eva Ansermin in order to help us on our problem with astar algorithm.
 
