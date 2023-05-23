@@ -27,16 +27,24 @@ public class CySlideController implements Initializable {
     private TextField StartPage_TextField;
     @FXML
     private Label StartPage_ErrorLabel;
+
+
     @FXML
     private Label LevelMenu_Pseudo;
+
     @FXML
     private Label LevelX_LevelNumber;
+    @FXML
+    private Label LevelX_NBTurns;
+    @FXML
+    private Label LevelX_Record;
+    @FXML
+    private static Player player;
     private static Level currentLevel;
     private static Stage currentStage;
     private static Parent currentRoot;
     private CySlideApplication app;
-    private String viewName="StartPage";
-    private static Player player;
+    private String viewName="";
     private GridPane gridPane;
 
     @Override
@@ -44,8 +52,11 @@ public class CySlideController implements Initializable {
         if (LevelMenu_BackButton != null) {
             LevelMenu_Pseudo.setText(player.getPseudo());
         }
-
-
+        // if we are in the LevelX.fxml page
+        if (quitButton != null){
+            System.out.println("We are in the LevelX.fxml page");
+            LevelX_Record.setText(Integer.toString(CySlideController.currentLevel.getRecord()));
+        }
     }
 
     public void setCurrentLevel(Level level){
@@ -124,37 +135,34 @@ public class CySlideController implements Initializable {
     private Button LevelMenu_9;
     @FXML
     private Button LevelMenu_10;
-
     @FXML
     protected void OnLevelMenu_XButtonClick(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
         String levelNumber = clickedButton.getText();
         this.setViewName("LevelX.fxml");
-         
-            //The player cant play the next level unless he finishes the previous one
-            //Or its level 1
-            if ( (CySlideController.player.getLevelResolved() == Integer.parseInt(levelNumber)-1) || (Integer.parseInt(levelNumber) == 1)) {
-                try {
-                    Parent root = FXMLLoader.load(getClass().getResource("LevelX.fxml"));
-                    setCurrentRoot(root);
-                    Stage stage = (Stage) LevelMenu_1.getScene().getWindow();
-                    setCurrentStage(stage);
+        //The player cant play the next level unless he finishes the previous one
+        //Or its level 1
+        if (CySlideController.player.getLevelResolved() >= Integer.parseInt(levelNumber)) {
+            try {
                     // creation of level X
-                    Level level = new Level(Integer.parseInt(levelNumber));
-                    setLevel(root,stage,level);
-                    setCurrentLevel(level);
-                    LevelX_LevelNumber = (Label) root.getScene().lookup("#LevelX_LevelNumber");
-                    LevelX_LevelNumber.setText(levelNumber);
-                }   catch (Exception e) {
-                    System.out.println(e);
-                }
-                }
-                //The player cant play the next level
-            else {
-                System.out.println("Level " + levelNumber + " can't be played. You should finish Level " + (Integer.parseInt(levelNumber) - 1) + " first");
-
+                Level level = new Level(Integer.parseInt(levelNumber));
+                setCurrentLevel(level);
+                Parent root = FXMLLoader.load(getClass().getResource("LevelX.fxml"));
+                setCurrentRoot(root);
+                Stage stage = (Stage) LevelMenu_1.getScene().getWindow();
+                setLevel(root,stage,level);
+                setCurrentStage(stage);
+                LevelX_LevelNumber = (Label) root.getScene().lookup("#LevelX_LevelNumber");
+                LevelX_LevelNumber.setText(levelNumber);
+            } catch (Exception e) {
+                System.out.println(e);
             }
-            }
+        }
+        //The player cant play the next level
+        else {
+            System.out.println("Level " + levelNumber + " can't be played. You should finish Level " + CySlideController.player.getLevelResolved() + " first");
+        }
+    }
 
     protected void setLevel(Parent root,Stage stage,Level level){
         // Creation of RectangleWithLabel with predefined positions

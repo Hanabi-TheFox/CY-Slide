@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cyslide.CySlideController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cyslide.CySlideController">
    <children>
       <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="450.0" prefWidth="800.0" spacing="50.0">
          <children>
@@ -38,7 +38,7 @@
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="X" textAlignment="CENTER" textFill="WHITE">
+                        <Label fx:id="LevelX_NBTurns" alignment="CENTER" contentDisplay="CENTER" text="0" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font size="30.0" />
                            </font>
@@ -48,7 +48,7 @@
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="X" textAlignment="CENTER" textFill="WHITE">
+                        <Label fx:id="LevelX_Record" alignment="CENTER" contentDisplay="CENTER" text="X" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font size="30.0" />
                            </font>
@@ -72,7 +72,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <Button fx:id="play_button" layoutX="93.0" layoutY="65.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="114.0" text="Play" onAction="#playButtonClicked">
+                  <Button fx:id="play_button" layoutX="93.0" layoutY="65.0" mnemonicParsing="false" onAction="#playButtonClicked" prefHeight="42.0" prefWidth="114.0" text="Play">
                         <font>
                            <Font name="Arial" size="16.0" />
                         </font>
