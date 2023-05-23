@@ -82,6 +82,9 @@ Monday, May 22:
   Renato: 
     Worked on play Button, A* Algorithm and Player Class. Encountered problems with Controller variables.
   Yanis:
+    Work on keyboard movement for tiles
+    Help for astar algorithm
+    "Try" to fix move counter
   Ethan:
     Rework entierly the player class.
     Have greatly optimized the code of the CySlideController class.
@@ -99,10 +102,14 @@ Tuesday, May 23:
   Renato: 
     Adding blocking levels based on resolution feature,
   Yanis:
+    Work on keyboard movement for tiles
+    Help for astar algorithm
+    "Try" to fix move counter
   Ethan: 
     Created the controler event for each time a Drag&Drop are done.
     The cunter of movement is now displayed in the game view.
     Correction of the system of level unlocking.
+
   Ethan - Clement - Renato - Samy - Yanis:
     Teams Reunion with Eva Ansermin in order to help us on our problem with astar algorithm.
 
