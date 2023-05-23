@@ -57,7 +57,7 @@ Thursday, May 18:
   Yanis:
     Working on the integration of the new method of graphic generation of levels.
     
-    Friday, May 19:
+Friday, May 19:
   Samy:
     Create function isCompleted() in level.java.
     (Tries to understand file RectangleWithLabel.java and RectangleDragHandler.java)
@@ -71,13 +71,14 @@ Thursday, May 18:
   Yanis:
     worked on the resolution of issues in the movement of the tiles.
   
-  Monday, May 22:
+Monday, May 22:
   Samy:
     Create the function initLevelMove() in level.java but can't test it because we need to use a RectangleWithLabel table, so we need to succeed at link the function with the interface.
     Try to link the function with the interface but we don't know why we can't.
     After the meeting, works on adjustment on function initLevelMove() because now he can test it.
   Clement:
     Works a lot in order to use A* in our programme.
+    Try to fix problems
   Renato: 
     Worked on play Button, A* Algorithm and Player Class. Encountered problems with Controller variables.
   Yanis:
@@ -90,12 +91,16 @@ Thursday, May 18:
   Ethan - Clement - Renato - Samy - Yanis:
     Teams Reunion with Romuald Grignon in order to help us on our problem with variables in our file controller.
     
-      Tuesday, May 23:
+Tuesday, May 23:
   Samy:
   Clement:
-  Renato: Adding blocking levels based on resolution feature,
+    Work in AStarAlgo with a new version, instead of using the distance of Manhattan, use the number of misplaced tiles
+    Try to implements this new version but always problems with the movement of tiles
+  Renato: 
+    Adding blocking levels based on resolution feature,
   Yanis:
-  Ethan: Created the controler event for each time a Drag&Drop are done.
-  The cunter of movement is now displayed in the game view.
-  Correction of the system of level unlocking.
+  Ethan: 
+    Created the controler event for each time a Drag&Drop are done.
+    The cunter of movement is now displayed in the game view.
+    Correction of the system of level unlocking.
 
