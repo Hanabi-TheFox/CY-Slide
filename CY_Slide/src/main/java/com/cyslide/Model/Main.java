@@ -150,7 +150,8 @@ public class Main{
             System.out.println();
         }
         AStarAlgo aStarAlgo = new AStarAlgo();
-        aStarAlgo.aStar(initialState, finalState);
+        
+        //aStarAlgo.aStar(initialState, finalState);
 
     }
 }

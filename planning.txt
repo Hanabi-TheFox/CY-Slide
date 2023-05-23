@@ -9,11 +9,11 @@ Monday, May 15:
   Yanis: 
     Documentation on javaFX.
   Clement - Yanis - Samy:
-    Try to fix JavaFX techninal problem on their computer.
+    Try to fix JavaFX technical  problem on their computer.
 
 Tuesday, May 16:
   Ethan - Clement - Renato - Samy - Yanis:
-    Vocal with Eva Ansermin, the tutor for questionning.
+    Vocal with Eva Ansermin, the tutor to ask questions.
   Renato - Yanis:
     Work on the base java class of the project.
   Samy:
@@ -24,7 +24,7 @@ Tuesday, May 16:
     Creating the Data files.
     Organize a meeting with Romuald Grignon for technical help.
   Clement:
-    Search for resolution algorithm of the taquin game.
+    Search for resolution algorithm of the teasing game.
     Work on function in order to recover our data file from java class.
 
 Wednesday, May 17:
@@ -83,10 +83,10 @@ Monday, May 22:
     Worked on play Button, A* Algorithm and Player Class. Encountered problems with Controller variables.
   Yanis:
     Work on keyboard movement for tiles
-    Help for astar algorithm
+    Help for A* algorithm
     "Try" to fix move counter
   Ethan:
-    Rework entierly the player class.
+    Rework completely the player class.
     Have greatly optimized the code of the CySlideController class.
     Have improved the visual of the game.
     Now the level number is displayed in the game view.
@@ -95,21 +95,24 @@ Monday, May 22:
     Teams Reunion with Romuald Grignon in order to help us on our problem with variables in our file controller.
     
 Tuesday, May 23:
+  Ethan - Clement - Renato - Samy - Yanis:
+    Teams Reunion with Eva Ansermin in order to help us on our problem with A* algorithm.
   Samy:
+    Help to use Level class in our A* algorithm.
+    Works on function initLevelMove. Now we use seeds and with this, 2 players can play the same level 2 for example.
   Clement:
     Work in AStarAlgo with a new version, instead of using the distance of Manhattan, use the number of misplaced tiles
     Try to implements this new version but always problems with the movement of tiles
   Renato: 
-    Adding blocking levels based on resolution feature,
+    Adding blocking levels based on resolution feature.
   Yanis:
-    Work on keyboard movement for tiles
-    Help for astar algorithm
-    "Try" to fix move counter
+    Work on keyboard movement for tiles.
+    Help for A* algorithm.
+    "Try" to fix move counter.
   Ethan: 
-    Created the controler event for each time a Drag&Drop are done.
-    The cunter of movement is now displayed in the game view.
+    Created the controller event for each time a Drag&Drop are done.
+    The counter of movement is now displayed in the game view.
     Correction of the system of level unlocking.
 
-  Ethan - Clement - Renato - Samy - Yanis:
-    Teams Reunion with Eva Ansermin in order to help us on our problem with astar algorithm.
+Wednesday, May 24:
 
