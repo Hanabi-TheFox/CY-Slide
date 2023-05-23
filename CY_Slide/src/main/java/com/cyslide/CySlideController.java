@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
@@ -34,7 +35,7 @@ public class CySlideController implements Initializable {
     private static Stage currentStage;
     private static Parent currentRoot;
     private CySlideApplication app;
-    private String viewName="";
+    private String viewName="StartPage";
     private static Player player;
     private GridPane gridPane;
 
@@ -43,6 +44,8 @@ public class CySlideController implements Initializable {
         if (LevelMenu_BackButton != null) {
             LevelMenu_Pseudo.setText(player.getPseudo());
         }
+
+
     }
 
     public void setCurrentLevel(Level level){
@@ -126,6 +129,7 @@ public class CySlideController implements Initializable {
     protected void OnLevelMenu_XButtonClick(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
         String levelNumber = clickedButton.getText();
+        this.setViewName("LevelX.fxml");
          
             //The player cant play the next level unless he finishes the previous one
             //Or its level 1
@@ -234,6 +238,9 @@ public class CySlideController implements Initializable {
     //We print again the playable table
     setLevel(levelMenu, stage, level);
         */
+    }
+    public String getViewName() {
+        return this.viewName;
     }
 
 }
