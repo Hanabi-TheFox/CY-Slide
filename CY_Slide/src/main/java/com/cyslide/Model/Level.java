@@ -150,8 +150,15 @@ public class Level{
                 }
         }
         
+        /**
+         * 
+         * @param number
+         * @return boolean
+         * Returns true if Level is Completed by the player.
+         * It compares the players's level with a solved one
+         */
         public boolean isCompleted(int number){
-                Level finalState = new Level(number);
+                Level finalState = new Level(number); //We get a completed version of the level
                 int size = table.length;
                 for (int i = 0; i < size; i++){
                         for (int j = 0; j < size; j++){
