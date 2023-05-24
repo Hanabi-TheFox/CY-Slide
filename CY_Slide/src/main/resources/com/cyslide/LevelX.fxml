@@ -77,9 +77,9 @@
                            <Font name="Arial" size="16.0" />
                         </font>
                      </Button>
-                  <Label id="idLabelFinished" layoutX="72.0" layoutY="377.0" prefHeight="27.0" prefWidth="166.0" textFill="#f70000">
+                  <Label id="idLabelFinished" layoutX="72.0" layoutY="377.0" prefHeight="27.0" prefWidth="166.0" textFill="WHITE">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
 
@@ -107,6 +107,5 @@
             <Insets bottom="20.0" right="20.0" top="20.0" />
          </padding>
       </HBox>
-      <Label text="Label" />
    </children>
 </AnchorPane>
