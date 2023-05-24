@@ -13,8 +13,8 @@ import com.cyslide.CySlideController;
 import javafx.beans.binding.NumberBinding;
 
 /**
- * Class that represents a level of the game CY-Slide
- * a level is composed of a table of tiles and others informations related to the level
+ * @author @RDNATOS
+ * @author @Ymasuu
  */
 public class Level{
         private CySlideController controller;
@@ -23,13 +23,10 @@ public class Level{
         private boolean randomized;
         private boolean completed;
         private int record;
-        private Tile[][] table;
+        private Tile[][] table;//table is resolved first
+                        //And when Play button is clicked,
+                        //the table changes its tiles randomly
 
-        /**
-         * Constructor of Level
-         * Initialize the attributes of the level
-         * @param number the number of the level
-         */
         public Level(int number){
                 this.controller = null;
                 this.number = number;
@@ -40,12 +37,6 @@ public class Level{
                 this.table = recoverLvl(number);
         }
 
-        /**
-         * Constructor of Level
-         * Initialize the attributes of the level
-         * @param number the number of the level
-         * @param controller the controller of the game
-         */
         public Level(int number, CySlideController controller){
                 this.controller = controller;
                 this.number = number;
@@ -56,81 +47,37 @@ public class Level{
                 this.table = recoverLvl(number);
         }
 
-        /**
-         * Getters for the number of the level
-         * @return The number of the level
-         */
         public int getNumber(){
                 return number;
         }
-        /**
-         * Getters for the randomized boolean
-         * @return true if the level is randomized, false otherwise
-         */
         public boolean getRandomized(){
                 return randomized;
         }
-        /**
-         * Setters for the randomized boolean
-         * @param randomized
-         */
-        public void setRandomized(boolean randomized){
-                this.randomized = randomized;
-        }
-        /**
-         * Getters for the moveCounter
-         * @return moveCounter the number of moves done by the player
-         */
         public int getMoveCounter(){
                 return moveCounter;
         }
-        /**
-         * Setters for the moveCounter
-         * @param int
-         */
         public void setMoveCounter(int moveCounter){
                 this.moveCounter = moveCounter;
         }
-        /**
-         * Getters for the completed boolean
-         * @return true if the level is completed, false otherwise
-         */
+        public void setRandomized(boolean randomized){
+                this.randomized = randomized;
+        }
         public boolean getCompleted(){
                 return completed;
         }
-        /**
-         * Setters for the completed boolean
-         * @param completed
-         */
         public void setCompleted(boolean completed){
                 this.completed = completed;
         }
-        /**
-         * Getters for the record
-         * @return record the record of the level
-         */
         public int getRecord(){
                 return record;
         }
-        /**
-         * Setters for the record
-         * @param record
-         */
         public void setRecord(int record){
                 this.record = record;
         }
-        /**
-         * Getters for the table
-         * @return table the table of tiles of the level
-         */
         public Tile[][] getTable(){
                 return table;
         }
-        /**
-         * recover the record of the level in the file Record.csv
-         * @param number the number of the level
-         * @return record the record of the level
-         */
+
         public int recoverRecord(int number){
                 String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Record.csv";
                 String line = "";
@@ -153,11 +100,6 @@ public class Level{
                 return record;
         }
 
-        /**
-         * recover the table of tiles of the level in the file LevelX.csv (X = number of the level)
-         * @param number the number of the level
-         * @return tab the table of tiles of the level
-         */
         public Tile[][] recoverLvl(int number) {
                 Tile[][] tab = null; // Initialize tab outside the loop
 
@@ -211,34 +153,19 @@ public class Level{
                 return tab;
             }
 
-        /**
-         * Move a tile in the chosen direction
-         * @param x the x coordinate of the tile
-         * @param y the y coordinate of the tile
-         * @param direction the direction of the movement
-         * @param table the table of tiles of the level
-         * @return true if the movement is possible, false otherwise
-         */
+        
         public boolean moveTile(int x, int y, String direction, RectangleWithLabel[][] table){                        
                 if (!table[x][y].GetTile().mouvementAvailable(x, y, direction, table) || table[x][y].GetTile().getType() == 0) {
                         System.out.println("We cannot move this tile.");
                         return false;
                 }else{
                         table[x][y].GetTile().move(direction, table);
-                        // each time we move a tile, we increment the moveCounter
                         moveCounter++;
-                        // each turn, an event is triggered in the controller
                         this.controller.handleMoveTileEvent();
                         return true;
                 }
         }
-        /**
-         * Move a tile in the chosen direction
-         * @param x the x coordinate of the tile
-         * @param y the y coordinate of the tile
-         * @param direction the direction of the movement
-         * @return true if the movement is possible, false otherwise
-         */
+
         public boolean moveTile2(int x, int y, String direction){                        
                 if (!table[x][y].mouvementAvailable2(direction, table) || table[x][y].getType() == 0) {
                         return false;
@@ -249,26 +176,38 @@ public class Level{
         }
         
         /**
-         * Check if the level is completed
-         * @param number the number of the level
-         * @param Rectangles the table of tiles of the level
-         * @return true if the level is completed, false otherwise
+         * 
+         * @param number
+         * @return boolean
+         * Returns true if Level is Completed by the player.
+         * It compares the players's level with a solved one.
+         * We verify 2 int matrix to see if they have the sae values
          */
         
-         public boolean isCompleted(int[][] currentTable){
-                Level finalState = new Level(number); //We get a completed version of the level
-                
-                //We transform finalState into an int Matrix
+         public boolean isCompleted(int[][] currentTable) {
+                Level finalState = new Level(number); // We get a completed version of the level
+            
+                // We transform finalState into an int Matrix
                 int[][] resolvedTable = this.LevelToIntMatrix(finalState);
-                
-                int size = table.length;
-               
-
-
-                //After verification...
+            
+                int size = currentTable.length;
+            
+                // Check if the matrices have the same values
+                for (int i = 0; i < size; i++) {
+                    for (int j = 0; j < size; j++) {
+                        if (currentTable[i][j] != resolvedTable[i][j]) {
+                            // If any corresponding elements differ, the matrices are not the same
+                            return false;
+                        }
+                    }
+                }
+            
+                // Matrices have the same values
                 setCompleted(true);
                 return true;
-        }
+            }
+            
+            
         
         
         /* public boolean isCompleted(int number, Tile[][] Rectangles){
@@ -292,10 +231,7 @@ public class Level{
                 return true;
         } */
         
-        /**
-         * Initialize the level by moving the tiles on random directions
-         * with this method, we are sure that the level is solvable
-         */
+        //Here we move tile by tile, so it's possible to complete the level
         public void initLevelMove() {
                 int seed;
                 if(number == 3 || number == 2 || number == 6){
@@ -328,50 +264,47 @@ public class Level{
 
         //We get a level object and we transform its Tile[][] into int[][]
         public int[][] LevelToIntMatrix(Level level) {
+                int[][] matrix = new int[level.getSize()][level.getSize()];
+            
+                // Retrieve the necessary information from the Level object and populate the matrix
+                for (int i = 0; i < level.getSize(); i++) {
+                    for (int j = 0; j < level.getSize(); j++) {
+                        Tile tile = level.getTable()[i][j];
+                        if (tile instanceof NumberTile) {
+                            NumberTile numberTile = (NumberTile) tile;
+                            matrix[i][j] = numberTile.getNumber();
+                        } else {
+                            // Handle other tile types if necessary
+                            matrix[i][j] = 0; // Or any default value you prefer
+                        }
+                    }
+                }
+            
+                return matrix;
+            }
+            
 
 
-                return table;
-        }
 
-        /**        
-         * (Optional/Bonus part)
-         * Initialize the level by setting the tiles in random positions
-         * /!\This method can create a level that is not resolvable
-         */
+
+
+        //Once the level is charged, we can move all tiles in
+        // a random order
+        //Here is entirely random, so we are not sure if the level
+        //can be finished (BONUS)
+        
         public void initLevelRNG(){
                 //TODO
         }
 
-        /**
-         * (Optional/Bonus part)
-         * Check if the level is playable
-         * @return Returns true if the level is playable, false otherwise
-         * 
-         */
         public boolean isPlayable(){
                 //Verify if level generated can be completed
                 return true;
         }
                 
-        /**
-         * Save the record of the level in the file "record.txt" if it's a new record
-         * @param number the number of the level
-         * @param record the number of moves
-         */
-        public void saveRecord(int number, int record){
-                //TODO: Implement this method
-        }
 }
-
-/**
- * Exception that is thrown when we try to move a tile that cannot be moved
- */
 class MoveTileException extends Exception {
-        /**
-         * Constructor of the exception
-         * @param message the message of the exception
-         */
-        public MoveTileException(String message) {
-                super(message);
-        }
+    public MoveTileException(String message) {
+        super(message);
+    }
 }
