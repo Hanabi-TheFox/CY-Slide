@@ -10,8 +10,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 /**
+ * A class that handles dragging and swapping of rectangles in a game.
+ * This class is responsible for handling mouse events, keyboard events, and managing the movement and swapping of rectangles.
+ * 
  * @author @Ymasuu
- *
  */
 public class RectangleDragHandler {
 
@@ -27,13 +29,25 @@ public class RectangleDragHandler {
 
     private boolean SwitchMode=false;
 
-    
-
+    /**
+     * Constructs a RectangleDragHandler object with the specified rectangles and level.
+     * 
+     * @param rectangles The 2D array of rectangles representing the game board.
+     * @param level      The level object associated with the game.
+     */
     public RectangleDragHandler(RectangleWithLabel[][] rectangles,Level level) {
         this.rectangles = rectangles;
         this.level=level;
     }
 
+    // This part is for the mouse events //
+
+    /**
+     * Creates an event handler for the mouse pressed event on a rectangle.
+     * 
+     * @param rectangle The rectangle associated with the event handler.
+     * @return The event handler for the mouse pressed event.
+     */
     public EventHandler<MouseEvent> createOnMousePressedHandler(RectangleWithLabel rectangle) {
         return event -> {
             mouseAnchorX = event.getSceneX();
@@ -47,6 +61,12 @@ public class RectangleDragHandler {
         };
     }
 
+    /**
+     * Creates an event handler for the mouse dragged event on a rectangle.
+     * 
+     * @param rectangle The rectangle associated with the event handler.
+     * @return The event handler for the mouse dragged event.
+     */
     public EventHandler<MouseEvent> createOnMouseDraggedHandler(RectangleWithLabel rectangle) {
         return event -> {
             if(rectangle.GetTile().getType()==1 && level.getRandomized()){
@@ -59,6 +79,12 @@ public class RectangleDragHandler {
         };
     }
 
+    /**
+     * Creates an event handler for the mouse released event on a rectangle.
+     * 
+     * @param rectangle The rectangle associated with the event handler.
+     * @return The event handler for the mouse released event.
+     */
     public EventHandler<MouseEvent> createOnMouseReleasedHandler(RectangleWithLabel rectangle) {
         return event -> {
             boolean isSwapped = false;
@@ -114,14 +140,18 @@ public class RectangleDragHandler {
             } else {
                 rectangle.setTranslateX(initialTranslateX);
                 rectangle.setTranslateY(initialTranslateY);
-                // rectangle.setLayoutX(initialTranslateX);
-                // rectangle.setLayoutY(initialTranslateY);
             }
             draggedRectangle = null;
         };
     }
 
-
+    /**
+     * Checks if the mouse is inside a given rectangle.
+     * 
+     * @param rectangle The rectangle to check.
+     * @param event     The mouse event.
+     * @return true if the mouse is inside the rectangle, false otherwise.
+     */
     private boolean isMouseInside(RectangleWithLabel rectangle, MouseEvent event) {
         double mouseX = event.getSceneX();
         double mouseY = event.getSceneY();
@@ -131,6 +161,12 @@ public class RectangleDragHandler {
                 && mouseY <= rectangle.getBoundsInParent().getMaxY();
     }
 
+    /**
+     * Swaps the positions of two rectangles.
+     * 
+     * @param rectangle1 The first rectangle to swap.
+     * @param rectangle2 The second rectangle to swap.
+     */
     private void swapRectangles(RectangleWithLabel rectangle1, RectangleWithLabel rectangle2) {
         double tempLayoutX = rectangle2.getLayoutX();
         double tempLayoutY = rectangle2.getLayoutY();
@@ -142,25 +178,31 @@ public class RectangleDragHandler {
         rectangle2.setLayoutY(initialLayoutY);        
     }
 
-    //------------------------------------------------------------------------------------------------------------------------------
+    // That part is for the keyboard control //
+
+    /**
+     * Handles the key press event.
+     * 
+     * @param event The key event.
+     */
     public void handleKeyPress(KeyEvent event) {
         if (event.getCode() == KeyCode.E) {
-            // Activer ou désactiver le mode d'échange de rectangles
+            // Activate or deactivate the rectangle swapping mode
             if (draggedRectangle != null) {
-                // Si un rectangle est déjà sélectionné, désélectionnez-le
+                // If a rectangle is already selected, deselect it
                 draggedRectangle.setEffect(null);
                 draggedRectangle = null;
             } else {
-                // Sélectionnez le rectangle en haut à gauche pour le déplacement
+                // Select the top-left rectangle for dragging
                 draggedRectangle = rectangles[0][0];
                 initialTranslateX = draggedRectangle.getTranslateX();
                 initialTranslateY = draggedRectangle.getTranslateY();
                 initialLayoutX = draggedRectangle.getLayoutX();
                 initialLayoutY = draggedRectangle.getLayoutY();
-                draggedRectangle.setEffect(new Glow()); // Ajoutez un contour rouge pour indiquer la sélection
+                draggedRectangle.setEffect(new Glow()); // Add a red glow to indicate the selection
             }
         } else if (draggedRectangle != null) {
-            // Si un rectangle est sélectionné, déplacez-le dans la direction spécifiée
+            // If a rectangle is selected, move it in the specified direction
             initialLayoutX = draggedRectangle.getLayoutX();
             initialLayoutY = draggedRectangle.getLayoutY();
             if (event.getCode() == KeyCode.R) {
@@ -186,6 +228,13 @@ public class RectangleDragHandler {
         }
     }
 
+    /**
+     * Moves the specified rectangle in the given direction.
+     * 
+     * @param rectangle   The rectangle to move.
+     * @param direction   The direction to move in.
+     * @param switchMode  The switch mode flag.
+     */
     private void moveRectangle(RectangleWithLabel rectangle, Direction direction,boolean SwitchMode) {
         int deltaX = 0;
         int deltaY = 0;
@@ -219,7 +268,7 @@ public class RectangleDragHandler {
         int targetY = currentY + deltaY;
         boolean isSwapped=false;
     
-        // Assurez-vous que les coordonnées de destination sont valides
+        // Ensure that the destination coordinates are valid
         if (isValidCoordinate(targetX, targetY)) {
             RectangleWithLabel targetRectangle = rectangles[targetX][targetY];
             System.out.println(SwitchMode);
@@ -229,17 +278,12 @@ public class RectangleDragHandler {
                 }
                 if (isSwapped && targetRectangle != null) {
                     swapRectangles(rectangle, targetRectangle);
-                    draggedRectangle.setEffect(null); // Désélectionnez le rectangle après le déplacement
+                    draggedRectangle.setEffect(null); // Deselect the rectangle after moving
                     rectangle.setEffect(new Glow());
                     draggedRectangle=rectangle;
-                    // initialTranslateX = rectangle.getTranslateX();
-                    // initialTranslateY = rectangle.getTranslateY();
-                    // rectangles[currentX][currentY]=targetRectangle;
-                    // rectangles[targetX][targetY]=draggedRectangle;
                 }
-                //draggedRectangle = null;
             }else{
-                // deplacement mode
+                // Movement mode
                 rectangle.setEffect(null);
                 targetRectangle.setEffect(new Glow());
                 draggedRectangle=targetRectangle;
@@ -247,17 +291,24 @@ public class RectangleDragHandler {
         }
     }
 
+    /**
+     * Checks if the given coordinates are valid.
+     * 
+     * @param x The x-coordinate.
+     * @param y The y-coordinate.
+     * @return true if the coordinates are valid, false otherwise.
+     */
     private boolean isValidCoordinate(int x, int y) {
         return x >= 0 && x < rectangles[0].length && y >= 0 && y < rectangles.length;
     }
 
-    // ...
-//}
-
-enum Direction {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
-}
+    /**
+     * The direction in which a rectangle can be moved.
+     */
+    enum Direction {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    }
 }
