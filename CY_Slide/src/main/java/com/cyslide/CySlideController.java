@@ -58,18 +58,6 @@ public class CySlideController implements Initializable {
         if (LevelMenu_BackButton != null) {
             System.out.println("We are in the LevelMenu.fxml page");
             LevelMenu_Pseudo.setText(player.getPseudo());
-            Button[] levelButtons = {LevelMenu_1,LevelMenu_2,LevelMenu_3,LevelMenu_4,LevelMenu_5,LevelMenu_6,LevelMenu_7,LevelMenu_8,LevelMenu_9,LevelMenu_10};
-            int level = 1;
-            for (Button button : levelButtons){
-                if (level <= player.getLevelResolved()){
-                    button.setDisable(false);
-                    button.setOpacity(1.0);
-                } else {
-                    button.setDisable(true);
-                    button.setOpacity(0.5);
-                }
-                level++;
-            }
         }
         // if we are in the LevelX.fxml page
         if (quitButton != null){
@@ -287,6 +275,18 @@ public class CySlideController implements Initializable {
     public void handleMoveTileEvent(){
         LevelX_NBTurns = (Label) CySlideController.currentRoot.getScene().lookup("#LevelX_NBTurns");
         LevelX_NBTurns.setText(Integer.toString(CySlideController.currentLevel.getMoveCounter()));
+        //We print the matrix
+
+                int numRows = CySlideController.currentLevel.getTable().length;
+        int numCols = CySlideController.currentLevel.getTable()[0].length;
+
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                System.out.print(CySlideController.currentLevel.getTable()[i][j] + " ");
+            }
+            System.out.println();
+        }
+        
         /*if ((CySlideController.playButtonIsPressed == true)) {
             System.out.println("DANS LE TRUC");
             //We transform Rectangle matrix to Tile matrix
@@ -310,37 +310,30 @@ public class CySlideController implements Initializable {
         * @param rectanglesWithLabels
         * @return table[][]
         */
-    /*public Tile[][] RectangleWithLabelToTable(RectangleWithLabel rectanglesWithLabels[][] ) {
-        int numRows =rectanglesWithLabels.length;
-        int numCols = rectanglesWithLabels[0].length;
+        public int[][] RectangleWithLabelToTable(RectangleWithLabel rectanglesWithLabels[][] ) {
+            int numRows =rectanglesWithLabels.length;
+            int numCols = rectanglesWithLabels[0].length;
+        
+            // Create the table matrix
+            int[][] table = new int[numRows][numCols];
+            //Of tiles too
+            //Tile[][] tableTile = new Tile[numRows][numCols];
+        
+            for (int i = 0; i < numRows; i++) {
+                for (int j = 0; j < numCols; j++) {
+                    Tile tempTile = rectanglesWithLabels[i][j].GetTile();
 
-        // Create the table array
-        Tile[][] table = new Tile[numRows][numCols];
-
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
-                RectangleWithLabel rectangleWithLabel = rectanglesWithLabels[i][j];
-                int type = rectangleWithLabel.GetTile().getType();
-                //We verify what type is this and we give its corresponding number
-                Tile tile = new Tile(rectangleWithLabel.GetTile().getPosX(),rectangleWithLabel.GetTile().getPosY()); {
-                    
-                };
-                
-                // Check the label to determine the appropriate BaseType element
-                if (!label.isEmpty()) {
-                    try {
-                        int number = Integer.parseInt(label);
-                        // Create a NumberTile element with the parsed number
-                        element = new NumberTile(number);
-                    } catch (NumberFormatException e) {
-                        // Handle non-integer labels if needed
+                    if(tempTile.getType() > 0){
+                        NumberTile temp2= (NumberTile) tempTile;
+                        table[i][j]=temp2.getNumber();
+                    }
+                    else {
+                        table[i][j] =tempTile.getType();
                     }
                 }
-                
-                // Assign the element to the corresponding position in the table array
-                table[i][j] = element;
             }
-        }
-            }*/
 
-}
+            return table;
+                }
+        }
+
