@@ -279,6 +279,7 @@ public class CySlideController implements Initializable {
         LevelX_NBTurns.setText(Integer.toString(CySlideController.currentLevel.getMoveCounter()));
         //We print the matrix
 
+        System.out.println("Table values ---------------");
         int[][] table = RectangleWithLabelToTable(CySlideController.currentRectangles);
         for (int i = 0; i < table.length; i++) {
             for (int j = 0; j < table[i].length; j++) {
@@ -286,6 +287,8 @@ public class CySlideController implements Initializable {
             }
             System.out.println();
         }
+
+        System.out.println("---------------");
         
         /*if ((CySlideController.playButtonIsPressed == true)) {
             System.out.println("DANS LE TRUC");
