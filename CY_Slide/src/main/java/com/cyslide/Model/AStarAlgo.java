@@ -17,6 +17,37 @@ class Node implements Comparable<Node> {
         this.parent = parent;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Node other = (Node) obj;
+        return compareTileArrays(state.getTable(), other.state.getTable());
+    }
+    
+    private boolean compareTileArrays(Tile[][] array1, Tile[][] array2) {
+        if (array1.length != array2.length) {
+            return false;
+        }
+        for (int i = 0; i < array1.length; i++) {
+            for (int j = 0; j < array1.length; j++){
+                if (!array1[i][j].equals(array2[i][j])) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(state);
+    }
+
     
     public Level getState() {
         return state;
@@ -77,29 +108,29 @@ public class AStarAlgo {
             return table;
         }
     }
-    public static boolean sameTab(Tile[][] tab1, Tile[][] tab2) {
-        if (tab1.length != tab2.length) {
-            return false; // dimension different
-        }
+    // public static boolean sameTab(Tile[][] tab1, Tile[][] tab2) {
+    //     if (tab1.length != tab2.length) {
+    //         return false; // dimension different
+    //     }
     
-        for (int i = 0; i < tab1.length; i++) {
-            for (int j = 0; j < tab1.length; j++) {
-                if (tab1[i][j].getType() != tab2[i][j].getType()) {
-                    return false; // type different so array different
-                }else if(tab1[i][j].getType() == 1 && tab2[i][j].getType() == 1){
-                    NumberTile nb1 = (NumberTile) tab1[i][j];
-                    NumberTile nb2 = (NumberTile) tab2[i][j];
-                    if(nb1.getNumber() != nb2.getNumber()){
-                        return false; // number different so array different 
-                    }
-                }
-            }
-        }
+    //     for (int i = 0; i < tab1.length; i++) {
+    //         for (int j = 0; j < tab1.length; j++) {
+    //             if (tab1[i][j].getType() != tab2[i][j].getType()) {
+    //                 return false; // type different so array different
+    //             }else if(tab1[i][j].getType() == 1 && tab2[i][j].getType() == 1){
+    //                 NumberTile nb1 = (NumberTile) tab1[i][j];
+    //                 NumberTile nb2 = (NumberTile) tab2[i][j];
+    //                 if(nb1.getNumber() != nb2.getNumber()){
+    //                     return false; // number different so array different 
+    //                 }
+    //             }
+    //         }
+    //     }
     
-        return true; // same array
-    }
+    //     return true; // same array
+    // }
 
-    private static List<Level> generateNeighbors(Level currentLevel) {
+    private static List<Level> generateNeighbors(Level currentLevel, Set<Node> closedList) {
         // Trouver les coordonnées de la case vide
         int emptyRow = -1;
         int emptyCol = -1;
@@ -119,29 +150,18 @@ public class AStarAlgo {
         // Créer une copie du niveau courant pour chaque voisin
         for (String direction : directions) {
             Level lvlNeighbor = currentLevel.clone();
-            int newRow = emptyRow;
-            int newCol = emptyCol;
-            System.out.println("Direction : " + direction);
-            System.out.println("PremierTest");
-            printState(lvlNeighbor);
-            boolean leveltest = lvlNeighbor.moveTile2(newRow, newCol, direction);
-            System.out.println("newRow : " + leveltest);
-            if(leveltest){
-
-                // if our neighbor is not the solution
-                if (!lvlNeighbor.isCompleted2(lvlNeighbor.getNumber(), lvlNeighbor.getTable())) {
-                    // We add our neighbor to the list
+            if(lvlNeighbor.moveTile2(emptyRow, emptyCol, direction)){
+                Node neighborNode = new Node(lvlNeighbor, 0, 0, null);
+                if (!closedList.contains(neighborNode)) {
+                    // Ajouter le voisin à la liste des voisins à explorer
                     neighbors.add(lvlNeighbor);
-                }else{
-                    // We found our solution, so we add the new node to our closed list
-                    // Ajouter à la list fermé ??
                 }
             }
         }   
-        System.out.println("Affichage des voisins :");
-                for (Level neighbor : neighbors) {
-                    printState(neighbor);
-                }   
+        // System.out.println("Affichage des voisins :");
+        //         for (Level neighbor : neighbors) {
+        //             printState(neighbor);
+        //         }   
         return neighbors;
     }
 
@@ -176,34 +196,30 @@ public class AStarAlgo {
 
             closedList.add(currentNode);
     
-            List<Level> neighbours = generateNeighbors(currentState);
-            Node minF = new Node(null, 0, 150, null);
-            for (Level neighbour : neighbours) {
+            List<Level> neighbors = generateNeighbors(currentState, closedList);
+            for (Level neighbor : neighbors) {
                 int gScore = currentNode.getGScore() + 1;
-                int hScore = calculeMisplacedTileCount(neighbour);
+                int hScore = calculeMisplacedTileCount(neighbor);
 
-                Node neighbourNode = new Node(neighbour, gScore, hScore, currentNode);
-                System.out.println("HScore: " + hScore);
-                System.out.println("FScore: " + neighbourNode.getFScore());
-                if (neighbourNode.getFScore() < minF.getFScore()){ // we find our node with a minimum F
-                    minF = neighbourNode;
+                Node neighborNode = new Node(neighbor, gScore, hScore, currentNode);
+                if (!closedList.contains(neighborNode)){
+                    openList.add(neighborNode);
+                    System.out.println("Neighbor added to open list:");
+                    printState(neighborNode.getState());
                 }
             }
-            openList.add(minF);
-            // we add the parent of our minimum to our closed list
-            closedList.add(minF.getParent());
         }
         return null; // No solution found
     }
     
-    public static void printState(Level ste) {
+    public static void printState(Level state) {
         System.out.println("--------------");
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (ste.getTable()[i][j] instanceof EmptyTile) {
+                if (state.getTable()[i][j] instanceof EmptyTile) {
                     System.out.print("0 ");
-                } else if (ste.getTable()[i][j] instanceof NumberTile) {
-                    NumberTile numberTile = (NumberTile) ste.getTable()[i][j];
+                } else if (state.getTable()[i][j] instanceof NumberTile) {
+                    NumberTile numberTile = (NumberTile) state.getTable()[i][j];
                     System.out.print(numberTile.getNumber() + " ");
                 }
             }

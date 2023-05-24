@@ -20,6 +20,18 @@ public class NumberTile extends Tile {
         this.number = number;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        NumberTile other = (NumberTile) obj;
+        return this.number == other.number;
+    }
+
     /**
      * Moves the number tile in the specified direction on the game table.
      *

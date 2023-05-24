@@ -10,6 +10,24 @@ public abstract class Tile implements Cloneable{
 
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Tile other = (Tile) obj;
+        if (this.type == 1 && other.type == 1) {
+            NumberTile thisNumberTile = (NumberTile) this;
+            NumberTile otherNumberTile = (NumberTile) other;
+            return thisNumberTile.equals(otherNumberTile);
+        } else {
+            return this.type == other.type;
+        }
+    }    
+
+    @Override
     public Tile clone() {
         try {
             return (Tile) super.clone();

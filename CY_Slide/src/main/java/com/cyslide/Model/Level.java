@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * The Level class represents a game level in CySlide.
@@ -57,6 +59,24 @@ public class Level implements Cloneable{
         this.record = recoverRecord(number);
         this.table = recoverLvl(number);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Level other = (Level) obj;
+        return Arrays.deepEquals(table, other.table);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.deepHashCode(table);
+    }
+
     @Override
     public Level clone() {
         try {
