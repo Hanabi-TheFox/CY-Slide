@@ -58,6 +58,18 @@ public class CySlideController implements Initializable {
         if (LevelMenu_BackButton != null) {
             System.out.println("We are in the LevelMenu.fxml page");
             LevelMenu_Pseudo.setText(player.getPseudo());
+            Button[] levelButtons = {LevelMenu_1,LevelMenu_2,LevelMenu_3,LevelMenu_4,LevelMenu_5,LevelMenu_6,LevelMenu_7,LevelMenu_8,LevelMenu_9,LevelMenu_10};
+            int level = 1;
+            for (Button button : levelButtons){
+                if (level <= player.getLevelResolved()){
+                    button.setDisable(false);
+                    button.setOpacity(1.0);
+                } else {
+                    button.setDisable(true);
+                    button.setOpacity(0.5);
+                }
+                level++;
+            }
         }
         // if we are in the LevelX.fxml page
         if (quitButton != null){
