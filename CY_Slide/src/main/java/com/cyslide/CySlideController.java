@@ -302,10 +302,10 @@ public class CySlideController implements Initializable {
 
         System.out.println("---------------");
         
-        /*if ((CySlideController.playButtonIsPressed == true)) {
+        if ((CySlideController.playButtonIsPressed == true)) {
             System.out.println("DANS LE TRUC");
             //We transform Rectangle matrix to Tile matrix
-            if ( (CySlideController.currentLevel.isCompleted(CySlideController.currentLevel.getNumber(),Cy)) == true) {
+            if (CySlideController.currentLevel.isCompleted(table) == true) {
                 System.out.println("YEEESSSS"); 
              //The game is finished, we set 
            //we unlock the next level to the player
@@ -317,7 +317,7 @@ public class CySlideController implements Initializable {
 
 
 
-        }*/
+        }
     }
 
        /**

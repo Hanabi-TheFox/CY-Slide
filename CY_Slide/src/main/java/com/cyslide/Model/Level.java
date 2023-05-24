@@ -326,22 +326,49 @@ public class Level {
         System.out.println("Nous avons fini le mélange.");
     }
 
-    /**
-     * Converts the level object's tile matrix into an integer matrix.
-     *
-     * @param level The level object.
-     * @return The converted integer matrix.
-     */
-    public int[][] LevelToIntMatrix(Level level) {
-        Tile[][] tileMatrix = level.getTable();
-        int[][] matrix = new int[tileMatrix.length][tileMatrix.length];
-
-        for (int i = 0; i < tileMatrix.length; i++) {
-            for (int j = 0; j < tileMatrix.length; j++) {
-                matrix[i][j] = tileMatrix[i][j].getType();
+        //We get a level object and we transform its Tile[][] into int[][]
+        public int[][] LevelToIntMatrix(Level level) {
+                Tile[][] tileMatrix= level.getTable();
+                int[][] matrix = new int[tileMatrix.length][tileMatrix.length];
+                // Retrieve the necessary information from the Level object and populate the matrix
+                for (int i = 0; i < tileMatrix.length; i++) {
+                    for (int j = 0; j < tileMatrix.length; j++) {
+                        Tile tile = tileMatrix[i][j];
+                        if (tile instanceof NumberTile) {
+                            NumberTile numberTile = (NumberTile) tile;
+                            matrix[i][j] = numberTile.getNumber();
+                        } else {
+                            // Handle other tile types if necessary
+                            matrix[i][j] = 0; // Or any default value you prefer
+                        }
+                    }
+                }
+            
+                return matrix;
             }
+            
+
+
+
+
+
+        //Once the level is charged, we can move all tiles in
+        // a random order
+        //Here is entirely random, so we are not sure if the level
+        //can be finished (BONUS)
+        
+        public void initLevelRNG(){
+                //TODO
         }
 
-        return matrix;
+        public boolean isPlayable(){
+                //Verify if level generated can be completed
+                return true;
+        }
+                
+}
+class MoveTileException extends Exception {
+    public MoveTileException(String message) {
+        super(message);
     }
 }
