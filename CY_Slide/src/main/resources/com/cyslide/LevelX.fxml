@@ -77,7 +77,7 @@
                            <Font name="Arial" size="16.0" />
                         </font>
                      </Button>
-                  <Label id="idLabelFinished" layoutX="123.0" layoutY="378.0" prefHeight="27.0" prefWidth="64.0">
+                  <Label id="idLabelFinished" layoutX="72.0" layoutY="377.0" prefHeight="27.0" prefWidth="166.0" textFill="#f70000">
                      <font>
                         <Font size="18.0" />
                      </font>
