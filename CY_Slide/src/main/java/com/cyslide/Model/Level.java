@@ -156,7 +156,7 @@ public class Level implements Cloneable{
                 BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
             while ((line = br.readLine()) != null) {
                 String[] rowValues = line.split(";");
-                if (rowValues[0].equals(Integer.toBinaryString(this.number))) {
+                if (rowValues[0].equals(Integer.toString(this.number))) {
                     rowValues[1] = Integer.toString(this.record);
                 }
                 bw.write(String.join(";", rowValues));

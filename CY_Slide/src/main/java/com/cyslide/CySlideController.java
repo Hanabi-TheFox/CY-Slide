@@ -294,7 +294,7 @@ public class CySlideController implements Initializable {
         System.out.println("---------------");
         if ((CySlideController.playButtonIsPressed == true)) {
             //We transform Rectangle matrix to Tile matrix
-            if (CySlideController.currentLevel.isCompleted(table) == true) {
+            if (CySlideController.currentLevel.isCompleted(table)) {
                 //The game is finished
                 if(CySlideController.currentLevel.getNumber() == CySlideController.player.getLevelResolved())
                     CySlideController.player.setLevelResolved(CySlideController.currentLevel.getNumber()+1);
