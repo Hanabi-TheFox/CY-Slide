@@ -180,9 +180,27 @@ public class Level{
          * @param number
          * @return boolean
          * Returns true if Level is Completed by the player.
-         * It compares the players's level with a solved one
+         * It compares the players's level with a solved one.
+         * We verify 2 int matrix to see if they have the sae values
          */
-        public boolean isCompleted(int number, Tile[][] Rectangles){
+        
+         public boolean isCompleted(int[][] currentTable){
+                Level finalState = new Level(number); //We get a completed version of the level
+                
+                //We transform finalState into an int Matrix
+                int[][] resolvedTable = this.LevelToIntMatrix(finalState);
+                
+                int size = table.length;
+               
+
+
+                //After verification...
+                setCompleted(true);
+                return true;
+        }
+        
+        
+        /* public boolean isCompleted(int number, Tile[][] Rectangles){
                 Level finalState = new Level(number); //We get a completed version of the level
                 int size = table.length;
                 for (int i = 0; i < size; i++){
@@ -201,7 +219,7 @@ public class Level{
                 }
                 setCompleted(true);
                 return true;
-        }
+        } */
         
         //Here we move tile by tile, so it's possible to complete the level
         public void initLevelMove() {
@@ -232,6 +250,13 @@ public class Level{
                         }
                 }
                 System.out.println("Nous avons fini le mélange.");
+        }
+
+        //We get a level object and we transform its Tile[][] into int[][]
+        public int[][] LevelToIntMatrix(Level level) {
+
+
+                return table;
         }
 
 
