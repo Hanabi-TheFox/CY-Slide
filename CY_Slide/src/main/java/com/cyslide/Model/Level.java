@@ -264,12 +264,12 @@ public class Level{
 
         //We get a level object and we transform its Tile[][] into int[][]
         public int[][] LevelToIntMatrix(Level level) {
-                int[][] matrix = new int[level.getSize()][level.getSize()];
-            
+                Tile[][] tileMatrix= level.getTable();
+                int[][] matrix = new int[tileMatrix.length][tileMatrix.length];
                 // Retrieve the necessary information from the Level object and populate the matrix
-                for (int i = 0; i < level.getSize(); i++) {
-                    for (int j = 0; j < level.getSize(); j++) {
-                        Tile tile = level.getTable()[i][j];
+                for (int i = 0; i < tileMatrix.length; i++) {
+                    for (int j = 0; j < tileMatrix.length; j++) {
+                        Tile tile = tileMatrix[i][j];
                         if (tile instanceof NumberTile) {
                             NumberTile numberTile = (NumberTile) tile;
                             matrix[i][j] = numberTile.getNumber();
