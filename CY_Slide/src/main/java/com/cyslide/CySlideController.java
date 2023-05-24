@@ -39,7 +39,6 @@ public class CySlideController implements Initializable {
     private Label LevelX_Record;
     @FXML
     private static Player player;
-    public static int compteur;
     private static Level currentLevel;
     private static Stage currentStage;
     private static Parent currentRoot;
@@ -289,8 +288,7 @@ public class CySlideController implements Initializable {
     public void handleMoveTileEvent(){
         LevelX_NBTurns = (Label) CySlideController.currentRoot.getScene().lookup("#LevelX_NBTurns");
         LevelX_NBTurns.setText(Integer.toString(CySlideController.currentLevel.getMoveCounter()));
-        //We print the matrix
-
+        //We print the matrix in the console
         System.out.println("Table values ---------------");
         int[][] table = RectangleWithLabelToTable(CySlideController.currentRectangles);
         for (int i = 0; i < table.length; i++) {
@@ -299,20 +297,18 @@ public class CySlideController implements Initializable {
             }
             System.out.println();
         }
-
         System.out.println("---------------");
-        
         if ((CySlideController.playButtonIsPressed == true)) {
-            System.out.println("DANS LE TRUC");
             //We transform Rectangle matrix to Tile matrix
             if (CySlideController.currentLevel.isCompleted(table) == true) {
-                System.out.println("YEEESSSS"); 
-             //The game is finished, we set 
-           //we unlock the next level to the player
-           CySlideController.player.setLevelResolved(CySlideController.currentLevel.getNumber());
-           Label labelFinished = (Label) CySlideController.currentRoot.getScene().lookup("#idLabelFinished");
-           labelFinished.setText("Level is Completed!");
-           setPlayButtonIsPressed(false); 
+                //The game is finished
+                if(CySlideController.currentLevel.getNumber() == CySlideController.player.getLevelResolved())
+                    CySlideController.player.setLevelResolved(CySlideController.currentLevel.getNumber()+1);
+                if(CySlideController.currentLevel.getRecord() > CySlideController.currentLevel.getMoveCounter())
+                    CySlideController.currentLevel.setRecord(CySlideController.currentLevel.getMoveCounter());
+                Label labelFinished = (Label) CySlideController.currentRoot.getScene().lookup("#idLabelFinished");
+                labelFinished.setText("Level is Completed!");
+                setPlayButtonIsPressed(false);
             }
 
 
@@ -342,7 +338,7 @@ public class CySlideController implements Initializable {
                         NumberTile temp2= (NumberTile) tempTile;
                         table[i][j]=temp2.getNumber();
                     }
-                    else {
+                    else if (tempTile.getType() == -1 || tempTile.getType() == 0) {
                         table[i][j] =tempTile.getType();
                     }
                 }

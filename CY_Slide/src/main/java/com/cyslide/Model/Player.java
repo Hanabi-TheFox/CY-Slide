@@ -104,23 +104,23 @@ public class Player {
                 bw.write(String.join(";", rowValues));
                 bw.newLine();
             }
-            File oldFile = new File(pathFile);
-            if (oldFile.delete()) {
-                File newFile = new File(pathFile);
-                if (newFile.exists()) {
-                    newFile.delete();
-                }
-                if (new File(tempFile).renameTo(newFile)) {
-                    System.out.println("File updated successfully.");
-                } else {
-                    System.out.println("Error updating file.");
-                }
-            } else {
-                System.out.println("Error deleting file.");
-            }
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error reading or writing file.");
+        }
+        File oldFile = new File(pathFile);
+        if (oldFile.delete()) {
+            File newFile = new File(pathFile);
+            if (newFile.exists()) {
+                newFile.delete();
+            }
+            if (new File(tempFile).renameTo(newFile)) {
+                System.out.println("File updated successfully.");
+            } else {
+                System.out.println("Error updating file.");
+            }
+        } else {
+            System.out.println("Error deleting file.");
         }
     }
 

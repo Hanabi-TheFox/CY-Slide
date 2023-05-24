@@ -314,10 +314,11 @@ public class Level implements Cloneable{
      * @return True if the level is completed, false otherwise.
      */
     public boolean isCompleted(int[][] currentTable) {
+        //We get a Level Object with the solved Matrix
         Level finalState = new Level(number);
+        //Conversion of Level Matrix to Int Matrix
         int[][] resolvedTable = this.LevelToIntMatrix(finalState);
         int size = currentTable.length;
-
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (currentTable[i][j] != resolvedTable[i][j]) {
@@ -376,7 +377,7 @@ public class Level implements Cloneable{
                             matrix[i][j] = numberTile.getNumber();
                         } else {
                             // Handle other tile types if necessary
-                            matrix[i][j] = 0; // Or any default value you prefer
+                            matrix[i][j] = tile.getType(); // Or any default value you prefer
                         }
                     }
                 }
