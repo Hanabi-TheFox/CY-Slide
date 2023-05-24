@@ -190,14 +190,14 @@ public class Level{
                 // We transform finalState into an int Matrix
                 int[][] resolvedTable = this.LevelToIntMatrix(finalState);
             
-                System.out.println("DANS LEVEL IS COMPTEDED TABLE RESOLVED : ");
+                /*System.out.println("DANS LEVEL IS COMPLETED TABLE RESOLVED : ");
 
                 for (int i = 0; i < resolvedTable.length; i++) {
                         for (int j = 0; j < resolvedTable[i].length; j++) {
                             System.out.print(resolvedTable[i][j] + " ");
                         }
                         System.out.println();
-                    }
+                    }*/
 
                 int size = currentTable.length;
             
