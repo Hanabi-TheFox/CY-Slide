@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.cyslide.CySlideController;
 
@@ -203,19 +205,26 @@ public class Level{
         
         //Here we move tile by tile, so it's possible to complete the level
         public void initLevelMove() {
-                //Generate random level by moving each tile, we are sure this level can be completed
-                int size = table.length;
+                int seed;
+                if(number == 3 || number == 2 || number == 6){
+                        seed = 1245;
+                }else seed = 142;
+                // we will create 500 elements of a random String List
+                Random random = new Random(seed); // it's a seed that we have chosen after having seen the look of our levels
                 String[] choice = {"UP", "DOWN", "RIGHT", "LEFT"};
-                for (int init = 0; init < 1000; init++){ // we want to 
-                        for (int i = 0; i < size; i++){
-                                for (int j = 0; j < size; j++){
-                                        if(table[i][j].getType() == -1){ // if it's an empty tile
-                                                for(int k = 0; k < 500; k++){
-                                                        // we will choose a random direction
-                                                        Random random = new Random();
-                                                        int index = random.nextInt(choice.length);
-                                                        String direction = choice[index];
-                                                        if(moveTile2(i, j, direction)){
+                List<String> randomMoves = new ArrayList<>();
+                for (int k = 0; k < 100; k++) {
+                        int index = random.nextInt(4);
+                        randomMoves.add(choice[index]);
+                    }
+                int size = table.length;
+                for (int init = 0; init < 1000; init++){ // we want to do it 1000 times
+                        for (String direction : randomMoves){   
+                                for (int i = 0; i < size; i++){
+                                        for (int j = 0; j < size; j++){
+                                                if(table[i][j].getType() == -1){ // if it's an empty tile
+                                                        if (moveTile2(i, j, direction)) {
+                                                        // Movement is done
                                                         }
                                                 }
                                         } 
