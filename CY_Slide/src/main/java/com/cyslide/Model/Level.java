@@ -58,11 +58,16 @@ public class Level implements Cloneable{
     public Level clone() {
         try {
             Level clonedLevel = (Level) super.clone();
-            // Effectuez ici la copie des variables d'instance si nécessaire
-            // Assurez-vous de copier les objets mutables en profondeur si besoin
+            // Effectuer une copie profonde du tableau table
+            clonedLevel.table = new Tile[table.length][table[0].length];
+            for (int i = 0; i < table.length; i++) {
+                for (int j = 0; j < table[i].length; j++) {
+                    clonedLevel.table[i][j] = table[i][j].clone();
+                }
+            }
             return clonedLevel;
         } catch (CloneNotSupportedException e) {
-            // Gestion de l'exception de clonage non pris en charge
+            // Gérer l'exception si la classe n'est pas clonable
             return null;
         }
     }
@@ -155,6 +160,15 @@ public class Level implements Cloneable{
      */
     public Tile[][] getTable() {
         return table;
+    }
+
+    /**
+     * Sets the table of the level.
+     *
+     * @param table The table to set.
+     */
+    public void setTable(Tile[][] table) {
+        this.table = table;
     }
 
     /**
@@ -294,7 +308,7 @@ public class Level implements Cloneable{
                 }
                 if(table[i][j].getType() == 1){
                 NumberTile nb1 = (NumberTile) Rectangles[i][j];
-                    NumberTile nb2 = (NumberTile) finalState.getTable()[i][j];
+                NumberTile nb2 = (NumberTile) finalState.getTable()[i][j];
                     if(nb1.getNumber() != nb2.getNumber()){
                             return false;
                     }

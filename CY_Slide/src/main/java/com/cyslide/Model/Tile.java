@@ -3,10 +3,21 @@ package com.cyslide.Model;
 /**
  * The abstract class representing a tile in the game.
  */
-public abstract class Tile{
+public abstract class Tile implements Cloneable{
     private int posX;
     private int posY;
     private int type;
+
+
+    @Override
+    public Tile clone() {
+        try {
+            return (Tile) super.clone();
+        } catch (CloneNotSupportedException e) {
+            // Gérer l'exception si la classe n'est pas clonable
+            return null;
+        }
+    }
 
     /**
      * Moves the tile in the specified direction.
