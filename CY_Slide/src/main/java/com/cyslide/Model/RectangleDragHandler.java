@@ -3,9 +3,11 @@ package com.cyslide.Model;
 import com.cyslide.Model.RectangleDragHandler;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
+import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -194,7 +196,22 @@ public class RectangleDragHandler {
                 draggedRectangle = null;
             } else {
                 // Select the top-left rectangle for dragging
-                draggedRectangle = rectangles[0][0];
+                if(rectangles[0][0].GetTile().getType()!=0){
+                    draggedRectangle = rectangles[0][0];
+                }else{
+                    int i=1;
+                    int j=0;
+                    if(rectangles[j][i].GetTile().getType()==0){
+                        if(i<3){
+                            i++;
+                        }else{
+                            i=0;
+                            j++;
+                        }
+                    }else{
+                        draggedRectangle=rectangles[j][i];
+                    }
+                }
                 initialTranslateX = draggedRectangle.getTranslateX();
                 initialTranslateY = draggedRectangle.getTranslateY();
                 initialLayoutX = draggedRectangle.getLayoutX();
@@ -208,8 +225,12 @@ public class RectangleDragHandler {
             if (event.getCode() == KeyCode.R) {
                 if(SwitchMode){
                     SwitchMode=false;
+                    draggedRectangle.setEffect(new Glow());
                 }else{
                     SwitchMode=true;
+                    InnerShadow InnerShadow = new InnerShadow();
+                    InnerShadow.setColor(Color.RED);
+                    draggedRectangle.setEffect(InnerShadow);
                 }
             }
             if (event.getCode() == KeyCode.Z) {
@@ -279,14 +300,18 @@ public class RectangleDragHandler {
                 if (isSwapped && targetRectangle != null) {
                     swapRectangles(rectangle, targetRectangle);
                     draggedRectangle.setEffect(null); // Deselect the rectangle after moving
-                    rectangle.setEffect(new Glow());
+                    InnerShadow InnerShadow = new InnerShadow();
+                    InnerShadow.setColor(Color.RED);
+                    rectangle.setEffect(InnerShadow);
                     draggedRectangle=rectangle;
                 }
             }else{
                 // Movement mode
-                rectangle.setEffect(null);
-                targetRectangle.setEffect(new Glow());
-                draggedRectangle=targetRectangle;
+                if(targetRectangle.GetTile().getType()!=0){
+                    rectangle.setEffect(null);
+                    targetRectangle.setEffect(new Glow());
+                    draggedRectangle=targetRectangle;
+                }
             }
         }
     }
