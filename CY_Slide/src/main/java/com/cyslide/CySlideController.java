@@ -306,8 +306,8 @@ public class CySlideController implements Initializable {
             System.out.println("DANS LE TRUC");
             //We transform Rectangle matrix to Tile matrix
             if (CySlideController.currentLevel.isCompleted(table) == true) {
-                System.out.println("YEEESSSS"); 
-             //The game is finished, we set 
+                CySlideController.player.setLevelResolved(compteur);
+             //The game is finished
            //we unlock the next level to the player
            CySlideController.player.setLevelResolved(CySlideController.currentLevel.getNumber());
            Label labelFinished = (Label) CySlideController.currentRoot.getScene().lookup("#idLabelFinished");
@@ -342,7 +342,7 @@ public class CySlideController implements Initializable {
                         NumberTile temp2= (NumberTile) tempTile;
                         table[i][j]=temp2.getNumber();
                     }
-                    else {
+                    else if (tempTile.getType() == -1 || tempTile.getType() == 0) {
                         table[i][j] =tempTile.getType();
                     }
                 }
