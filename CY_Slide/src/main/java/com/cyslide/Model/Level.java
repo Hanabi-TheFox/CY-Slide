@@ -4,7 +4,10 @@ import com.cyslide.CySlideController;
 import javafx.beans.binding.NumberBinding;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 import java.util.ArrayList;
@@ -146,6 +149,37 @@ public class Level implements Cloneable{
      */
     public void setRecord(int record) {
         this.record = record;
+        String pathFile = "CY_Slide/src/main/java/com/cyslide/Data/Record.csv";
+        String tempFile = "CY_Slide/src/main/java/com/cyslide/Data/RecordTemp.csv";
+        String line = "";
+        try (BufferedReader br = new BufferedReader(new FileReader(pathFile));
+                BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
+            while ((line = br.readLine()) != null) {
+                String[] rowValues = line.split(";");
+                if (rowValues[0].equals(Integer.toBinaryString(this.number))) {
+                    rowValues[1] = Integer.toString(this.record);
+                }
+                bw.write(String.join(";", rowValues));
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error reading or writing file.");
+        }
+        File oldFile = new File(pathFile);
+        if (oldFile.delete()) {
+            File newFile = new File(pathFile);
+            if (newFile.exists()) {
+                newFile.delete();
+            }
+            if (new File(tempFile).renameTo(newFile)) {
+                System.out.println("File updated successfully.");
+            } else {
+                System.out.println("Error updating file.");
+            }
+        } else {
+            System.out.println("Error deleting file.");
+        }
     }
 
     /**
