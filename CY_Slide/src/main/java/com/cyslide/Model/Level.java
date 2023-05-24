@@ -180,16 +180,16 @@ public class Level{
          * Returns true if Level is Completed by the player.
          * It compares the players's level with a solved one
          */
-        public boolean isCompleted(int number){
+        public boolean isCompleted(int number, Tile[][] Rectangles){
                 Level finalState = new Level(number); //We get a completed version of the level
                 int size = table.length;
                 for (int i = 0; i < size; i++){
                         for (int j = 0; j < size; j++){
-                                if(table[i][j].getType() != finalState.getTable()[i][j].getType()){
+                                if(Rectangles[i][j].getType() != finalState.getTable()[i][j].getType()){
                                         return false;
                                 }
                                 if(table[i][j].getType() == 1){
-                                        NumberTile nb1 = (NumberTile) table[i][j];
+                                        NumberTile nb1 = (NumberTile) Rectangles[i][j];
                                         NumberTile nb2 = (NumberTile) finalState.getTable()[i][j];
                                         if(nb1.getNumber() != nb2.getNumber()){
                                                 return false;
@@ -197,6 +197,7 @@ public class Level{
                                 }
                         }
                 }
+                setCompleted(true);
                 return true;
         }
         
