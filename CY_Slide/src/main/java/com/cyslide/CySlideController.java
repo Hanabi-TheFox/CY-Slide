@@ -211,7 +211,9 @@ public class CySlideController implements Initializable {
             }
         }
         Scene scene = new Scene(pane, 800, 450);
+
         scene.setOnKeyPressed(rectangleDragHandler::handleKeyPress);
+        this.setCurrentRectangles(rectangles);
 
         this.setViewName("game-view.fxml");
         stage.setScene(scene);
@@ -277,12 +279,10 @@ public class CySlideController implements Initializable {
         LevelX_NBTurns.setText(Integer.toString(CySlideController.currentLevel.getMoveCounter()));
         //We print the matrix
 
-                int numRows = CySlideController.currentLevel.getTable().length;
-        int numCols = CySlideController.currentLevel.getTable()[0].length;
-
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
-                System.out.print(CySlideController.currentLevel.getTable()[i][j] + " ");
+        int[][] table = RectangleWithLabelToTable(CySlideController.currentRectangles);
+        for (int i = 0; i < table.length; i++) {
+            for (int j = 0; j < table[i].length; j++) {
+                System.out.print(table[i][j] + " ");
             }
             System.out.println();
         }
