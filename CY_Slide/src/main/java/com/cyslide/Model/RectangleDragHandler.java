@@ -5,6 +5,10 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 
+import javafx.scene.effect.Glow;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+
 /**
  * @author @Ymasuu
  *
@@ -20,6 +24,10 @@ public class RectangleDragHandler {
     private RectangleWithLabel[][] rectangles;
     private Level level;
     private RectangleWithLabel draggedRectangle;
+
+    private boolean SwitchMode=false;
+
+    
 
     public RectangleDragHandler(RectangleWithLabel[][] rectangles,Level level) {
         this.rectangles = rectangles;
@@ -133,4 +141,123 @@ public class RectangleDragHandler {
         rectangle2.setLayoutX(initialLayoutX);
         rectangle2.setLayoutY(initialLayoutY);        
     }
+
+    //------------------------------------------------------------------------------------------------------------------------------
+    public void handleKeyPress(KeyEvent event) {
+        if (event.getCode() == KeyCode.E) {
+            // Activer ou désactiver le mode d'échange de rectangles
+            if (draggedRectangle != null) {
+                // Si un rectangle est déjà sélectionné, désélectionnez-le
+                draggedRectangle.setEffect(null);
+                draggedRectangle = null;
+            } else {
+                // Sélectionnez le rectangle en haut à gauche pour le déplacement
+                draggedRectangle = rectangles[0][0];
+                initialTranslateX = draggedRectangle.getTranslateX();
+                initialTranslateY = draggedRectangle.getTranslateY();
+                initialLayoutX = draggedRectangle.getLayoutX();
+                initialLayoutY = draggedRectangle.getLayoutY();
+                draggedRectangle.setEffect(new Glow()); // Ajoutez un contour rouge pour indiquer la sélection
+            }
+        } else if (draggedRectangle != null) {
+            // Si un rectangle est sélectionné, déplacez-le dans la direction spécifiée
+            initialLayoutX = draggedRectangle.getLayoutX();
+            initialLayoutY = draggedRectangle.getLayoutY();
+            if (event.getCode() == KeyCode.R) {
+                if(SwitchMode){
+                    SwitchMode=false;
+                }else{
+                    SwitchMode=true;
+                }
+            }
+            if (event.getCode() == KeyCode.Z) {
+                moveRectangle(draggedRectangle, Direction.UP,SwitchMode);
+                //draggedRectangle.setEffect(new Glow());
+            } else if (event.getCode() == KeyCode.S) {
+                moveRectangle(draggedRectangle, Direction.DOWN,SwitchMode);
+                //draggedRectangle.setEffect(new Glow());
+            } else if (event.getCode() == KeyCode.Q) {
+                moveRectangle(draggedRectangle, Direction.LEFT,SwitchMode);
+                //draggedRectangle.setEffect(new Glow());
+            } else if (event.getCode() == KeyCode.D) {
+                moveRectangle(draggedRectangle, Direction.RIGHT,SwitchMode);
+                //draggedRectangle.setEffect(new Glow());
+            }
+        }
+    }
+
+    private void moveRectangle(RectangleWithLabel rectangle, Direction direction,boolean SwitchMode) {
+        int deltaX = 0;
+        int deltaY = 0;
+        String directionsString=null;
+    
+        switch (direction) {
+            case UP:
+                deltaX = -1;
+                directionsString="UP";
+                break;
+            case DOWN:
+                deltaX = 1;
+                directionsString="DOWN";
+                break;
+            case LEFT:
+                deltaY = -1;
+                directionsString="LEFT";
+                break;
+            case RIGHT:
+                deltaY = 1;
+                directionsString="RIGHT";
+                break;
+        }
+        initialTranslateX = rectangle.getTranslateX();
+        initialTranslateY = rectangle.getTranslateY();
+        initialLayoutX = rectangle.getLayoutX();
+        initialLayoutY = rectangle.getLayoutY();
+        int currentX = rectangle.GetTile().getPosX();
+        int currentY = rectangle.GetTile().getPosY();
+        int targetX = currentX + deltaX;
+        int targetY = currentY + deltaY;
+        boolean isSwapped=false;
+    
+        // Assurez-vous que les coordonnées de destination sont valides
+        if (isValidCoordinate(targetX, targetY)) {
+            RectangleWithLabel targetRectangle = rectangles[targetX][targetY];
+            System.out.println(SwitchMode);
+            if(SwitchMode){
+                if(level.moveTile(currentX, currentY, directionsString, rectangles)){
+                    isSwapped=true;
+                }
+                if (isSwapped && targetRectangle != null) {
+                    swapRectangles(rectangle, targetRectangle);
+                    draggedRectangle.setEffect(null); // Désélectionnez le rectangle après le déplacement
+                    rectangle.setEffect(new Glow());
+                    draggedRectangle=rectangle;
+                    // initialTranslateX = rectangle.getTranslateX();
+                    // initialTranslateY = rectangle.getTranslateY();
+                    // rectangles[currentX][currentY]=targetRectangle;
+                    // rectangles[targetX][targetY]=draggedRectangle;
+                }
+                //draggedRectangle = null;
+            }else{
+                // deplacement mode
+                rectangle.setEffect(null);
+                targetRectangle.setEffect(new Glow());
+                draggedRectangle=targetRectangle;
+            }
+        }
+    }
+
+    private boolean isValidCoordinate(int x, int y) {
+        return x >= 0 && x < rectangles[0].length && y >= 0 && y < rectangles.length;
+    }
+
+    // ...
+//}
+
+enum Direction {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+}
 }
