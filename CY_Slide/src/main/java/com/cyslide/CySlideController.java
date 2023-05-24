@@ -46,6 +46,9 @@ public class CySlideController implements Initializable {
     private CySlideApplication app;
     private String viewName="";
     private GridPane gridPane;
+    private static RectangleWithLabel currentRectangles[][];
+    private static Tile[][] currentTable;
+    private static boolean playButtonIsPressed = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -71,6 +74,13 @@ public class CySlideController implements Initializable {
     }
     public void setCurrentRoot(Parent root){
         CySlideController.currentRoot = root;
+    }
+    public void setPlayButtonIsPressed(boolean b) {
+        CySlideController.playButtonIsPressed= b;
+    }
+
+    public void setCurrentRectangles(RectangleWithLabel r[][]){
+    CySlideController.currentRectangles= r;
     }
     
     @FXML
@@ -201,6 +211,7 @@ public class CySlideController implements Initializable {
             }
         }
         Scene scene = new Scene(pane, 800, 450);
+        scene.setOnKeyPressed(rectangleDragHandler::handleKeyPress);
 
         this.setViewName("game-view.fxml");
         stage.setScene(scene);
@@ -229,6 +240,7 @@ public class CySlideController implements Initializable {
     Button play_button;
     @FXML
     protected void playButtonClicked() {
+        setPlayButtonIsPressed(true);// The game started
         Level level = CySlideController.currentLevel;
         Level nvLevel = new Level(level.getNumber(),this);
         nvLevel.initLevelMove();
@@ -263,6 +275,60 @@ public class CySlideController implements Initializable {
     public void handleMoveTileEvent(){
         LevelX_NBTurns = (Label) CySlideController.currentRoot.getScene().lookup("#LevelX_NBTurns");
         LevelX_NBTurns.setText(Integer.toString(CySlideController.currentLevel.getMoveCounter()));
+        /*if ((CySlideController.playButtonIsPressed == true)) {
+            System.out.println("DANS LE TRUC");
+            //We transform Rectangle matrix to Tile matrix
+            if ( (CySlideController.currentLevel.isCompleted(CySlideController.currentLevel.getNumber(),Cy)) == true) {
+                System.out.println("YEEESSSS"); 
+             //The game is finished, we set 
+           //we unlock the next level to the player
+           CySlideController.player.setLevelResolved(CySlideController.currentLevel.getNumber());
+           Label labelFinished = (Label) CySlideController.currentRoot.getScene().lookup("#idLabelFinished");
+           labelFinished.setText("Level is Completed!");
+           setPlayButtonIsPressed(false); 
+            }
+
+
+
+        }*/
     }
+
+       /**
+        * This method converts a matrix of RectangleWithLabels to simple matrix Table[][]
+        * @param rectanglesWithLabels
+        * @return table[][]
+        */
+    /*public Tile[][] RectangleWithLabelToTable(RectangleWithLabel rectanglesWithLabels[][] ) {
+        int numRows =rectanglesWithLabels.length;
+        int numCols = rectanglesWithLabels[0].length;
+
+        // Create the table array
+        Tile[][] table = new Tile[numRows][numCols];
+
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                RectangleWithLabel rectangleWithLabel = rectanglesWithLabels[i][j];
+                int type = rectangleWithLabel.GetTile().getType();
+                //We verify what type is this and we give its corresponding number
+                Tile tile = new Tile(rectangleWithLabel.GetTile().getPosX(),rectangleWithLabel.GetTile().getPosY()); {
+                    
+                };
+                
+                // Check the label to determine the appropriate BaseType element
+                if (!label.isEmpty()) {
+                    try {
+                        int number = Integer.parseInt(label);
+                        // Create a NumberTile element with the parsed number
+                        element = new NumberTile(number);
+                    } catch (NumberFormatException e) {
+                        // Handle non-integer labels if needed
+                    }
+                }
+                
+                // Assign the element to the corresponding position in the table array
+                table[i][j] = element;
+            }
+        }
+            }*/
 
 }
