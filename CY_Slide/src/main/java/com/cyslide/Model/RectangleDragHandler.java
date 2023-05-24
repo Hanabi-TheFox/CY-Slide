@@ -188,63 +188,65 @@ public class RectangleDragHandler {
      * @param event The key event.
      */
     public void handleKeyPress(KeyEvent event) {
-        if (event.getCode() == KeyCode.E) {
-            // Activate or deactivate the rectangle swapping mode
-            if (draggedRectangle != null) {
-                // If a rectangle is already selected, deselect it
-                draggedRectangle.setEffect(null);
-                draggedRectangle = null;
-            } else {
-                // Select the top-left rectangle for dragging
-                if(rectangles[0][0].GetTile().getType()!=0){
-                    draggedRectangle = rectangles[0][0];
-                }else{
-                    int i=1;
-                    int j=0;
-                    if(rectangles[j][i].GetTile().getType()==0){
-                        if(i<3){
-                            i++;
-                        }else{
-                            i=0;
-                            j++;
-                        }
+        if(level.getRandomized()){
+            if (event.getCode() == KeyCode.E) {
+                // Activate or deactivate the rectangle swapping mode
+                if (draggedRectangle != null) {
+                    // If a rectangle is already selected, deselect it
+                    draggedRectangle.setEffect(null);
+                    draggedRectangle = null;
+                } else {
+                    // Select the top-left rectangle for dragging
+                    if(rectangles[0][0].GetTile().getType()!=0){
+                        draggedRectangle = rectangles[0][0];
                     }else{
-                        draggedRectangle=rectangles[j][i];
+                        int i=1;
+                        int j=0;
+                        if(rectangles[j][i].GetTile().getType()==0){
+                            if(i<3){
+                                i++;
+                            }else{
+                                i=0;
+                                j++;
+                            }
+                        }else{
+                            draggedRectangle=rectangles[j][i];
+                        }
                     }
+                    initialTranslateX = draggedRectangle.getTranslateX();
+                    initialTranslateY = draggedRectangle.getTranslateY();
+                    initialLayoutX = draggedRectangle.getLayoutX();
+                    initialLayoutY = draggedRectangle.getLayoutY();
+                    draggedRectangle.setEffect(new Glow()); // Add a red glow to indicate the selection
                 }
-                initialTranslateX = draggedRectangle.getTranslateX();
-                initialTranslateY = draggedRectangle.getTranslateY();
+            } else if (draggedRectangle != null) {
+                // If a rectangle is selected, move it in the specified direction
                 initialLayoutX = draggedRectangle.getLayoutX();
                 initialLayoutY = draggedRectangle.getLayoutY();
-                draggedRectangle.setEffect(new Glow()); // Add a red glow to indicate the selection
-            }
-        } else if (draggedRectangle != null) {
-            // If a rectangle is selected, move it in the specified direction
-            initialLayoutX = draggedRectangle.getLayoutX();
-            initialLayoutY = draggedRectangle.getLayoutY();
-            if (event.getCode() == KeyCode.R) {
-                if(SwitchMode){
-                    SwitchMode=false;
-                    draggedRectangle.setEffect(new Glow());
-                }else{
-                    SwitchMode=true;
-                    InnerShadow InnerShadow = new InnerShadow();
-                    InnerShadow.setColor(Color.RED);
-                    draggedRectangle.setEffect(InnerShadow);
+                if (event.getCode() == KeyCode.R) {
+                    if(SwitchMode){
+                        SwitchMode=false;
+                        draggedRectangle.setEffect(new Glow());
+                    }else{
+                        SwitchMode=true;
+                        InnerShadow InnerShadow = new InnerShadow();
+                        InnerShadow.setColor(Color.RED);
+                        draggedRectangle.setEffect(InnerShadow);
+                    }
                 }
-            }
-            if (event.getCode() == KeyCode.Z) {
-                moveRectangle(draggedRectangle, Direction.UP,SwitchMode);
-                //draggedRectangle.setEffect(new Glow());
-            } else if (event.getCode() == KeyCode.S) {
-                moveRectangle(draggedRectangle, Direction.DOWN,SwitchMode);
-                //draggedRectangle.setEffect(new Glow());
-            } else if (event.getCode() == KeyCode.Q) {
-                moveRectangle(draggedRectangle, Direction.LEFT,SwitchMode);
-                //draggedRectangle.setEffect(new Glow());
-            } else if (event.getCode() == KeyCode.D) {
-                moveRectangle(draggedRectangle, Direction.RIGHT,SwitchMode);
-                //draggedRectangle.setEffect(new Glow());
+                if (event.getCode() == KeyCode.Z) {
+                    moveRectangle(draggedRectangle, Direction.UP,SwitchMode);
+                    //draggedRectangle.setEffect(new Glow());
+                } else if (event.getCode() == KeyCode.S) {
+                    moveRectangle(draggedRectangle, Direction.DOWN,SwitchMode);
+                    //draggedRectangle.setEffect(new Glow());
+                } else if (event.getCode() == KeyCode.Q) {
+                    moveRectangle(draggedRectangle, Direction.LEFT,SwitchMode);
+                    //draggedRectangle.setEffect(new Glow());
+                } else if (event.getCode() == KeyCode.D) {
+                    moveRectangle(draggedRectangle, Direction.RIGHT,SwitchMode);
+                    //draggedRectangle.setEffect(new Glow());
+                }
             }
         }
     }
