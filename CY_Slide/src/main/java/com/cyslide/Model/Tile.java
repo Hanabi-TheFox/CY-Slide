@@ -1,5 +1,7 @@
 package com.cyslide.Model;
 
+import java.util.Objects;
+
 /**
  * The abstract class representing a tile in the game.
  */
@@ -25,7 +27,17 @@ public abstract class Tile implements Cloneable{
         } else {
             return this.type == other.type;
         }
-    }    
+    }
+    
+    @Override
+    public int hashCode() {
+        if (type == 1) {
+            NumberTile numberTile = (NumberTile) this;
+            return Objects.hash(type, numberTile.getNumber());
+        } else {
+            return Objects.hash(type);
+        }
+    }
 
     @Override
     public Tile clone() {

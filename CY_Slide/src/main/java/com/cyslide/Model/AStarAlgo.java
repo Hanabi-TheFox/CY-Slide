@@ -9,12 +9,12 @@ class Node implements Comparable<Node> {
     private int fScore;
     private Node parent;
 
-    public Node(Level state, int gScore, int hScore, Node parent) {
+    public Node(Level state, int gScore, int hScore) {
         this.state = state;
         this.gScore = gScore;
         this.hScore = hScore;
         this.fScore = gScore + hScore;
-        this.parent = parent;
+        this.parent = null;
     }
 
     @Override
@@ -33,19 +33,12 @@ class Node implements Comparable<Node> {
         if (array1.length != array2.length) {
             return false;
         }
-        for (int i = 0; i < array1.length; i++) {
-            for (int j = 0; j < array1.length; j++){
-                if (!array1[i][j].equals(array2[i][j])) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return Arrays.deepEquals(array1, array2);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(state);
+        return Arrays.deepHashCode(state.getTable());
     }
 
     
@@ -68,6 +61,10 @@ class Node implements Comparable<Node> {
 
     public Node getParent() {
         return parent;
+    }
+
+    public void setParent(Node parent) {
+        this.parent = parent;
     }
 
     @Override
@@ -151,7 +148,7 @@ public class AStarAlgo {
         for (String direction : directions) {
             Level lvlNeighbor = currentLevel.clone();
             if(lvlNeighbor.moveTile2(emptyRow, emptyCol, direction)){
-                Node neighborNode = new Node(lvlNeighbor, 0, 0, null);
+                Node neighborNode = new Node(lvlNeighbor, 0, 0);
                 if (!closedList.contains(neighborNode)) {
                     // Ajouter le voisin à la liste des voisins à explorer
                     neighbors.add(lvlNeighbor);
@@ -172,7 +169,7 @@ public class AStarAlgo {
         Level initialState = level;
         int initialHScore = calculeMisplacedTileCount(initialState);
         //System.out.println(initialHScore);
-        Node initialNode = new Node(initialState, 0, initialHScore, null);
+        Node initialNode = new Node(initialState, 0, initialHScore);
         openList.add(initialNode);
 
         while (!openList.isEmpty()) {
@@ -184,11 +181,10 @@ public class AStarAlgo {
     
             if (currentState.isCompleted2(currentState.getNumber(), currentState.getTable())) {
                 // Solution found
+                System.out.println("Solution found !");
                 List<Level> path = new ArrayList<>();
-                int i = 0;
                 while (currentNode != null) {
-                    path.add(i, currentNode.getState());
-                    i++;
+                    path.add(currentNode.getState());
                     currentNode = currentNode.getParent();
                 }
                 return path;
@@ -201,11 +197,10 @@ public class AStarAlgo {
                 int gScore = currentNode.getGScore() + 1;
                 int hScore = calculeMisplacedTileCount(neighbor);
 
-                Node neighborNode = new Node(neighbor, gScore, hScore, currentNode);
+                Node neighborNode = new Node(neighbor, gScore, hScore);
                 if (!closedList.contains(neighborNode)){
+                    neighborNode.setParent(currentNode);
                     openList.add(neighborNode);
-                    System.out.println("Neighbor added to open list:");
-                    printState(neighborNode.getState());
                 }
             }
         }
@@ -214,30 +209,14 @@ public class AStarAlgo {
     
     public static void printState(Level state) {
         System.out.println("--------------");
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < state.getTable().length; i++) {
+            for (int j = 0; j < state.getTable().length; j++) {
                 if (state.getTable()[i][j] instanceof EmptyTile) {
                     System.out.print("0 ");
                 } else if (state.getTable()[i][j] instanceof NumberTile) {
                     NumberTile numberTile = (NumberTile) state.getTable()[i][j];
                     System.out.print(numberTile.getNumber() + " ");
-                }
-            }
-            System.out.println();
-        }
-        System.out.println("--------------");
-    }
-
-    public static void printState2(Tile[][] ste) {
-        System.out.println("--------------");
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (ste[i][j] instanceof EmptyTile) {
-                    System.out.print("0 ");
-                } else if (ste[i][j] instanceof NumberTile) {
-                    NumberTile numberTile = (NumberTile) ste[i][j];
-                    System.out.print(numberTile.getNumber() + " ");
-                }
+                }else System.out.print("X ");
             }
             System.out.println();
         }
@@ -246,17 +225,23 @@ public class AStarAlgo {
     
 
     public static void main(String[] args) {
-        Level level = new Level(3);
+        Level level = new Level(10);
         level.initLevelMove();
 
         System.out.println("Initial State :");
         printState(level);
 
         List<Level> solution = astar(level);
+        // we reverse the list
+        Collections.reverse(solution);
         
         if (solution != null) {
+            System.out.println("Voici les mouvements que vous devez faire un par un.\n");
+            int i = 0;
             for (Level state : solution) {
-                printState(level);
+                System.out.println("nombre de coups : " + i);
+                i++;
+                printState(state);
             }
         } else {
             System.out.println("No solution found.");
