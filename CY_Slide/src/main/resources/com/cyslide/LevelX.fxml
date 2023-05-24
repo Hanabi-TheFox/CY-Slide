@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cyslide.CySlideController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cyslide.CySlideController">
    <children>
       <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="450.0" prefWidth="800.0" spacing="50.0">
          <children>
@@ -77,6 +77,11 @@
                            <Font name="Arial" size="16.0" />
                         </font>
                      </Button>
+                  <Label id="idLabelFinished" layoutX="123.0" layoutY="378.0" prefHeight="27.0" prefWidth="64.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
 
                </children>
                <HBox.margin>
@@ -102,5 +107,6 @@
             <Insets bottom="20.0" right="20.0" top="20.0" />
          </padding>
       </HBox>
+      <Label text="Label" />
    </children>
 </AnchorPane>
