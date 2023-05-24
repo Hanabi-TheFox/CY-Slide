@@ -38,6 +38,8 @@ public class CySlideController implements Initializable {
     @FXML
     private Label LevelX_Record;
     @FXML
+    private Label LevelX_labelFinished;
+    @FXML
     private static Player player;
     private static Level currentLevel;
     private static Stage currentStage;
@@ -254,6 +256,7 @@ public class CySlideController implements Initializable {
     @FXML
     protected void playButtonClicked() {
         setPlayButtonIsPressed(true);// The game started
+        LevelX_Record.setText(Integer.toString(CySlideController.currentLevel.getRecord()));
         Level level = CySlideController.currentLevel;
         Level nvLevel = new Level(level.getNumber(),this);
         nvLevel.initLevelMove();
@@ -264,23 +267,14 @@ public class CySlideController implements Initializable {
         LevelX_NBTurns = (Label) root.getScene().lookup("#LevelX_NBTurns");
         LevelX_NBTurns.setText("0");
         nvLevel.setRandomized(true);
+        nvLevel.setCompleted(false);
+        LevelX_labelFinished = (Label) root.getScene().lookup("#LevelX_labelFinished");
+        LevelX_labelFinished.setText("");
         play_button = (Button) root.getScene().lookup("#play_button");
         play_button.setText("Replay");
         setCurrentLevel(nvLevel);
-        //TODO
-        /*
-         * 
-         *  // We call the initiate method on Class Level
-    Level level = getCurrentLevel();
-    Button levelMenu = getLastLevelButtonPressed();
-    // We move randomly each tile from the table
-    level.initLevelMove(); //this level object will have know a different table
-    //We get stage from the levelMenuButton reference
-    Stage stage = (Stage) levelMenu.getScene().getWindow();
-    //We print again the playable table
-    setLevel(levelMenu, stage, level);
-        */
     }
+
     public String getViewName() {
         return this.viewName;
     }
@@ -300,19 +294,16 @@ public class CySlideController implements Initializable {
         System.out.println("---------------");
         if ((CySlideController.playButtonIsPressed == true)) {
             //We transform Rectangle matrix to Tile matrix
-            if (CySlideController.currentLevel.isCompleted(table) == true) {
+            if (CySlideController.currentLevel.isCompleted(table)) {
                 //The game is finished
                 if(CySlideController.currentLevel.getNumber() == CySlideController.player.getLevelResolved())
                     CySlideController.player.setLevelResolved(CySlideController.currentLevel.getNumber()+1);
                 if(CySlideController.currentLevel.getRecord() > CySlideController.currentLevel.getMoveCounter())
                     CySlideController.currentLevel.setRecord(CySlideController.currentLevel.getMoveCounter());
-                Label labelFinished = (Label) CySlideController.currentRoot.getScene().lookup("#idLabelFinished");
-                labelFinished.setText("Level is Completed!");
+                LevelX_labelFinished = (Label) CySlideController.currentRoot.getScene().lookup("#LevelX_labelFinished");
+                LevelX_labelFinished.setText("Level is Completed!");
                 setPlayButtonIsPressed(false);
             }
-
-
-
         }
     }
 
