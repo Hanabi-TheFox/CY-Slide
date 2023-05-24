@@ -115,4 +115,8 @@ Tuesday, May 23:
     Correction of the system of level unlocking.
 
 Wednesday, May 24:
+  Samy - Clement - Yanis:
+    Continue to fix problems in AStarAlgo
+  Renato:
 
+  Ethan:
