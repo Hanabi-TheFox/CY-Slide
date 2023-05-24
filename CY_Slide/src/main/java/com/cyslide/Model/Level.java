@@ -15,7 +15,7 @@ import java.util.List;
  * It contains information about the level number, move counter, randomization status, completion status, record, and the game table.
  * The class provides methods for retrieving and modifying these properties, as well as recovering level data from files, moving tiles, and checking level completion.
  */
-public class Level {
+public class Level implements Cloneable{
     private CySlideController controller;
     private int number;
     private int moveCounter;
@@ -53,6 +53,18 @@ public class Level {
         this.completed = false;
         this.record = recoverRecord(number);
         this.table = recoverLvl(number);
+    }
+    @Override
+    public Level clone() {
+        try {
+            Level clonedLevel = (Level) super.clone();
+            // Effectuez ici la copie des variables d'instance si nécessaire
+            // Assurez-vous de copier les objets mutables en profondeur si besoin
+            return clonedLevel;
+        } catch (CloneNotSupportedException e) {
+            // Gestion de l'exception de clonage non pris en charge
+            return null;
+        }
     }
 
     /**
@@ -165,10 +177,10 @@ public class Level {
                     }
                 }
             }
-            System.out.println("File Found");
+            //System.out.println("File Found");
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Error reading file");
+            //System.out.println("Error reading file");
         }
         return record;
     }
@@ -194,13 +206,13 @@ public class Level {
                 numCol = rowValues.length;
                 numRow++;
             }
-            System.out.println("File Found");
+            //System.out.println("File Found");
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Error reading file");
+            //System.out.println("Error reading file");
         }
-        System.out.println("Ligne : " + numRow);
-        System.out.println("Col : " + numCol);
+        //System.out.println("Ligne : " + numRow);
+        //System.out.println("Col : " + numCol);
         tab = new Tile[numRow][numCol];
 
         try (BufferedReader br = new BufferedReader(new FileReader(pathFile))) {
@@ -223,11 +235,11 @@ public class Level {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Error reading file");
+            //System.out.println("Error reading file");
         }
-        System.out.println("Level " + number);
-        System.out.println("Tile Length: " + numRow);
-        System.out.println("Tile Width: " + numCol);
+        //System.out.println("Level " + number);
+        //System.out.println("Tile Length: " + numRow);
+        //System.out.println("Tile Width: " + numCol);
 
         return tab;
     }
@@ -266,9 +278,34 @@ public class Level {
             return false;
         } else {
             table[x][y].move2(direction, table);
+            //System.out.println("Print table : ");
+            //AStarAlgo.printState2(table);
             return true;
         }
     }
+
+    public boolean isCompleted2(int number, Tile[][] Rectangles){
+        Level finalState = new Level(number); //We get a completed version of the level
+        int size = table.length;
+        for (int i = 0; i < size; i++){
+            for (int j = 0; j < size; j++){
+                if(Rectangles[i][j].getType() != finalState.getTable()[i][j].getType()){
+                    return false;
+                }
+                if(table[i][j].getType() == 1){
+                NumberTile nb1 = (NumberTile) Rectangles[i][j];
+                    NumberTile nb2 = (NumberTile) finalState.getTable()[i][j];
+                    if(nb1.getNumber() != nb2.getNumber()){
+                            return false;
+                    }
+                }
+            }
+        }
+        setCompleted(true);
+        return true;
+    }
+    
+    
 
     /**
      * Checks if the level is completed by comparing the current table with a solved one.
@@ -323,7 +360,7 @@ public class Level {
                 }
             }
         }
-        System.out.println("Nous avons fini le mélange.");
+        //System.out.println("Nous avons fini le mélange.");
     }
 
         //We get a level object and we transform its Tile[][] into int[][]

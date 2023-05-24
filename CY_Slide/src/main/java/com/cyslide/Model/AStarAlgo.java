@@ -70,20 +70,19 @@ public class AStarAlgo {
             Level lvlNeighbor = currentLevel;
             System.out.println("PremierTest");
             printState(lvlNeighbor);
-            System.out.println("newRow : " + lvlNeighbor.moveTile2(newRow, newCol, direction));
-            if (lvlNeighbor.moveTile2(newRow, newCol, direction)) {
-                lvlNeighbor.getTable()[newRow][newCol].move2(direction,lvlNeighbor.getTable());
+            //System.out.println("newRow : " + lvlNeighbor.moveTile2(newRow, newCol, direction));
+            boolean leveltest = lvlNeighbor.moveTile2(newRow, newCol, direction);
+            if (leveltest) {
+                //lvlNeighbor.getTable()[newRow][newCol].move2(direction,lvlNeighbor.getTable());
                 printState(lvlNeighbor);
 
                 // Vérifier si le voisin est déjà dans un état final
-                System.out.println("newRow : " + lvlNeighbor.isCompleted(lvlNeighbor.getNumber(), lvlNeighbor.getTable()));
+                //System.out.println("newRow : " + lvlNeighbor.isCompleted(lvlNeighbor.getNumber(), lvlNeighbor.getTable()));
 
-                if (!lvlNeighbor.isCompleted(lvlNeighbor.getNumber(), lvlNeighbor.getTable())) {
+                if (!lvlNeighbor.isCompleted2(lvlNeighbor.getNumber(), lvlNeighbor.getTable())) {
                     // Mouvement effectué, ajouter le voisin à la liste
                     neighbors.add(lvlNeighbor);
-
-                }
-                
+                } 
             }
         }   
         System.out.println("Affichage des voisins :");
@@ -110,7 +109,7 @@ public class AStarAlgo {
             // System.out.println("Pendant la boucle");
             // printState(currentState);
     
-            if (currentState.isCompleted(currentState.getNumber(), currentState.getTable())) {
+            if (currentState.isCompleted2(currentState.getNumber(), currentState.getTable())) {
                 // Solution found
                 List<Level> path = new ArrayList<>();
                 int i = 0;
@@ -157,10 +156,26 @@ public class AStarAlgo {
         }
         System.out.println("--------------");
     }
+
+    public static void printState2(Tile[][] ste) {
+        System.out.println("--------------");
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (ste[i][j] instanceof EmptyTile) {
+                    System.out.print("0 ");
+                } else if (ste[i][j] instanceof NumberTile) {
+                    NumberTile numberTile = (NumberTile) ste[i][j];
+                    System.out.print(numberTile.getNumber() + " ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("--------------");
+    }
     
 
     public static void main(String[] args) {
-        Level level = new Level(2);
+        Level level = new Level(3);
         level.initLevelMove();
 
         System.out.println("Initial State :");
