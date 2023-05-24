@@ -116,7 +116,7 @@ Tuesday, May 23:
 
 Wednesday, May 24:
   Samy - Clement - Yanis:
-    Continue to fix problems in AStarAlgo
+    Continue to fix problems in A* Algo and succeed to use it when we have a level with one empty tile.
   Renato:  
     Worked on the isCompleted() method to check if the game was completed by the player and also researched how to include audio files in the app.
   Ethan: 
