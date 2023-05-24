@@ -190,6 +190,15 @@ public class Level{
                 // We transform finalState into an int Matrix
                 int[][] resolvedTable = this.LevelToIntMatrix(finalState);
             
+                System.out.println("DANS LEVEL IS COMPTEDED TABLE RESOLVED : ");
+
+                for (int i = 0; i < resolvedTable.length; i++) {
+                        for (int j = 0; j < resolvedTable[i].length; j++) {
+                            System.out.print(resolvedTable[i][j] + " ");
+                        }
+                        System.out.println();
+                    }
+
                 int size = currentTable.length;
             
                 // Check if the matrices have the same values
@@ -274,8 +283,13 @@ public class Level{
                             NumberTile numberTile = (NumberTile) tile;
                             matrix[i][j] = numberTile.getNumber();
                         } else {
+                                if (tile.getType() == -1) {
                             // Handle other tile types if necessary
-                            matrix[i][j] = 0; // Or any default value you prefer
+                            matrix[i][j] = -1; // Or any default value you prefer
+                                }
+                                else if (tile.getPosX() == 0) {
+                                        matrix[i][j] = 0; 
+                                }
                         }
                     }
                 }
