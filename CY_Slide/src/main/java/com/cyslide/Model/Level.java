@@ -254,7 +254,24 @@ public class Level{
          * @param Rectangles the table of tiles of the level
          * @return true if the level is completed, false otherwise
          */
-        public boolean isCompleted(int number, Tile[][] Rectangles){
+        
+         public boolean isCompleted(int[][] currentTable){
+                Level finalState = new Level(number); //We get a completed version of the level
+                
+                //We transform finalState into an int Matrix
+                int[][] resolvedTable = this.LevelToIntMatrix(finalState);
+                
+                int size = table.length;
+               
+
+
+                //After verification...
+                setCompleted(true);
+                return true;
+        }
+        
+        
+        /* public boolean isCompleted(int number, Tile[][] Rectangles){
                 Level finalState = new Level(number); //We get a completed version of the level
                 int size = table.length;
                 for (int i = 0; i < size; i++){
@@ -273,7 +290,7 @@ public class Level{
                 }
                 setCompleted(true);
                 return true;
-        }
+        } */
         
         /**
          * Initialize the level by moving the tiles on random directions
@@ -309,7 +326,14 @@ public class Level{
                 System.out.println("Nous avons fini le mélange.");
         }
 
-        /**
+        //We get a level object and we transform its Tile[][] into int[][]
+        public int[][] LevelToIntMatrix(Level level) {
+
+
+                return table;
+        }
+
+        /**        
          * (Optional/Bonus part)
          * Initialize the level by setting the tiles in random positions
          * /!\This method can create a level that is not resolvable
