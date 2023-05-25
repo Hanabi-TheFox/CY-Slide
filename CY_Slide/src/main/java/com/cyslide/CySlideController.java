@@ -292,45 +292,53 @@ public class CySlideController implements Initializable {
     //If we play resolve the automatic resolution will solve it step by step with waiting time between each step
     @FXML
     public void OnLevelX_ResolveButtonClick(){
-        Level level = new Level(CySlideController.currentLevel.getNumber());
-        level.initLevelMove();
 
-        System.out.println("Initial State :");
-        AStarAlgo.printState(level);
-
-        List<Level> solution = AStarAlgo.astar(level);
-        // we reverse the list
-        Collections.reverse(solution);
-        
-        if (solution != null) {
-            System.out.println("Voici les mouvements que vous devez faire un par un.\n");
-            int i = 0;
-            List<Level> steps = new ArrayList<>();
-
-            for (Level state : solution) {
-                if(state!=null){
-                    // try{
-                    //     System.out.println("nombre de coups : " + i);
-                    //     i++;
-                    //     AStarAlgo.printState(state);
-                    //     Thread.sleep(2000);
-                    //     //setResolveStage(currentRoot, currentStage, state);
-                    // }catch (InterruptedException e){
-                    //     e.printStackTrace();
-                    // }
-                    System.out.println("nombre de coups : " + i);
-                    i++;
-                    AStarAlgo.printState(state);
-                    steps.add(state);
-                    
-                    
-                } 
+        if (CySlideController.playButtonIsPressed == true) {
+            Level level = new Level(CySlideController.currentLevel.getNumber());
+            level.initLevelMove();
+    
+            System.out.println("Initial State :");
+            AStarAlgo.printState(level);
+    
+            List<Level> solution = AStarAlgo.astar(level);
+            // we reverse the list
+            Collections.reverse(solution);
+            
+            if (solution != null) {
+                System.out.println("Voici les mouvements que vous devez faire un par un.\n");
+                int i = 0;
+                List<Level> steps = new ArrayList<>();
+    
+                for (Level state : solution) {
+                    if(state!=null){
+                        // try{
+                        //     System.out.println("nombre de coups : " + i);
+                        //     i++;
+                        //     AStarAlgo.printState(state);
+                        //     Thread.sleep(2000);
+                        //     //setResolveStage(currentRoot, currentStage, state);
+                        // }catch (InterruptedException e){
+                        //     e.printStackTrace();
+                        // }
+                        System.out.println("nombre de coups : " + i);
+                        i++;
+                        AStarAlgo.printState(state);
+                        steps.add(state);
+                        
+                        
+                    } 
+                }
+                displaySteps(steps);
+                //setResolveStage(currentRoot, currentStage, solution.get(solution.size() - 1));
+            } else {
+                System.out.println("No solution found.");
             }
-            displaySteps(steps);
-            //setResolveStage(currentRoot, currentStage, solution.get(solution.size() - 1));
-        } else {
-            System.out.println("No solution found.");
         }
+
+        else {
+            System.out.println("Play Button is not already pressed!");
+        }
+       
     }
 
     private void displaySteps(List<Level> steps) {
