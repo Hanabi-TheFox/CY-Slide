@@ -1,5 +1,6 @@
 package com.cyslide;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +15,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.cyslide.Model.*;
 import com.cyslide.Model.Player.PlayerPseudoException;
@@ -199,8 +205,9 @@ public class CySlideController implements Initializable {
         int OffsetRight = 400;
         int OffsetUp = 75;
         int longeurRectangle = 300 / table.length;
-
-        RectangleWithLabel[][] rectangles = new RectangleWithLabel[table.length][table.length];
+        RectangleWithLabel[][] rectangles;
+        
+        rectangles = new RectangleWithLabel[table.length][table.length];
         for (int i = 0; i < table.length; i++) {
             for (int j = 0; j < table.length; j++) {
                 String label = "";
@@ -213,8 +220,10 @@ public class CySlideController implements Initializable {
                 rectangleWithLabel.setLayoutY(OffsetUp + longeurRectangle * i);
                 pane.getChildren().add(rectangleWithLabel);
                 rectangles[i][j] = rectangleWithLabel;
-            }
         }
+    }
+        
+        
         RectangleDragHandler rectangleDragHandler = new RectangleDragHandler(rectangles,level);
         for (RectangleWithLabel[] row : rectangles) {
             for (RectangleWithLabel rectangle : row) {
@@ -274,6 +283,128 @@ public class CySlideController implements Initializable {
         play_button.setText("Replay");
         setCurrentLevel(nvLevel);
     }
+
+
+
+
+    @FXML
+    Button idResolve;
+    //If we play resolve the automatic resolution will solve it step by step with waiting time between each step
+    @FXML
+    public void OnLevelX_ResolveButtonClick(){
+        Level level = new Level(CySlideController.currentLevel.getNumber());
+        level.initLevelMove();
+
+        System.out.println("Initial State :");
+        AStarAlgo.printState(level);
+
+        List<Level> solution = AStarAlgo.astar(level);
+        // we reverse the list
+        Collections.reverse(solution);
+        
+        if (solution != null) {
+            System.out.println("Voici les mouvements que vous devez faire un par un.\n");
+            int i = 0;
+            List<Level> steps = new ArrayList<>();
+
+            for (Level state : solution) {
+                if(state!=null){
+                    // try{
+                    //     System.out.println("nombre de coups : " + i);
+                    //     i++;
+                    //     AStarAlgo.printState(state);
+                    //     Thread.sleep(2000);
+                    //     //setResolveStage(currentRoot, currentStage, state);
+                    // }catch (InterruptedException e){
+                    //     e.printStackTrace();
+                    // }
+                    System.out.println("nombre de coups : " + i);
+                    i++;
+                    AStarAlgo.printState(state);
+                    steps.add(state);
+                    
+                    
+                } 
+            }
+            displaySteps(steps);
+            //setResolveStage(currentRoot, currentStage, solution.get(solution.size() - 1));
+        } else {
+            System.out.println("No solution found.");
+        }
+    }
+
+    private void displaySteps(List<Level> steps) {
+        Timer timer = new Timer();
+        int delay = 2000; // Délai en millisecondes entre chaque étape
+        final int[] currentIndex = {0}; // Utilisation d'un tableau d'entiers pour contourner la limitation
+    
+        TimerTask task = new TimerTask() {
+            public void run() {
+                if (currentIndex[0] < steps.size()-1) {
+                    Platform.runLater(() -> {
+                        setResolveStage(currentRoot, currentStage, steps.get(currentIndex[0]));
+                    });
+                    currentIndex[0]++;
+                } else {
+                    timer.cancel(); // Arrêter le timer lorsque toutes les étapes ont été affichées
+                }
+            }
+        };
+    
+        timer.scheduleAtFixedRate(task, delay, delay);
+    }
+    
+    
+
+
+
+    public void setResolveStage( Parent root,Stage stage,Level level){
+            // Creation of RectangleWithLabel with predefined positions
+            Tile [][] table = level.getTable();
+            Pane pane = new Pane();
+            pane.getChildren().add(root);
+            int OffsetRight = 400;
+            int OffsetUp = 75;
+            int longeurRectangle = 300 / table.length;
+            RectangleWithLabel[][] rectangles;
+            
+            rectangles = new RectangleWithLabel[table.length][table.length];
+            for (int i = 0; i < table.length; i++) {
+                for (int j = 0; j < table.length; j++) {
+                    String label = "";
+                    if (table[i][j].getType() == 1) { // Number tile
+                        NumberTile nb = (NumberTile) table[i][j];
+                        label = Integer.toString(nb.getNumber());
+                    }
+                    RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, label, table[i][j], table.length);
+                    rectangleWithLabel.setLayoutX(OffsetRight + longeurRectangle * j);
+                    rectangleWithLabel.setLayoutY(OffsetUp + longeurRectangle * i);
+                    pane.getChildren().add(rectangleWithLabel);
+                    rectangles[i][j] = rectangleWithLabel;
+            }
+        }
+            
+            
+            // RectangleDragHandler rectangleDragHandler = new RectangleDragHandler(rectangles,level);
+            // for (RectangleWithLabel[] row : rectangles) {
+            //     for (RectangleWithLabel rectangle : row) {
+            //         rectangle.setOnMousePressed(rectangleDragHandler.createOnMousePressedHandler(rectangle));
+            //         rectangle.setOnMouseDragged(rectangleDragHandler.createOnMouseDraggedHandler(rectangle));
+            //         rectangle.setOnMouseReleased(rectangleDragHandler.createOnMouseReleasedHandler(rectangle));
+            //     }
+            // }
+            Scene scene = new Scene(pane, 800, 450);
+    
+            //scene.setOnKeyPressed(rectangleDragHandler::handleKeyPress);
+            this.setCurrentRectangles(rectangles);
+    
+            this.setViewName("game-view.fxml");
+            stage.setScene(scene);
+            stage.show();
+
+    }
+
+
 
     public String getViewName() {
         return this.viewName;
