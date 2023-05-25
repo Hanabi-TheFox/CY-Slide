@@ -431,6 +431,7 @@ public class CySlideController implements Initializable {
                     CySlideController.player.setLevelResolved(CySlideController.currentLevel.getNumber()+1);
                 if(CySlideController.currentLevel.getRecord() > CySlideController.currentLevel.getMoveCounter())
                     CySlideController.currentLevel.setRecord(CySlideController.currentLevel.getMoveCounter());
+                CySlideController.currentLevel.setRandomized(false);
                 LevelX_labelFinished = (Label) CySlideController.currentRoot.getScene().lookup("#LevelX_labelFinished");
                 LevelX_labelFinished.setText("Level is Completed!");
                 setPlayButtonIsPressed(false);
