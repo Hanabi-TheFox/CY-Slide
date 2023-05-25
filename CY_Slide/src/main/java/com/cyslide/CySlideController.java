@@ -303,7 +303,7 @@ public class CySlideController implements Initializable {
     //If we play resolve the automatic resolution will solve it step by step with waiting time between each step
     @FXML
     public void OnLevelX_ResolveButtonClick(){
-        if (CySlideController.playButtonIsPressed == true) {
+        if (CySlideController.playButtonIsPressed == true && CySlideController.resolveButtonIsPressed == false) {
             setResolveButtonIsPressed(true);
             System.out.println("RESOLVE STARTED!");
             Level level = new Level(CySlideController.currentLevel.getNumber());
