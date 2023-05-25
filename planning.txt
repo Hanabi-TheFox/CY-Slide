@@ -120,3 +120,9 @@ Wednesday, May 24:
   Renato:  
     Worked on the isCompleted() method to check if the game was completed by the player and also researched how to include audio files in the app.
   Ethan: 
+
+Thursday, May 25:
+  Clément
+    Work on AStar Algo in order to work with more empty tile
+    Modify sequence and class diagrams
+    Make Use Case diagram
