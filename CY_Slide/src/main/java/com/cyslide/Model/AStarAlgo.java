@@ -128,39 +128,46 @@ public class AStarAlgo {
     // }
 
     private static List<Level> generateNeighbors(Level currentLevel, Set<Node> closedList) {
-        // Trouver les coordonnées de la case vide
-        int emptyRow = -1;
-        int emptyCol = -1;
+        // Find coordinates for empty tiles
+        int[][] emptyPositions = new int[2][2]; // Table to store the positions of the empty tiles
+        int emptyCount = 0; // Empty tiles counter
         for (int i = 0; i < currentLevel.getTable().length; i++) {
             for (int j = 0; j < currentLevel.getTable()[i].length; j++) {
                 if (currentLevel.getTable()[i][j].getType() == -1) {
-                    emptyRow = i;
-                    emptyCol = j;
-                    break;
+                    emptyPositions[emptyCount][0] = i; // coordinates x
+                    emptyPositions[emptyCount][1] = j; // coordinates y
+                    emptyCount++;
+                    if (emptyCount >= 2) {
+                        break; // If we find 2 empty tiles, we stop the loop
+                    }
+                }
+            }
+            if (emptyCount >= 2) {
+                break; // If we find 2 empty tiles, we stop the loop
+            }
+        }
+    
+        // Generate neighbors by swapping adjacent cells with empty tiles
+        List<Level> neighbors = new ArrayList<>();
+        String[] directions = {"UP", "DOWN", "RIGHT", "LEFT"};
+        for (int i = 0; i < emptyCount; i++) {
+            int emptyRow = emptyPositions[i][0];
+            int emptyCol = emptyPositions[i][1];
+    
+            for (String direction : directions) {
+                Level lvlNeighbor = currentLevel.clone();
+                if (lvlNeighbor.moveTile2(emptyRow, emptyCol, direction)) {
+                    Node neighborNode = new Node(lvlNeighbor, 0, 0);
+                    if (!closedList.contains(neighborNode)) {
+                        neighbors.add(lvlNeighbor);
+                    }
                 }
             }
         }
     
-        // Générer les voisins en permutant les cases adjacentes avec la case vide
-        List<Level> neighbors = new ArrayList<>();
-        String[] directions = {"UP", "DOWN", "RIGHT", "LEFT"};
-        // Créer une copie du niveau courant pour chaque voisin
-        for (String direction : directions) {
-            Level lvlNeighbor = currentLevel.clone();
-            if(lvlNeighbor.moveTile2(emptyRow, emptyCol, direction)){
-                Node neighborNode = new Node(lvlNeighbor, 0, 0);
-                if (!closedList.contains(neighborNode)) {
-                    // Ajouter le voisin à la liste des voisins à explorer
-                    neighbors.add(lvlNeighbor);
-                }
-            }
-        }   
-        // System.out.println("Affichage des voisins :");
-        //         for (Level neighbor : neighbors) {
-        //             printState(neighbor);
-        //         }   
         return neighbors;
     }
+    
 
     public static List<Level> astar(Level level) {
         PriorityQueue<Node> openList = new PriorityQueue<>();
@@ -225,7 +232,7 @@ public class AStarAlgo {
     
 
     public static void main(String[] args) {
-        Level level = new Level(10);
+        Level level = new Level(9);
         level.initLevelMove();
 
         System.out.println("Initial State :");
