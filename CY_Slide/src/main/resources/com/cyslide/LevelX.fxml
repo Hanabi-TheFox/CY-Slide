@@ -55,7 +55,7 @@
                         </Label>
                         <HBox alignment="CENTER" spacing="40.0">
                            <children>
-                              <Button fx:id="idResolve" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Resolve">
+                              <Button fx:id="idResolve" mnemonicParsing="false" onAction="#OnLevelX_ResolveButtonClick" prefHeight="80.0" prefWidth="80.0" text="Resolve">
                                  <font>
                                     <Font name="Arial" size="16.0" />
                                  </font>
