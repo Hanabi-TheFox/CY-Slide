@@ -275,24 +275,26 @@ public class CySlideController implements Initializable {
     Button play_button;
     @FXML
     protected void playButtonClicked() {
-        setPlayButtonIsPressed(true);// The game started
-        LevelX_Record.setText(Integer.toString(CySlideController.currentLevel.getRecord()));
-        Level level = CySlideController.currentLevel;
-        Level nvLevel = new Level(level.getNumber(),this);
-        nvLevel.initLevelMove();
-        Stage stage = CySlideController.currentStage;
-        Parent root = CySlideController.currentRoot;
-        setLevel(root, stage, nvLevel);
-        nvLevel.setMoveCounter(0);
-        LevelX_NBTurns = (Label) root.getScene().lookup("#LevelX_NBTurns");
-        LevelX_NBTurns.setText("0");
-        nvLevel.setRandomized(true);
-        nvLevel.setCompleted(false);
-        LevelX_labelFinished = (Label) root.getScene().lookup("#LevelX_labelFinished");
-        LevelX_labelFinished.setText("");
-        play_button = (Button) root.getScene().lookup("#play_button");
-        play_button.setText("Replay");
-        setCurrentLevel(nvLevel);
+        if(CySlideController.resolveButtonIsPressed == false){
+            setPlayButtonIsPressed(true);// The game startedHanabi
+            LevelX_Record.setText(Integer.toString(CySlideController.currentLevel.getRecord()));
+            Level level = CySlideController.currentLevel;
+            Level nvLevel = new Level(level.getNumber(),this);
+            nvLevel.initLevelMove();
+            Stage stage = CySlideController.currentStage;
+            Parent root = CySlideController.currentRoot;
+            setLevel(root, stage, nvLevel);
+            nvLevel.setMoveCounter(0);
+            LevelX_NBTurns = (Label) root.getScene().lookup("#LevelX_NBTurns");
+            LevelX_NBTurns.setText("0");
+            nvLevel.setRandomized(true);
+            nvLevel.setCompleted(false);
+            LevelX_labelFinished = (Label) root.getScene().lookup("#LevelX_labelFinished");
+            LevelX_labelFinished.setText("");
+            play_button = (Button) root.getScene().lookup("#play_button");
+            play_button.setText("Replay");
+            setCurrentLevel(nvLevel);
+        }
     }
 
 
@@ -306,8 +308,7 @@ public class CySlideController implements Initializable {
         if (CySlideController.playButtonIsPressed == true && CySlideController.resolveButtonIsPressed == false) {
             setResolveButtonIsPressed(true);
             System.out.println("RESOLVE STARTED!");
-            Level level = new Level(CySlideController.currentLevel.getNumber());
-            level.initLevelMove();
+            Level level = CySlideController.currentLevel;
     
             System.out.println("Initial State :");
             AStarAlgo.printState(level);
@@ -341,6 +342,7 @@ public class CySlideController implements Initializable {
                     } 
                 }
                 displaySteps(steps);
+                CySlideController.playButtonIsPressed = false;
                 //setResolveStage(currentRoot, currentStage, solution.get(solution.size() - 1));
             } else {
                 System.out.println("No solution found.");
@@ -355,7 +357,7 @@ public class CySlideController implements Initializable {
 
     private void displaySteps(List<Level> steps) {
         Timer timer = new Timer();
-        int delay = 2000; // Délai en millisecondes entre chaque étape
+        int delay = 300; // Délai en millisecondes entre chaque étape
         final int[] currentIndex = {0}; // Utilisation d'un tableau d'entiers pour contourner la limitation
     
         TimerTask task = new TimerTask() {
@@ -401,9 +403,11 @@ public class CySlideController implements Initializable {
                     rectangleWithLabel.setLayoutY(OffsetUp + longeurRectangle * i);
                     pane.getChildren().add(rectangleWithLabel);
                     rectangles[i][j] = rectangleWithLabel;
+                    
             }
         }
-            
+        CySlideController.currentLevel.setMoveCounter(CySlideController.currentLevel.getMoveCounter()+1);
+        LevelX_NBTurns.setText(Integer.toString(CySlideController.currentLevel.getMoveCounter()));   
             
             // RectangleDragHandler rectangleDragHandler = new RectangleDragHandler(rectangles,level);
             // for (RectangleWithLabel[] row : rectangles) {
@@ -443,6 +447,7 @@ public class CySlideController implements Initializable {
         //We print the matrix in the console
         System.out.println("Table values ---------------");
         int[][] table = RectangleWithLabelToTable(CySlideController.currentRectangles);
+        CySlideController.currentLevel.MatrixToLevel(table);
         for (int i = 0; i < table.length; i++) {
             for (int j = 0; j < table[i].length; j++) {
                 System.out.print(table[i][j] + " ");

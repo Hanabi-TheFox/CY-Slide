@@ -594,6 +594,22 @@ public class Level implements Cloneable{
                 //Verify if level generated can be completed
                 return true;
         }
+
+        public void MatrixToLevel(int[][] table2) {
+            Tile[][] table = new Tile[table2.length][table2.length];
+            for (int i = 0; i < table2.length; i++) {
+                for (int j = 0; j < table2.length; j++) {
+                    if (table2[i][j] == -1) {
+                        table[i][j] = new EmptyTile(i,j);
+                    } else if (table2[i][j] == 0) {
+                        table[i][j] = new IndestructibleTile(i,j);
+                    } else {
+                        table[i][j] = new NumberTile(table2[i][j],i,j);
+                    } 
+                }
+            }
+            setTable(table);
+        }
                 
 }
 class Point{
