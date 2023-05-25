@@ -39,8 +39,7 @@ Wednesday, May 17:
     Work on controller. If the pseudo doesn't exist, we write his pseudo in our csv file and if the pseudo exits, we recover the number of completed level.
     Continue his search on the AI (he have to wait others functions to use AI).
   Renato:
-    Work on javaFX, create back button on menu view
-    Try to understand our java functions in order to use them after with javaFX.
+    Worked on javaFX, create back button on menu view
     Started to make level X (in view).
   Yanis:
     Work on javaFX. create event and movement for rectangle figure.
@@ -53,7 +52,7 @@ Thursday, May 18:
     Creates a function to recover the number of completed level by a player from a csv file. 
     Continues his work with the automatic resolution (he try to use AStar).
   Renato: 
-    Problem with the CSV file path has been resolved. Update on LevelX view. Started working on creating a class for dynamically generating the game table.
+  The issue with the CSV file path has been resolved. Update on the LevelX view. Started working on creating a class for dynamically generating the game table.
   Yanis:
     Working on the integration of the new method of graphic generation of levels.
     
@@ -104,7 +103,7 @@ Tuesday, May 23:
     Work in AStarAlgo with a new version, instead of using the distance of Manhattan, use the number of misplaced tiles
     Try to implements this new version but always problems with the movement of tiles
   Renato: 
-    Adding blocking levels based on resolution feature.
+    Implemented a feature to add block levels based on the resolution.
   Yanis:
     Work on keyboard movement for tiles.
     Help for A* algorithm.
@@ -117,9 +116,7 @@ Tuesday, May 23:
 Wednesday, May 24:
   Samy - Clement - Yanis:
     Continue to fix problems in A* Algo and succeed to use it when we have a level with one empty tile.
-  Renato:  
-    Worked on the isCompleted() method to check if the game was completed by the player and also researched how to include audio files in the app.
-  Ethan: 
+  Renato: Worked on the isCompleted() method to check if the player has completed the game, and also conducted research on how to include audio files in the application.
 
 Thursday, May 25:
   Clément
