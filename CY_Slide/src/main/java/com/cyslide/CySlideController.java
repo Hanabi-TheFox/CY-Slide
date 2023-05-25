@@ -56,6 +56,8 @@ public class CySlideController implements Initializable {
     private static RectangleWithLabel currentRectangles[][];
     private static Tile[][] currentTable;
     private static boolean playButtonIsPressed = false;
+    //If resolve button is pressed, we cant press any other button
+    private static boolean resolveButtonIsPressed = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -96,6 +98,10 @@ public class CySlideController implements Initializable {
     }
     public void setPlayButtonIsPressed(boolean b) {
         CySlideController.playButtonIsPressed= b;
+    }
+
+    public void setResolveButtonIsPressed(boolean b) {
+        CySlideController.resolveButtonIsPressed = b;
     }
 
     public void setCurrentRectangles(RectangleWithLabel r[][]){
@@ -247,6 +253,7 @@ public class CySlideController implements Initializable {
     private Button quitButton;
     @FXML
     protected void OnLevelMenu_QuitButtonClick() {
+        if (CySlideController.resolveButtonIsPressed == false) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("LevelMenu.fxml"));
             Stage stage = (Stage) quitButton.getScene().getWindow();
@@ -258,6 +265,10 @@ public class CySlideController implements Initializable {
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+    else {
+        System.out.println("You cant quit while the level is being resolved!");
+    }
     }   
 
     @FXML
@@ -292,8 +303,9 @@ public class CySlideController implements Initializable {
     //If we play resolve the automatic resolution will solve it step by step with waiting time between each step
     @FXML
     public void OnLevelX_ResolveButtonClick(){
-
         if (CySlideController.playButtonIsPressed == true) {
+            setResolveButtonIsPressed(true);
+            System.out.println("RESOLVE STARTED!");
             Level level = new Level(CySlideController.currentLevel.getNumber());
             level.initLevelMove();
     
@@ -404,7 +416,14 @@ public class CySlideController implements Initializable {
             Scene scene = new Scene(pane, 800, 450);
     
             //scene.setOnKeyPressed(rectangleDragHandler::handleKeyPress);
-            this.setCurrentRectangles(rectangles);
+            setCurrentRectangles(rectangles);
+
+            int[][] tableTmp = RectangleWithLabelToTable(CySlideController.currentRectangles);
+            if (CySlideController.currentLevel.isCompleted(tableTmp) == true) {
+                System.out.println("RESOLVE FINISHED!");
+                //We finished resolve!
+                setResolveButtonIsPressed(false);
+            }
     
             this.setViewName("game-view.fxml");
             stage.setScene(scene);
