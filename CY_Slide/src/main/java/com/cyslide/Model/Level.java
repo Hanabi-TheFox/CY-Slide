@@ -2,6 +2,7 @@ package com.cyslide.Model;
 
 import com.cyslide.CySlideController;
 import javafx.beans.binding.NumberBinding;
+import javafx.scene.control.RadioButton;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -403,34 +404,156 @@ public class Level implements Cloneable{
      * Initializes the level by moving the tiles in a random order.
      */
     public void initLevelMove() {
-        int seed;
-        if (number == 3 || number == 2 || number == 6) {
-            seed = 1245;
-        } else seed = 142;
+        // int seed;
+        // if (number == 3 || number == 2 || number == 6) {
+        //     seed = 1245;
+        // } else seed = 142;
 
-        Random random = new Random(seed);
+        // Random random = new Random();
         String[] choice = {"UP", "DOWN", "RIGHT", "LEFT"};
-        List<String> randomMoves = new ArrayList<>();
-        for (int k = 0; k < 100; k++) {
-            int index = random.nextInt(4);
-            randomMoves.add(choice[index]);
+        // List<String> randomMoves = new ArrayList<>();
+        // for (int k = 0; k < 100; k++) {
+        //     int index = random.nextInt(4);
+        //     randomMoves.add(choice[index]);
+        // }
+        while(isInitialPos(this)){
+            
+            List<Point> emptyPositions = findEmptyPositions();
+            Random random = new Random();
+            int randomEmpty = random.nextInt(emptyPositions.size());
+            Point emptyPoint = emptyPositions.get(randomEmpty);
+            int randomDirection = random.nextInt(4);
+            String direction = choice[randomDirection];
+            moveTile2(emptyPoint.x, emptyPoint.y, direction);
         }
-        int size = table.length;
-        for (int init = 0; init < 1000; init++) {
-            for (String direction : randomMoves) {
-                for (int i = 0; i < size; i++) {
-                    for (int j = 0; j < size; j++) {
-                        if (table[i][j].getType() == -1) {
-                            if (moveTile2(i, j, direction)) {
-                                // Movement is done
+        //System.out.println("Nous avons fini le mélange.");
+    }
+
+        public boolean isInitialPos(Level level){
+            Level initialLevel = new Level(level.getNumber());
+            Tile[][] initialTab = initialLevel.getTable();
+            Tile[][] tab = level.getTable();
+            for(int i = 0; i < tab.length; i++){
+                for(int j = 0; j < tab.length; j++){
+                    if(tab[i][j].getType() == initialTab[i][j].getType()){
+                        if(tab[i][j].getType() == 1){
+                            NumberTile nb1 = (NumberTile) tab[i][j];
+                            NumberTile nb2 = (NumberTile) initialTab[i][j];
+                            if(nb1.getNumber() == nb2.getNumber()){
+                                // we do not want the tiles to be in their initial position
+                                return true;
                             }
+                        }else if(tab[i][j].getType() == -1){
+                            // we do not want the tiles to be in their initial position
+                            return true; 
                         }
                     }
                 }
             }
+            return false;
         }
-        //System.out.println("Nous avons fini le mélange.");
-    }
+
+        private List<Point> findEmptyPositions() {
+            List<Point> emptyPositions = new ArrayList<>();
+        
+            for (int i = 0; i < getTable().length; i++) {
+                for (int j = 0; j < getTable()[i].length; j++) {
+                    if (getTable()[i][j].getType() == -1) {
+                        emptyPositions.add(new Point(i, j));
+                    }
+                }
+            }
+            return emptyPositions;
+        }
+
+        /*public void initLevelMove() {
+            String[] choice = {"UP", "DOWN", "RIGHT", "LEFT"};
+            boolean hasTileOnInitialPos = true;
+            int iterations = 0;
+        
+            while (hasTileOnInitialPos) {
+                // Réinitialiser le tableau à chaque itération
+                Level initialLevel = new Level(getNumber());
+                Tile[][] initialTab = initialLevel.getTable();
+                setTable(initialTab);
+        
+                // Mélanger le tableau en effectuant des mouvements aléatoires
+                for (int k = 0; k < 100; k++) {
+                    int index = new Random().nextInt(4);
+                    moveRandomTile(choice[index]);
+                }
+        
+                // Vérifier si au moins une tuile est sur sa position initiale
+                hasTileOnInitialPos = isAnyTileOnInitialPos(this);
+                iterations++;
+            }
+        
+            System.out.println("Le niveau a été mélangé en " + iterations + " itérations avec au moins une case sur sa position initiale.");
+        }
+        
+        private void moveRandomTile(String direction) {
+            List<Point> emptyPositions = findEmptyPositions();
+        
+            if (!emptyPositions.isEmpty()) {
+                Point randomEmptyPos = emptyPositions.get(new Random().nextInt(emptyPositions.size()));
+                int x = randomEmptyPos.x;
+                int y = randomEmptyPos.y;
+                moveTile2(x, y, direction);
+            }
+        }
+        
+        private List<Point> findEmptyPositions() {
+            List<Point> emptyPositions = new ArrayList<>();
+        
+            for (int i = 0; i < getTable().length; i++) {
+                for (int j = 0; j < getTable()[i].length; j++) {
+                    if (getTable()[i][j].getType() == -1) {
+                        emptyPositions.add(new Point(i, j));
+                    }
+                }
+            }
+            return emptyPositions;
+        }
+        
+        private boolean isAnyTileOnInitialPos(Level level) {
+            Level initialLevel = new Level(level.getNumber());
+            Tile[][] initialTab = initialLevel.getTable();
+            Tile[][] tab = level.getTable();
+            for (int i = 0; i < tab.length; i++) {
+                for (int j = 0; j < tab[i].length; j++) {
+                    if (tab[i][j].getType() != -1 && isTileOnInitialPos(tab[i][j], initialTab)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        
+        private boolean isTileOnInitialPos(Tile tile, Tile[][] initialTab) {
+            if (tile.getType() == 1) {
+                NumberTile currentNumberTile = (NumberTile) tile;
+                for (int i = 0; i < initialTab.length; i++) {
+                    for (int j = 0; j < initialTab[i].length; j++) {
+                        if (initialTab[i][j].getType() == 1) {
+                            NumberTile initialNumberTile = (NumberTile) initialTab[i][j];
+                            if (currentNumberTile.getNumber() == initialNumberTile.getNumber()) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            } else if (tile.getType() == -1) {
+                for (int i = 0; i < initialTab.length; i++) {
+                    for (int j = 0; j < initialTab[i].length; j++) {
+                        if (initialTab[i][j].getType() == -1) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }*/
+
 
         //We get a level object and we transform its Tile[][] into int[][]
         public int[][] LevelToIntMatrix(Level level) {
@@ -473,6 +596,16 @@ public class Level implements Cloneable{
         }
                 
 }
+class Point{
+    int x;
+    int y;
+
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
 class MoveTileException extends Exception {
     public MoveTileException(String message) {
         super(message);

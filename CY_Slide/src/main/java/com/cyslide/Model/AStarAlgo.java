@@ -198,7 +198,7 @@ public class AStarAlgo {
             }
 
             closedList.add(currentNode);
-    
+
             List<Level> neighbors = generateNeighbors(currentState, closedList);
             for (Level neighbor : neighbors) {
                 int gScore = currentNode.getGScore() + 1;
@@ -216,11 +216,11 @@ public class AStarAlgo {
     
     public static void printState(Level state) {
         System.out.println("--------------");
-        for (int i = 0; i < state.getTable().length; i++) {
-            for (int j = 0; j < state.getTable().length; j++) {
-                if (state.getTable()[i][j] instanceof EmptyTile) {
+        for (int i = 0; i < state.getTable().length; i++){
+            for (int j = 0; j < state.getTable().length; j++){
+                if (state.getTable()[i][j] instanceof EmptyTile){
                     System.out.print("0 ");
-                } else if (state.getTable()[i][j] instanceof NumberTile) {
+                } else if (state.getTable()[i][j] instanceof NumberTile){
                     NumberTile numberTile = (NumberTile) state.getTable()[i][j];
                     System.out.print(numberTile.getNumber() + " ");
                 }else System.out.print("X ");
@@ -232,7 +232,7 @@ public class AStarAlgo {
     
 
     public static void main(String[] args) {
-        Level level = new Level(9);
+        Level level = new Level(10);
         level.initLevelMove();
 
         System.out.println("Initial State :");
@@ -241,7 +241,6 @@ public class AStarAlgo {
         List<Level> solution = astar(level);
         // we reverse the list
         Collections.reverse(solution);
-        
         if (solution != null) {
             System.out.println("Voici les mouvements que vous devez faire un par un.\n");
             int i = 0;
