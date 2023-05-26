@@ -402,7 +402,7 @@ printing and movement of the tiles.
         */
     private void displaySteps(List<Level> steps) {
         Timer timer = new Timer();
-        int delay = 50; // Délai en millisecondes entre chaque étape
+        int delay = 500; // Délai en millisecondes entre chaque étape
         final int[] currentIndex = {0}; // Utilisation d'un tableau d'entiers pour contourner la limitation
     
         TimerTask task = new TimerTask() {
