@@ -293,6 +293,7 @@ printing and movement of the tiles.
             this.setViewName("LevelMenu.fxml");
             stage.setScene(scene);
             stage.show();
+            CySlideController.playButtonIsPressed = false;
         } catch (Exception e) {
             System.out.println(e);
         }

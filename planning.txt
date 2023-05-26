@@ -124,3 +124,7 @@ Thursday, May 25:
     Modify sequence and class diagrams
     Make Use Case diagram
    Renato: Worked on blocking resolve button and play button in the level view. Helped on user case and class diagram.
+   
+   Friday, May 26:
+  Clément:
+  Renato: generated javadoc documentation
