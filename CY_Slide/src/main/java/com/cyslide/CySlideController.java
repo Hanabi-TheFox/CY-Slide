@@ -285,6 +285,7 @@ printing and movement of the tiles.
     protected void OnLevelMenu_QuitButtonClick() {
         if (CySlideController.resolveButtonIsPressed == false) {
         try {
+            playButtonIsPressed = false;
             Parent root = FXMLLoader.load(getClass().getResource("LevelMenu.fxml"));
             Stage stage = (Stage) quitButton.getScene().getWindow();
             Scene scene = new Scene(root, 800, 450);
@@ -400,7 +401,7 @@ printing and movement of the tiles.
         */
     private void displaySteps(List<Level> steps) {
         Timer timer = new Timer();
-        int delay = 300; // Délai en millisecondes entre chaque étape
+        int delay = 50; // Délai en millisecondes entre chaque étape
         final int[] currentIndex = {0}; // Utilisation d'un tableau d'entiers pour contourner la limitation
     
         TimerTask task = new TimerTask() {
