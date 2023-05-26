@@ -5,6 +5,9 @@ import javafx.scene.shape.Rectangle;
 /**
  * Represents an empty tile in the CySlide game.
  * EmptyTile extends the Tile class and represents a tile with no number on it.
+ * @author @Ymasuu
+ * @author @Yanis4456
+ * @author @RDNATOS
  */
 public class EmptyTile extends Tile {
 

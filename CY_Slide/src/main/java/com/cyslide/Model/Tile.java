@@ -1,6 +1,7 @@
 package com.cyslide.Model;
 
 import java.util.Objects;
+import com.cyslide.Model.RectangleWithLabel; // Import the RectangleWithLabel class
 
 /**
  * The abstract class representing a tile in the game.

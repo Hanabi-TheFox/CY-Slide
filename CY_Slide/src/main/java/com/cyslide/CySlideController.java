@@ -25,6 +25,11 @@ import java.util.TimerTask;
 import com.cyslide.Model.*;
 import com.cyslide.Model.Player.PlayerPseudoException;
 
+/**
+ * Main Controller Class responsible for managing all the views
+ * and game mouvements
+ */
+
 public class CySlideController implements Initializable {
     @FXML
     private Button StartPage_Button;
@@ -47,6 +52,9 @@ public class CySlideController implements Initializable {
     private Label LevelX_labelFinished;
     @FXML
     private static Player player;
+        /**
+ * Static Attribut to save the context of the currentLevel that is being played
+ */
     private static Level currentLevel;
     private static Stage currentStage;
     private static Parent currentRoot;
@@ -54,6 +62,9 @@ public class CySlideController implements Initializable {
     private String viewName="";
     private GridPane gridPane;
     private static RectangleWithLabel currentRectangles[][];
+        /**
+ * Static Matrix to save the context of the currentLevel that is being played
+ */
     private static Tile[][] currentTable;
     private static boolean playButtonIsPressed = false;
     //If resolve button is pressed, we cant press any other button
@@ -86,7 +97,6 @@ public class CySlideController implements Initializable {
             LevelX_Record.setText(Integer.toString(CySlideController.currentLevel.getRecord()));
         }
     }
-
     public void setCurrentLevel(Level level){
         CySlideController.currentLevel = level;
     }
@@ -108,7 +118,12 @@ public class CySlideController implements Initializable {
     CySlideController.currentRectangles= r;
     }
     
+    
     @FXML
+        /**
+ * When Start Button is pressed, we load the player's pseudo and
+ * show the menu view
+ */
     protected void OnStartPage_ButtonClick() throws PlayerPseudoException {
         String pseudo = StartPage_TextField.getText();
         if (pseudo.isEmpty()) {
@@ -140,6 +155,9 @@ public class CySlideController implements Initializable {
     @FXML
     private Button LevelMenu_BackButton;
     @FXML
+        /**
+ * If back button pressed, we return to the first view
+ */
     protected void OnLevelMenu_BackButtonClick() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("StartPage.fxml"));
@@ -175,6 +193,9 @@ public class CySlideController implements Initializable {
     @FXML
     private Button LevelMenu_10;
     @FXML
+        /**
+ * The corresponding level view is shown
+ */
     protected void OnLevelMenu_XButtonClick(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
         String levelNumber = clickedButton.getText();
@@ -203,6 +224,11 @@ public class CySlideController implements Initializable {
         }
     }
 
+/**
+An important method for printing the game table on the level view.
+It utilizes RectangleWithLabel and RectangleDragHandler for
+printing and movement of the tiles.
+*/
     protected void setLevel(Parent root,Stage stage,Level level){
         // Creation of RectangleWithLabel with predefined positions
         Tile [][] table = level.getTable();
@@ -252,6 +278,10 @@ public class CySlideController implements Initializable {
     @FXML
     private Button quitButton;
     @FXML
+        /**
+        If the Quit button is pressed, we go back to the menu selection view.
+        However, we need to wait until the level is resolved if the Resolve button was pressed.
+        */
     protected void OnLevelMenu_QuitButtonClick() {
         if (CySlideController.resolveButtonIsPressed == false) {
         try {
@@ -274,6 +304,10 @@ public class CySlideController implements Initializable {
     @FXML
     Button play_button;
     @FXML
+        /**
+        Button allowing the unlocking of the game table and starting the game
+        with a randomized table.
+        */
     protected void playButtonClicked() {
         if(CySlideController.resolveButtonIsPressed == false){
             setPlayButtonIsPressed(true);// The game startedHanabi
@@ -304,6 +338,10 @@ public class CySlideController implements Initializable {
     Button idResolve;
     //If we play resolve the automatic resolution will solve it step by step with waiting time between each step
     @FXML
+        /**
+        Allows automatic resolution of the current level if the Resolve Button is pressed.
+        It blocks any other button until the game is completely resolved.
+        */
     public void OnLevelX_ResolveButtonClick(){
         if (CySlideController.playButtonIsPressed == true && CySlideController.resolveButtonIsPressed == false) {
             setResolveButtonIsPressed(true);
@@ -355,6 +393,11 @@ public class CySlideController implements Initializable {
        
     }
 
+        /**
+        @param none
+        Allows printing each tile movement step by step, allowing the player
+        to keep track of which tile is being moved.
+        */
     private void displaySteps(List<Level> steps) {
         Timer timer = new Timer();
         int delay = 300; // Délai en millisecondes entre chaque étape
@@ -379,7 +422,10 @@ public class CySlideController implements Initializable {
     
 
 
-
+        /**
+        Method that prints the game table whenever a tile is moved by the
+        AStar algorithm.
+        */
     public void setResolveStage( Parent root,Stage stage,Level level){
             // Creation of RectangleWithLabel with predefined positions
             Tile [][] table = level.getTable();
@@ -441,6 +487,11 @@ public class CySlideController implements Initializable {
         return this.viewName;
     }
 
+        /**
+        @param none
+        A very important method for verifying, after each player's movement,
+        if the game has been successfully completed.
+        */
     public void handleMoveTileEvent(){
         LevelX_NBTurns = (Label) CySlideController.currentRoot.getScene().lookup("#LevelX_NBTurns");
         LevelX_NBTurns.setText(Integer.toString(CySlideController.currentLevel.getMoveCounter()));
@@ -474,7 +525,7 @@ public class CySlideController implements Initializable {
        /**
         * This method converts a matrix of RectangleWithLabels to simple matrix Table[][]
         * @param rectanglesWithLabels
-        * @return table[][]
+        * @return int[][]
         */
         public int[][] RectangleWithLabelToTable(RectangleWithLabel rectanglesWithLabels[][] ) {
             int numRows =rectanglesWithLabels.length;

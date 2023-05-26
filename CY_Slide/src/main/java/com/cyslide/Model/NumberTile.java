@@ -2,6 +2,7 @@ package com.cyslide.Model;
 
 import java.util.Objects;
 
+
 /**
  * The NumberTile class represents a numbered tile in the CY Slide game.
  * It extends the Tile class and adds functionality to store and manipulate a number associated with the tile.

@@ -7,6 +7,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The main app class is responsible for initiating the game
+ */
 
 public class CySlideApplication extends Application {
     @Override
