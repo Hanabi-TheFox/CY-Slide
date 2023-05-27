@@ -45,7 +45,6 @@ public class Player {
                     break;
                 }
             }
-            System.out.println("File Found");
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error reading file");

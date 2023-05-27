@@ -275,13 +275,9 @@ public class Level implements Cloneable{
                 numCol = rowValues.length;
                 numRow++;
             }
-            //System.out.println("File Found");
         } catch (IOException e) {
             e.printStackTrace();
-            //System.out.println("Error reading file");
         }
-        //System.out.println("Ligne : " + numRow);
-        //System.out.println("Col : " + numCol);
         tab = new Tile[numRow][numCol];
 
         try (BufferedReader br = new BufferedReader(new FileReader(pathFile))) {
@@ -304,12 +300,7 @@ public class Level implements Cloneable{
             }
         } catch (IOException e) {
             e.printStackTrace();
-            //System.out.println("Error reading file");
         }
-        //System.out.println("Level " + number);
-        //System.out.println("Tile Length: " + numRow);
-        //System.out.println("Tile Width: " + numCol);
-
         return tab;
     }
 
@@ -335,7 +326,7 @@ public class Level implements Cloneable{
     }
 
     /**
-     * Moves a tile in the specified direction on the game table.
+     * Moves a tile in the specified direction on the game table. This is the function for automatic resolution 
      *
      * @param x         The x-coordinate of the tile.
      * @param y         The y-coordinate of the tile.
@@ -352,29 +343,6 @@ public class Level implements Cloneable{
             return true;
         }
     }
-
-    public boolean isCompleted2(int number, Tile[][] Rectangles){
-        Level finalState = new Level(number); //We get a completed version of the level
-        int size = table.length;
-        for (int i = 0; i < size; i++){
-            for (int j = 0; j < size; j++){
-                if(Rectangles[i][j].getType() != finalState.getTable()[i][j].getType()){
-                    return false;
-                }
-                if(table[i][j].getType() == 1){
-                NumberTile nb1 = (NumberTile) Rectangles[i][j];
-                NumberTile nb2 = (NumberTile) finalState.getTable()[i][j];
-                    if(nb1.getNumber() != nb2.getNumber()){
-                            return false;
-                    }
-                }
-            }
-        }
-        setCompleted(true);
-        return true;
-    }
-    
-    
 
     /**
      * Checks if the level is completed by comparing the current table with a solved one.
@@ -399,23 +367,46 @@ public class Level implements Cloneable{
         setCompleted(true);
         return true;
     }
+    
+    // This is the function for automatic resolution
+    public boolean isCompleted2(int number, Tile[][] tab){
+        Level finalState = new Level(number); //We get a completed version of the level
+        int size = table.length;
+        for (int i = 0; i < size; i++){
+            for (int j = 0; j < size; j++){
+                if(tab[i][j].getType() != finalState.getTable()[i][j].getType()){
+                    return false;
+                }
+                if(table[i][j].getType() == 1){
+                NumberTile nb1 = (NumberTile) tab[i][j];
+                NumberTile nb2 = (NumberTile) finalState.getTable()[i][j];
+                    if(nb1.getNumber() != nb2.getNumber()){
+                            return false;
+                    }
+                }
+            }
+        }
+        setCompleted(true);
+        return true;
+    }
 
     /**
      * Initializes the level by moving the tiles in a random order.
      */
     public void initLevelMove() {
-        // int seed;
-        // if (number == 3 || number == 2 || number == 6) {
-        //     seed = 1245;
-        // } else seed = 142;
+        // these comments show how to use a seed system
+        /*int seed;
+        if (number == 3 || number == 2 || number == 6) {
+            seed = 1245;
+        } else seed = 142;
 
-        // Random random = new Random();
+        Random random = new Random();*/
         String[] choice = {"UP", "DOWN", "RIGHT", "LEFT"};
-        // List<String> randomMoves = new ArrayList<>();
-        // for (int k = 0; k < 100; k++) {
-        //     int index = random.nextInt(4);
-        //     randomMoves.add(choice[index]);
-        // }
+        /*List<String> randomMoves = new ArrayList<>();
+        for (int k = 0; k < 100; k++) {
+            int index = random.nextInt(4);
+            randomMoves.add(choice[index]);
+        }*/
         while(isInitialPos(this)){
             
             List<Point> emptyPositions = findEmptyPositions();
@@ -426,192 +417,86 @@ public class Level implements Cloneable{
             String direction = choice[randomDirection];
             moveTile2(emptyPoint.x, emptyPoint.y, direction);
         }
-        //System.out.println("Nous avons fini le mélange.");
     }
 
-        public boolean isInitialPos(Level level){
-            Level initialLevel = new Level(level.getNumber());
-            Tile[][] initialTab = initialLevel.getTable();
-            Tile[][] tab = level.getTable();
-            for(int i = 0; i < tab.length; i++){
-                for(int j = 0; j < tab.length; j++){
-                    if(tab[i][j].getType() == initialTab[i][j].getType()){
-                        if(tab[i][j].getType() == 1){
-                            NumberTile nb1 = (NumberTile) tab[i][j];
-                            NumberTile nb2 = (NumberTile) initialTab[i][j];
-                            if(nb1.getNumber() == nb2.getNumber()){
-                                // we do not want the tiles to be in their initial position
-                                return true;
-                            }
-                        }else if(tab[i][j].getType() == -1){
-                            // we do not want the tiles to be in their initial position
-                            return true; 
-                        }
-                    }
-                }
-            }
-            return false;
-        }
-
-        private List<Point> findEmptyPositions() {
-            List<Point> emptyPositions = new ArrayList<>();
-        
-            for (int i = 0; i < getTable().length; i++) {
-                for (int j = 0; j < getTable()[i].length; j++) {
-                    if (getTable()[i][j].getType() == -1) {
-                        emptyPositions.add(new Point(i, j));
-                    }
-                }
-            }
-            return emptyPositions;
-        }
-
-        /*public void initLevelMove() {
-            String[] choice = {"UP", "DOWN", "RIGHT", "LEFT"};
-            boolean hasTileOnInitialPos = true;
-            int iterations = 0;
-        
-            while (hasTileOnInitialPos) {
-                // Réinitialiser le tableau à chaque itération
-                Level initialLevel = new Level(getNumber());
-                Tile[][] initialTab = initialLevel.getTable();
-                setTable(initialTab);
-        
-                // Mélanger le tableau en effectuant des mouvements aléatoires
-                for (int k = 0; k < 100; k++) {
-                    int index = new Random().nextInt(4);
-                    moveRandomTile(choice[index]);
-                }
-        
-                // Vérifier si au moins une tuile est sur sa position initiale
-                hasTileOnInitialPos = isAnyTileOnInitialPos(this);
-                iterations++;
-            }
-        
-            System.out.println("Le niveau a été mélangé en " + iterations + " itérations avec au moins une case sur sa position initiale.");
-        }
-        
-        private void moveRandomTile(String direction) {
-            List<Point> emptyPositions = findEmptyPositions();
-        
-            if (!emptyPositions.isEmpty()) {
-                Point randomEmptyPos = emptyPositions.get(new Random().nextInt(emptyPositions.size()));
-                int x = randomEmptyPos.x;
-                int y = randomEmptyPos.y;
-                moveTile2(x, y, direction);
-            }
-        }
-        
-        private List<Point> findEmptyPositions() {
-            List<Point> emptyPositions = new ArrayList<>();
-        
-            for (int i = 0; i < getTable().length; i++) {
-                for (int j = 0; j < getTable()[i].length; j++) {
-                    if (getTable()[i][j].getType() == -1) {
-                        emptyPositions.add(new Point(i, j));
-                    }
-                }
-            }
-            return emptyPositions;
-        }
-        
-        private boolean isAnyTileOnInitialPos(Level level) {
-            Level initialLevel = new Level(level.getNumber());
-            Tile[][] initialTab = initialLevel.getTable();
-            Tile[][] tab = level.getTable();
-            for (int i = 0; i < tab.length; i++) {
-                for (int j = 0; j < tab[i].length; j++) {
-                    if (tab[i][j].getType() != -1 && isTileOnInitialPos(tab[i][j], initialTab)) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-        
-        private boolean isTileOnInitialPos(Tile tile, Tile[][] initialTab) {
-            if (tile.getType() == 1) {
-                NumberTile currentNumberTile = (NumberTile) tile;
-                for (int i = 0; i < initialTab.length; i++) {
-                    for (int j = 0; j < initialTab[i].length; j++) {
-                        if (initialTab[i][j].getType() == 1) {
-                            NumberTile initialNumberTile = (NumberTile) initialTab[i][j];
-                            if (currentNumberTile.getNumber() == initialNumberTile.getNumber()) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            } else if (tile.getType() == -1) {
-                for (int i = 0; i < initialTab.length; i++) {
-                    for (int j = 0; j < initialTab[i].length; j++) {
-                        if (initialTab[i][j].getType() == -1) {
+    public boolean isInitialPos(Level level){
+        Level initialLevel = new Level(level.getNumber());
+        Tile[][] initialTab = initialLevel.getTable();
+        Tile[][] tab = level.getTable();
+        for(int i = 0; i < tab.length; i++){
+            for(int j = 0; j < tab.length; j++){
+                if(tab[i][j].getType() == initialTab[i][j].getType()){
+                    if(tab[i][j].getType() == 1){
+                        NumberTile nb1 = (NumberTile) tab[i][j];
+                        NumberTile nb2 = (NumberTile) initialTab[i][j];
+                        if(nb1.getNumber() == nb2.getNumber()){
+                            // we do not want tiles to be in their initial position
                             return true;
                         }
+                    }else if(tab[i][j].getType() == -1){
+                        // we do not want tiles to be in their initial position
+                        return true; 
                     }
                 }
             }
-            return false;
-        }*/
-
-
-        //We get a level object and we transform its Tile[][] into int[][]
-        public int[][] LevelToIntMatrix(Level level) {
-                Tile[][] tileMatrix= level.getTable();
-                int[][] matrix = new int[tileMatrix.length][tileMatrix.length];
-                // Retrieve the necessary information from the Level object and populate the matrix
-                for (int i = 0; i < tileMatrix.length; i++) {
-                    for (int j = 0; j < tileMatrix.length; j++) {
-                        Tile tile = tileMatrix[i][j];
-                        if (tile instanceof NumberTile) {
-                            NumberTile numberTile = (NumberTile) tile;
-                            matrix[i][j] = numberTile.getNumber();
-                        } else {
-                            // Handle other tile types if necessary
-                            matrix[i][j] = tile.getType(); // Or any default value you prefer
-                        }
-                    }
-                }
-            
-                return matrix;
-            }
-            
-
-
-
-
-
-        //Once the level is charged, we can move all tiles in
-        // a random order
-        //Here is entirely random, so we are not sure if the level
-        //can be finished (BONUS)
-        
-        public void initLevelRNG(){
-                //TODO
         }
+        return false;
+    }
 
-        public boolean isPlayable(){
-                //Verify if level generated can be completed
-                return true;
-        }
 
-        public void MatrixToLevel(int[][] table2) {
-            Tile[][] table = new Tile[table2.length][table2.length];
-            for (int i = 0; i < table2.length; i++) {
-                for (int j = 0; j < table2.length; j++) {
-                    if (table2[i][j] == -1) {
-                        table[i][j] = new EmptyTile(i,j);
-                    } else if (table2[i][j] == 0) {
-                        table[i][j] = new IndestructibleTile(i,j);
-                    } else {
-                        table[i][j] = new NumberTile(table2[i][j],i,j);
-                    } 
+    private List<Point> findEmptyPositions() {
+        List<Point> emptyPositions = new ArrayList<>();
+    
+        for (int i = 0; i < getTable().length; i++) {
+            for (int j = 0; j < getTable()[i].length; j++) {
+                if (getTable()[i][j].getType() == -1) {
+                    emptyPositions.add(new Point(i, j));
                 }
             }
-            setTable(table);
         }
-                
+        return emptyPositions;
+    }
+
+
+    //We get a level object and we transform its Tile[][] into int[][]
+    public int[][] LevelToIntMatrix(Level level) {
+        Tile[][] tileMatrix= level.getTable();
+        int[][] matrix = new int[tileMatrix.length][tileMatrix.length];
+        // Retrieve the necessary information from the Level object and populate the matrix
+        for (int i = 0; i < tileMatrix.length; i++) {
+            for (int j = 0; j < tileMatrix.length; j++) {
+                Tile tile = tileMatrix[i][j];
+                if (tile instanceof NumberTile) {
+                    NumberTile numberTile = (NumberTile) tile;
+                    matrix[i][j] = numberTile.getNumber();
+                } else {
+                    // Handle other tile types if necessary
+                    matrix[i][j] = tile.getType(); // Or any default value you prefer
+                }
+            }
+        }
+        return matrix;
+    }
+
+    //We obtain an int[][] object and transform it into a Tile[][] in our level 
+    public void MatrixToLevel(int[][] table2) {
+        Tile[][] table = new Tile[table2.length][table2.length];
+        for (int i = 0; i < table2.length; i++) {
+            for (int j = 0; j < table2.length; j++) {
+                if (table2[i][j] == -1) {
+                    table[i][j] = new EmptyTile(i,j);
+                } else if (table2[i][j] == 0) {
+                    table[i][j] = new IndestructibleTile(i,j);
+                } else {
+                    table[i][j] = new NumberTile(table2[i][j],i,j);
+                } 
+            }
+        }
+        setTable(table);
+    }       
 }
+
+// We use this class to retrieve the coordinates of our empty tiles in the findEmptyPositions() function in order to make our random mix
 class Point{
     int x;
     int y;
@@ -619,11 +504,5 @@ class Point{
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
-    }
-}
-
-class MoveTileException extends Exception {
-    public MoveTileException(String message) {
-        super(message);
     }
 }

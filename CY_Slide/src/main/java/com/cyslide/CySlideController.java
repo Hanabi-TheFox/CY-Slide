@@ -58,25 +58,18 @@ public class CySlideController implements Initializable {
     private static Level currentLevel;
     private static Stage currentStage;
     private static Parent currentRoot;
-    private CySlideApplication app;
     private String viewName="";
-    private GridPane gridPane;
     private static RectangleWithLabel currentRectangles[][];
         /**
  * Static Matrix to save the context of the currentLevel that is being played
  */
-    private static Tile[][] currentTable;
     private static boolean playButtonIsPressed = false;
     //If resolve button is pressed, we cant press any other button
     private static boolean resolveButtonIsPressed = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (StartPage_Button != null) {
-            System.out.println("We are in the StartPage.fxml page");
-        }
         if (LevelMenu_BackButton != null) {
-            System.out.println("We are in the LevelMenu.fxml page");
             LevelMenu_Pseudo.setText(player.getPseudo());
             Button[] levelButtons = {LevelMenu_1,LevelMenu_2,LevelMenu_3,LevelMenu_4,LevelMenu_5,LevelMenu_6,LevelMenu_7,LevelMenu_8,LevelMenu_9,LevelMenu_10};
             int level = 1;
@@ -93,7 +86,6 @@ public class CySlideController implements Initializable {
         }
         // if we are in the LevelX.fxml page
         if (quitButton != null){
-            System.out.println("We are in the LevelX.fxml page");
             LevelX_Record.setText(Integer.toString(CySlideController.currentLevel.getRecord()));
         }
     }
@@ -354,26 +346,16 @@ printing and movement of the tiles.
             AStarAlgo.printState(level);
     
             List<Level> solution = AStarAlgo.astar(level);
-            // we reverse the list
+            // we reverse our list
             Collections.reverse(solution);
             
             if (solution != null) {
-                System.out.println("Voici les mouvements que vous devez faire un par un.\n");
                 int i = 0;
                 List<Level> steps = new ArrayList<>();
     
                 for (Level state : solution) {
                     if(state!=null){
-                        // try{
-                        //     System.out.println("nombre de coups : " + i);
-                        //     i++;
-                        //     AStarAlgo.printState(state);
-                        //     Thread.sleep(2000);
-                        //     //setResolveStage(currentRoot, currentStage, state);
-                        // }catch (InterruptedException e){
-                        //     e.printStackTrace();
-                        // }
-                        System.out.println("nombre de coups : " + i);
+                        System.out.println("number of moves : " + i);
                         i++;
                         AStarAlgo.printState(state);
                         steps.add(state);
@@ -383,12 +365,10 @@ printing and movement of the tiles.
                 }
                 displaySteps(steps);
                 CySlideController.playButtonIsPressed = false;
-                //setResolveStage(currentRoot, currentStage, solution.get(solution.size() - 1));
             } else {
                 System.out.println("No solution found.");
             }
         }
-
         else {
             System.out.println("Play Button is not already pressed!");
         }
@@ -402,8 +382,8 @@ printing and movement of the tiles.
         */
     private void displaySteps(List<Level> steps) {
         Timer timer = new Timer();
-        int delay = 500; // Délai en millisecondes entre chaque étape
-        final int[] currentIndex = {0}; // Utilisation d'un tableau d'entiers pour contourner la limitation
+        int delay = 500; // delay in milliseconds between steps
+        final int[] currentIndex = {0}; //Use an array of integers to bypass the limitation
     
         TimerTask task = new TimerTask() {
             public void run() {
@@ -413,7 +393,7 @@ printing and movement of the tiles.
                     });
                     currentIndex[0]++;
                 } else {
-                    timer.cancel(); // Arrêter le timer lorsque toutes les étapes ont été affichées
+                    timer.cancel(); // Stop timer when all steps have been displayed
                 }
             }
         };
@@ -429,57 +409,46 @@ printing and movement of the tiles.
         AStar algorithm.
         */
     public void setResolveStage( Parent root,Stage stage,Level level){
-            // Creation of RectangleWithLabel with predefined positions
-            Tile [][] table = level.getTable();
-            Pane pane = new Pane();
-            pane.getChildren().add(root);
-            int OffsetRight = 400;
-            int OffsetUp = 75;
-            int longeurRectangle = 300 / table.length;
-            RectangleWithLabel[][] rectangles;
-            
-            rectangles = new RectangleWithLabel[table.length][table.length];
-            for (int i = 0; i < table.length; i++) {
-                for (int j = 0; j < table.length; j++) {
-                    String label = "";
-                    if (table[i][j].getType() == 1) { // Number tile
-                        NumberTile nb = (NumberTile) table[i][j];
-                        label = Integer.toString(nb.getNumber());
-                    }
-                    RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, label, table[i][j], table.length);
-                    rectangleWithLabel.setLayoutX(OffsetRight + longeurRectangle * j);
-                    rectangleWithLabel.setLayoutY(OffsetUp + longeurRectangle * i);
-                    pane.getChildren().add(rectangleWithLabel);
-                    rectangles[i][j] = rectangleWithLabel;
-                    
+        // Creation of RectangleWithLabel with predefined positions
+        Tile [][] table = level.getTable();
+        Pane pane = new Pane();
+        pane.getChildren().add(root);
+        int OffsetRight = 400;
+        int OffsetUp = 75;
+        int longeurRectangle = 300 / table.length;
+        RectangleWithLabel[][] rectangles;
+        
+        rectangles = new RectangleWithLabel[table.length][table.length];
+        for (int i = 0; i < table.length; i++) {
+            for (int j = 0; j < table.length; j++) {
+                String label = "";
+                if (table[i][j].getType() == 1) { // Number tile
+                    NumberTile nb = (NumberTile) table[i][j];
+                    label = Integer.toString(nb.getNumber());
+                }
+                RectangleWithLabel rectangleWithLabel = new RectangleWithLabel(longeurRectangle, longeurRectangle, label, table[i][j], table.length);
+                rectangleWithLabel.setLayoutX(OffsetRight + longeurRectangle * j);
+                rectangleWithLabel.setLayoutY(OffsetUp + longeurRectangle * i);
+                pane.getChildren().add(rectangleWithLabel);
+                rectangles[i][j] = rectangleWithLabel;
+                
             }
         }
         CySlideController.currentLevel.setMoveCounter(CySlideController.currentLevel.getMoveCounter()+1);
-        LevelX_NBTurns.setText(Integer.toString(CySlideController.currentLevel.getMoveCounter()));   
-            
-            // RectangleDragHandler rectangleDragHandler = new RectangleDragHandler(rectangles,level);
-            // for (RectangleWithLabel[] row : rectangles) {
-            //     for (RectangleWithLabel rectangle : row) {
-            //         rectangle.setOnMousePressed(rectangleDragHandler.createOnMousePressedHandler(rectangle));
-            //         rectangle.setOnMouseDragged(rectangleDragHandler.createOnMouseDraggedHandler(rectangle));
-            //         rectangle.setOnMouseReleased(rectangleDragHandler.createOnMouseReleasedHandler(rectangle));
-            //     }
-            // }
-            Scene scene = new Scene(pane, 800, 450);
-    
-            //scene.setOnKeyPressed(rectangleDragHandler::handleKeyPress);
-            setCurrentRectangles(rectangles);
+        LevelX_NBTurns.setText(Integer.toString(CySlideController.currentLevel.getMoveCounter()));
+        Scene scene = new Scene(pane, 800, 450);
+        setCurrentRectangles(rectangles);
 
-            int[][] tableTmp = RectangleWithLabelToTable(CySlideController.currentRectangles);
-            if (CySlideController.currentLevel.isCompleted(tableTmp) == true) {
-                System.out.println("RESOLVE FINISHED!");
-                //We finished resolve!
-                setResolveButtonIsPressed(false);
-            }
-    
-            this.setViewName("game-view.fxml");
-            stage.setScene(scene);
-            stage.show();
+        int[][] tableTmp = RectangleWithLabelToTable(CySlideController.currentRectangles);
+        if (CySlideController.currentLevel.isCompleted(tableTmp) == true) {
+            System.out.println("RESOLVE FINISHED!");
+            //We finished resolve!
+            setResolveButtonIsPressed(false);
+        }
+
+        this.setViewName("game-view.fxml");
+        stage.setScene(scene);
+        stage.show();
 
     }
 
@@ -503,7 +472,9 @@ printing and movement of the tiles.
         CySlideController.currentLevel.MatrixToLevel(table);
         for (int i = 0; i < table.length; i++) {
             for (int j = 0; j < table[i].length; j++) {
-                System.out.print(table[i][j] + " ");
+                if(table[i][j] == 0) System.out.print("X "); 
+                else if(table[i][j] == -1) System.out.print("0 "); 
+                else System.out.print(table[i][j] + " ");
             }
             System.out.println();
         }
@@ -524,35 +495,35 @@ printing and movement of the tiles.
         }
     }
 
-       /**
-        * This method converts a matrix of RectangleWithLabels to simple matrix Table[][]
-        * @param rectanglesWithLabels
-        * @return int[][]
-        */
-        public int[][] RectangleWithLabelToTable(RectangleWithLabel rectanglesWithLabels[][] ) {
-            int numRows =rectanglesWithLabels.length;
-            int numCols = rectanglesWithLabels[0].length;
-        
-            // Create the table matrix
-            int[][] table = new int[numRows][numCols];
-            //Of tiles too
-            //Tile[][] tableTile = new Tile[numRows][numCols];
-        
-            for (int i = 0; i < numRows; i++) {
-                for (int j = 0; j < numCols; j++) {
-                    Tile tempTile = rectanglesWithLabels[i][j].GetTile();
+    /**
+    * This method converts a matrix of RectangleWithLabels to simple matrix Table[][]
+    * @param rectanglesWithLabels
+    * @return int[][]
+    */
+    public int[][] RectangleWithLabelToTable(RectangleWithLabel rectanglesWithLabels[][] ) {
+        int numRows =rectanglesWithLabels.length;
+        int numCols = rectanglesWithLabels[0].length;
+    
+        // Create the table matrix
+        int[][] table = new int[numRows][numCols];
+        //Of tiles too
+        //Tile[][] tableTile = new Tile[numRows][numCols];
+    
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                Tile tempTile = rectanglesWithLabels[i][j].GetTile();
 
-                    if(tempTile.getType() > 0){
-                        NumberTile temp2= (NumberTile) tempTile;
-                        table[i][j]=temp2.getNumber();
-                    }
-                    else if (tempTile.getType() == -1 || tempTile.getType() == 0) {
-                        table[i][j] =tempTile.getType();
-                    }
+                if(tempTile.getType() > 0){
+                    NumberTile temp2= (NumberTile) tempTile;
+                    table[i][j]=temp2.getNumber();
+                }
+                else if (tempTile.getType() == -1 || tempTile.getType() == 0) {
+                    table[i][j] =tempTile.getType();
                 }
             }
-
-            return table;
-                }
         }
+
+        return table;
+    }
+}
 
