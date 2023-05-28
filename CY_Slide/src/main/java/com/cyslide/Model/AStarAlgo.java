@@ -79,8 +79,6 @@ class Node implements Comparable<Node> {
 /**
  * Algorithm Class alowing to solve automatically 
  * every level on the app
- * @author @ClemZi02
- * @author @Ymasuu
  */
 public class AStarAlgo {  
     public static int calculeMisplacedTileCount(Level level) {
