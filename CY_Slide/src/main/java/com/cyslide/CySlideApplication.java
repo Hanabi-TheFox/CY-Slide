@@ -10,7 +10,6 @@ import java.io.IOException;
 /**
  * The main app class is responsible for initiating the game
  */
-
 public class CySlideApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
@@ -22,6 +21,11 @@ public class CySlideApplication extends Application {
         stage.show();
     }
 
+    /**
+     * The main method is responsible for launching the game
+     *
+     * @param args The command line arguments
+     */
     public static void main(String[] args) {
         launch();
     }

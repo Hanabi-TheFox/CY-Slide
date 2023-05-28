@@ -1,8 +1,6 @@
 package com.cyslide.Model;
 
 import com.cyslide.CySlideController;
-import javafx.beans.binding.NumberBinding;
-import javafx.scene.control.RadioButton;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,7 +12,6 @@ import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
-import java.util.Objects;
 
 /**
  * The Level class represents a game level in CySlide.
@@ -82,7 +79,7 @@ public class Level implements Cloneable{
     public Level clone() {
         try {
             Level clonedLevel = (Level) super.clone();
-            // Effectuer une copie profonde du tableau table
+            // Perform a deep copy of the table table
             clonedLevel.table = new Tile[table.length][table[0].length];
             for (int i = 0; i < table.length; i++) {
                 for (int j = 0; j < table[i].length; j++) {
@@ -91,7 +88,7 @@ public class Level implements Cloneable{
             }
             return clonedLevel;
         } catch (CloneNotSupportedException e) {
-            // Gérer l'exception si la classe n'est pas clonable
+            // Handle the exception if the class is not clonable
             return null;
         }
     }
@@ -368,7 +365,13 @@ public class Level implements Cloneable{
         return true;
     }
     
-    // This is the function for automatic resolution
+    /**
+     * Checks if the level is completed by comparing the current table with a solved one.
+     * This is the function for automatic resolution
+     * @param number The level number.
+     * @param tab The current game table.
+     * @return True if the level is completed, false otherwise.
+     */
     public boolean isCompleted2(int number, Tile[][] tab){
         Level finalState = new Level(number); //We get a completed version of the level
         int size = table.length;
@@ -419,6 +422,12 @@ public class Level implements Cloneable{
         }
     }
 
+    /**
+     * Initializes the level by moving the tiles in a random order.
+     * This is the function for automatic resolution
+     * @param Level The level to initialize
+     * @return True if the level is initialized, false otherwise.
+     */
     public boolean isInitialPos(Level level){
         Level initialLevel = new Level(level.getNumber());
         Tile[][] initialTab = initialLevel.getTable();
@@ -443,7 +452,11 @@ public class Level implements Cloneable{
         return false;
     }
 
-
+    /**
+     * Finds the empty positions on the game table.
+     *
+     * @return A list of empty positions.
+     */
     private List<Point> findEmptyPositions() {
         List<Point> emptyPositions = new ArrayList<>();
     
@@ -458,7 +471,12 @@ public class Level implements Cloneable{
     }
 
 
-    //We get a level object and we transform its Tile[][] into int[][]
+    /**
+     * Converts a Level object into an int[][] matrix.
+     *
+     * @param level The level to convert.
+     * @return The int[][] matrix.
+     */
     public int[][] LevelToIntMatrix(Level level) {
         Tile[][] tileMatrix= level.getTable();
         int[][] matrix = new int[tileMatrix.length][tileMatrix.length];
@@ -478,7 +496,11 @@ public class Level implements Cloneable{
         return matrix;
     }
 
-    //We obtain an int[][] object and transform it into a Tile[][] in our level 
+    /**
+     * read a matrix and convert it on the table of the level
+     *
+     * @param table The int[][] matrix.
+     */
     public void MatrixToLevel(int[][] table2) {
         Tile[][] table = new Tile[table2.length][table2.length];
         for (int i = 0; i < table2.length; i++) {
@@ -496,11 +518,18 @@ public class Level implements Cloneable{
     }       
 }
 
-// We use this class to retrieve the coordinates of our empty tiles in the findEmptyPositions() function in order to make our random mix
+/**
+ * A class to represent a point on the game table.
+ */
 class Point{
     int x;
     int y;
 
+    /**
+     * Constructor of the class.
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     */
     public Point(int x, int y) {
         this.x = x;
         this.y = y;

@@ -106,6 +106,12 @@ public class AStarAlgo {
         return count+1; // for the empty tile in our currentTile
     }
 
+    /**
+     * Generate neighbors by swapping adjacent cells with empty tiles
+     * @param currentLevel the currentLevel we are on
+     * @param closedList the list of closed nodes
+     * @return a list of Level
+     */
     private static List<Level> generateNeighbors(Level currentLevel, Set<Node> closedList) {
         // Find coordinates for empty tiles
         int[][] emptyPositions = new int[2][2]; // Table to store the positions of the empty tiles
@@ -147,7 +153,11 @@ public class AStarAlgo {
         return neighbors;
     }
     
-
+    /**
+     * A* algorithm
+     * @param level the level we want to solve
+     * @return the list of iterations to solve the level (each Level is a step)
+     */
     public static List<Level> astar(Level level) {
         PriorityQueue<Node> openList = new PriorityQueue<>();
         Set<Node> closedList = new HashSet<>();
@@ -189,6 +199,10 @@ public class AStarAlgo {
         return null; // No solution found
     }
     
+    /**
+     * Print the state of the level
+     * @param state the level we want to print
+     */
     public static void printState(Level state) {
         System.out.println("--------------");
         for (int i = 0; i < state.getTable().length; i++){

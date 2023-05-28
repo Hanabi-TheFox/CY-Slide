@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -38,7 +37,6 @@ public class CySlideController implements Initializable {
     @FXML
     private Label StartPage_ErrorLabel;
 
-
     @FXML
     private Label LevelMenu_Pseudo;
 
@@ -52,23 +50,23 @@ public class CySlideController implements Initializable {
     private Label LevelX_labelFinished;
     @FXML
     private static Player player;
-        /**
- * Static Attribut to save the context of the currentLevel that is being played
- */
+    /**
+    * Static Attribut to save the context of the currentLevel that is being played
+    */
     private static Level currentLevel;
     private static Stage currentStage;
     private static Parent currentRoot;
     private String viewName="";
+    /**
+    * Static Matrix to save the context of the currentLevel that is being played
+    */
     private static RectangleWithLabel currentRectangles[][];
-        /**
- * Static Matrix to save the context of the currentLevel that is being played
- */
     private static boolean playButtonIsPressed = false;
-    //If resolve button is pressed, we cant press any other button
     private static boolean resolveButtonIsPressed = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // if we are in the LevelMenu.fxml page
         if (LevelMenu_BackButton != null) {
             LevelMenu_Pseudo.setText(player.getPseudo());
             Button[] levelButtons = {LevelMenu_1,LevelMenu_2,LevelMenu_3,LevelMenu_4,LevelMenu_5,LevelMenu_6,LevelMenu_7,LevelMenu_8,LevelMenu_9,LevelMenu_10};
@@ -112,10 +110,10 @@ public class CySlideController implements Initializable {
     
     
     @FXML
-        /**
- * When Start Button is pressed, we load the player's pseudo and
- * show the menu view
- */
+    /**
+     * When Start Button is pressed, we load the player's pseudo and
+     * show the menu view
+     */
     protected void OnStartPage_ButtonClick() throws PlayerPseudoException {
         String pseudo = StartPage_TextField.getText();
         if (pseudo.isEmpty()) {
@@ -147,9 +145,9 @@ public class CySlideController implements Initializable {
     @FXML
     private Button LevelMenu_BackButton;
     @FXML
-        /**
- * If back button pressed, we return to the first view
- */
+    /**
+     * If back button pressed, we return to the first view
+     */
     protected void OnLevelMenu_BackButtonClick() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("StartPage.fxml"));
@@ -185,9 +183,9 @@ public class CySlideController implements Initializable {
     @FXML
     private Button LevelMenu_10;
     @FXML
-        /**
- * The corresponding level view is shown
- */
+    /**
+     * The corresponding level view is shown
+     */
     protected void OnLevelMenu_XButtonClick(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
         String levelNumber = clickedButton.getText();
@@ -216,11 +214,11 @@ public class CySlideController implements Initializable {
         }
     }
 
-/**
-An important method for printing the game table on the level view.
-It utilizes RectangleWithLabel and RectangleDragHandler for
-printing and movement of the tiles.
-*/
+    /**
+    An important method for printing the game table on the level view.
+    It utilizes RectangleWithLabel and RectangleDragHandler for
+    printing and movement of the tiles.
+    */
     protected void setLevel(Parent root,Stage stage,Level level){
         // Creation of RectangleWithLabel with predefined positions
         Tile [][] table = level.getTable();
@@ -270,10 +268,10 @@ printing and movement of the tiles.
     @FXML
     private Button quitButton;
     @FXML
-        /**
-        If the Quit button is pressed, we go back to the menu selection view.
-        However, we need to wait until the level is resolved if the Resolve button was pressed.
-        */
+    /**
+    If the Quit button is pressed, we go back to the menu selection view.
+    However, we need to wait until the level is resolved if the Resolve button was pressed.
+    */
     protected void OnLevelMenu_QuitButtonClick() {
         if (CySlideController.resolveButtonIsPressed == false) {
         try {
@@ -298,10 +296,10 @@ printing and movement of the tiles.
     @FXML
     Button play_button;
     @FXML
-        /**
-        Button allowing the unlocking of the game table and starting the game
-        with a randomized table.
-        */
+    /**
+    Button allowing the unlocking of the game table and starting the game
+    with a randomized table.
+    */
     protected void playButtonClicked() {
         if(CySlideController.resolveButtonIsPressed == false){
             setPlayButtonIsPressed(true);// The game startedHanabi
@@ -332,10 +330,10 @@ printing and movement of the tiles.
     Button idResolve;
     //If we play resolve the automatic resolution will solve it step by step with waiting time between each step
     @FXML
-        /**
-        Allows automatic resolution of the current level if the Resolve Button is pressed.
-        It blocks any other button until the game is completely resolved.
-        */
+    /**
+    Allows automatic resolution of the current level if the Resolve Button is pressed.
+    It blocks any other button until the game is completely resolved.
+    */
     public void OnLevelX_ResolveButtonClick(){
         if (CySlideController.playButtonIsPressed == true && CySlideController.resolveButtonIsPressed == false) {
             setResolveButtonIsPressed(true);
@@ -375,11 +373,11 @@ printing and movement of the tiles.
        
     }
 
-        /**
-        @param none
-        Allows printing each tile movement step by step, allowing the player
-        to keep track of which tile is being moved.
-        */
+    /**
+    @param none
+    Allows printing each tile movement step by step, allowing the player
+    to keep track of which tile is being moved.
+    */
     private void displaySteps(List<Level> steps) {
         Timer timer = new Timer();
         int delay = 500; // delay in milliseconds between steps
@@ -401,14 +399,11 @@ printing and movement of the tiles.
         timer.scheduleAtFixedRate(task, delay, delay);
     }
     
-    
-
-
-        /**
-        Method that prints the game table whenever a tile is moved by the
-        AStar algorithm.
-        */
-    public void setResolveStage( Parent root,Stage stage,Level level){
+    /**
+    Method that prints the game table whenever a tile is moved by the
+    AStar algorithm.
+    */
+    public void setResolveStage(Parent root, Stage stage, Level level){
         // Creation of RectangleWithLabel with predefined positions
         Tile [][] table = level.getTable();
         Pane pane = new Pane();
@@ -452,17 +447,15 @@ printing and movement of the tiles.
 
     }
 
-
-
     public String getViewName() {
         return this.viewName;
     }
 
-        /**
-        @param none
-        A very important method for verifying, after each player's movement,
-        if the game has been successfully completed.
-        */
+    /**
+    @param none
+    A very important method for verifying, after each player's movement,
+    if the game has been successfully completed.
+    */
     public void handleMoveTileEvent(){
         LevelX_NBTurns = (Label) CySlideController.currentRoot.getScene().lookup("#LevelX_NBTurns");
         LevelX_NBTurns.setText(Integer.toString(CySlideController.currentLevel.getMoveCounter()));
@@ -526,4 +519,3 @@ printing and movement of the tiles.
         return table;
     }
 }
-
