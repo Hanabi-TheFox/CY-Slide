@@ -181,7 +181,7 @@ Friday, May 26, Saturday, May 27 and Sunday, May 28:
     (Javadoc, comments, delete useless code, ...)
     And complete the readme file and the report.
     
- Sunday, May 28, Saturday, May 27 and Sunday, May 28:
+ Saturday, May 27 and Sunday, May 28:
   Samy, Clement and Yanis:
     Try to add some optional feature like music, sound effect
     or use picture instead of number (to do like a puzzle).
