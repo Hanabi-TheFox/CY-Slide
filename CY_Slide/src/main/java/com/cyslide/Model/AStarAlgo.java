@@ -77,7 +77,7 @@ class Node implements Comparable<Node> {
 
 
 /**
- * Algorithm Class alowwing to solve automatically 
+ * Algorithm Class alowing to solve automatically 
  * every level on the app
  * @author @ClemZi02
  * @author @Ymasuu
