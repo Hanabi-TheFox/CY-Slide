@@ -17,7 +17,8 @@ Tuesday, May 16:
   Renato - Yanis:
     Work on the base java class of the project.
   Samy:
-    Work on java functions to move tile + adjustment of some class (Tile, EmptyTile, NumberTile, IndestructibleTile).
+    Work on java functions to move tile + adjustment of some class
+    (Tile, EmptyTile, NumberTile, IndestructibleTile).
   Ethan - Yanis - Renato:
     Work on the view part of the project.
   Ethan:
@@ -31,12 +32,15 @@ Wednesday, May 17:
   Ethan - Clement - Renato - Samy - Yanis:
     Vocal with Romuald Grignon in order to help us on JavaFX.
   Ethan: 
-    work on view, he designed the prototype of a level (level 0) and test the designed of all type of tiles (level X).
+    work on view, he designed the prototype of a level (level 0)
+    and test the designed of all type of tiles (level X).
     work on view's button event.
   Samy: 
-    work on 'recover' functions, now we can create a table of tile with our file csv and recover the record of a level.
+    work on 'recover' functions, now we can create a table of tile with our file csv
+    and recover the record of a level.
   Clement:
-    Work on controller. If the pseudo doesn't exist, we write his pseudo in our csv file and if the pseudo exits, we recover the number of completed level.
+    Work on controller. If the pseudo doesn't exist, we write his pseudo in our csv file
+    and if the pseudo exits, we recover the number of completed level.
     Continue his search on the AI (he have to wait others functions to use AI).
   Renato:
     Worked on javaFX, create back button on menu view
@@ -46,13 +50,16 @@ Wednesday, May 17:
     
 Thursday, May 18:
   Samy:
-    tests function level.move, move (NumberTile) and move (EmptyTile) with a table from a file level.csv and makes the necessary modifications.
-    Helps Yanis to create a table of type Rectangle in order to create a view from a file level.csv.
+    tests function level.move, move (NumberTile) and move (EmptyTile)
+    with a table from a file level.csv and makes the necessary modifications.
+    Helps Yanis to create a table of type Rectangle in order to create a view 
+    from a file level.csv.
   Clement:
     Creates a function to recover the number of completed level by a player from a csv file. 
     Continues his work with the automatic resolution (he try to use AStar).
   Renato: 
-  The issue with the CSV file path has been resolved. Update on the LevelX view. Started working on creating a class for dynamically generating the game table.
+  The issue with the CSV file path has been resolved. Update on the LevelX view.
+  Started working on creating a class for dynamically generating the game table.
   Yanis:
     Working on the integration of the new method of graphic generation of levels.
     
@@ -71,60 +78,104 @@ Friday, May 19:
     worked on the resolution of issues in the movement of the tiles.
   
 Monday, May 22:
+  Ethan - Clement - Renato - Samy - Yanis:
+    Teams Reunion with Romuald Grignon in order to help us with our problem with 
+    variables in our file controller. (That’s have been done in the end of the day)
   Samy:
-    Create the function initLevelMove() in level.java but can't test it because we need to use a RectangleWithLabel table, so we need to succeed at link the function with the interface.
+    Create the function initLevelMove() in level.java but can't test it because 
+    we need to use a RectangleWithLabel table, so we need to succeed at link 
+    the function with the interface.
     Try to link the function with the interface but we don't know why we can't.
-    After the meeting, works on adjustment on function initLevelMove() because now he can test it.
+    After the meeting, works on adjustment on function initLevelMove()
+    because now he can test it.
   Clement:
     Works a lot in order to use A* in our programme.
     Try to fix problems
   Renato: 
-    Worked on play Button, A* Algorithm and Player Class. Encountered problems with Controller variables.
+    Worked on play Button, A* Algorithm and Player Class.
+    Encountered problems with Controller variables.
   Yanis:
     Work on keyboard movement for tiles
     Help for A* algorithm
     "Try" to fix move counter
   Ethan:
+    Try to rework entirely the generation of the LevelX.fxml
+    for a proper code but It doesn't succeed.
     Rework completely the player class.
     Have greatly optimized the code of the CySlideController class.
+    (more than 100 lines of code removed)
     Have improved the visual of the game.
     Now the level number is displayed in the game view.
-
-  Ethan - Clement - Renato - Samy - Yanis:
-    Teams Reunion with Romuald Grignon in order to help us on our problem with variables in our file controller.
     
 Tuesday, May 23:
   Ethan - Clement - Renato - Samy - Yanis:
     Teams Reunion with Eva Ansermin in order to help us on our problem with A* algorithm.
   Samy:
     Help to use Level class in our A* algorithm.
-    Works on function initLevelMove. Now we use seeds and with this, 2 players can play the same level 2 for example.
+    Works on function initLevelMove. Now we use seeds and with this,
+    2 players can play the same level 2 for example.
   Clement:
-    Work in AStarAlgo with a new version, instead of using the distance of Manhattan, use the number of misplaced tiles
+    Work in AStarAlgo with a new version, instead of using the distance of Manhattan,
+    use the number of misplaced tiles
     Try to implements this new version but always problems with the movement of tiles
   Renato: 
     Implemented a feature to add block levels based on the resolution.
   Yanis:
     Work on keyboard movement for tiles.
     Help for A* algorithm.
-    "Try" to fix move counter.
+    "Try" to help fix move counter.
   Ethan: 
-    Created the controller event for each time a Drag&Drop are done.
+    Created a controller event for each time a Drag&Drop is done.
+    (Spend a lot of time on it because nobody in the group knows how to do that.)
     The counter of movement is now displayed in the game view.
-    Correction of the system of level unlocking.
+    Because of the Drag&Drop triggering event.
+    Correction of the system of level unlocking and debugging some functions.
+
 
 Wednesday, May 24:
   Samy - Clement - Yanis:
-    Continue to fix problems in A* Algo and succeed to use it when we have a level with one empty tile.
-  Renato: Worked on the isCompleted() method to check if the player has completed the game, and also conducted research on how to include audio files in the application.
+    Continue to fix problems in A* Algo and succeed to use it when we have a level
+    with one empty tile.
+  Renato:
+    Worked on the isCompleted() method to check if the player has completed the game,
+    and also conducted research on how to include audio files in the application.
+  Ethan : 
+    Do a lot of debugging, add a lot of conditions on some functions associated with the 
+    application because they were able to trigger in inappropriate situations and
+    the function that changed the data of Record wasn’t working.
+    Also correct the “IsCompleted” event.
+    Made the locked and unlocked level visible on the application view.
+    Start to write the main part of the javaDoc of the entire code and delete
+    a lot of unnecessary code or comments.
+
 
 Thursday, May 25:
   Clément
     Work on AStar Algo in order to work with more empty tile
     Modify sequence and class diagrams
     Make Use Case diagram
-   Renato: Worked on blocking resolve button and play button in the level view. Helped on user case and class diagram.
+  Ethan : 
+    Debug the resolve problem on the application.
+    The algorithm works but it wasn’t taking the good matrix on the controller.
+    Create the MatrixToLevel function to patch that.
+    And now the turn counter increases while the I.A auto-resolves the matrix.
+    (For a best visual feedback in the game)
+    Work on the report document.
+  Renato:
+    Worked on blocking resolve button and play button in the level view.
+    Helped on user case and class diagram.
+  Samy : 
+	  Working on the initLevelMove function, now after mixing
+    we can't have the tiles on their initial position.
+    Modify the skeleton of our levels to make A* easier to use
+    (we don't want it to take too long)
+    Helps debug the use of A* with the program interface
    
-   Friday, May 26:
-  Clément:
-  Renato: generated javadoc documentation
+Friday, May 26, Saturday, May 27 and Sunday, May 28:
+  Samy, Clement and Yanis:
+    Try to add some optional feature like music, sound effect
+    or use picture instead of number (to do like a puzzle).
+  All the group :
+    last adjustments on the project.
+    (Javadoc, comments, delete useless code, ...)
+    And complete the readme file and the report.
