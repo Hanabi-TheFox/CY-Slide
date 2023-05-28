@@ -12,9 +12,6 @@ import javafx.scene.input.KeyEvent;
 /**
  * A class that handles dragging and swapping of rectangles in a game.
  * This class is responsible for handling mouse events, keyboard events, and managing the movement and swapping of rectangles.
- * 
- * @author @Ymasuu
- * @author @Yanis4456
  */
 public class RectangleDragHandler {
 
