@@ -175,6 +175,7 @@ Friday, May 26, Saturday, May 27 and Sunday, May 28:
   Samy, Clement and Yanis:
     Try to add some optional feature like music, sound effect
     or use picture instead of number (to do like a puzzle).
+  Renato: Generated Javadoc
   All the group :
     last adjustments on the project.
     (Javadoc, comments, delete useless code, ...)
